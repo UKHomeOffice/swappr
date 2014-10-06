@@ -14,9 +14,11 @@ public class JerseyServerTest {
     @Test
     public void run_shouldLogUnexpectedException_givenAnExceptionIsThrown() throws Exception {
         ApplicationConfig config = mock(ApplicationConfig.class);
+        when(config.getDbUrl()).thenReturn("jdbc:hsqldb:mem:testdb");
+        when(config.getDbUser()).thenReturn("SA");
         when(config.serverUri()).thenThrow(new IllegalArgumentException("bang"));
         OpsLogger<SwapprLogger> logger = mock(OpsLogger.class);
-        JerseyServer jerseyServer = new JerseyServer(config, logger);
+        JerseyServer jerseyServer = new JerseyServer(logger, config);
 
         try {
             jerseyServer.run();

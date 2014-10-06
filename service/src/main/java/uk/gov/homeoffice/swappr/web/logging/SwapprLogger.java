@@ -3,7 +3,9 @@ package uk.gov.homeoffice.swappr.web.logging;
 import com.equalexperts.logging.LogMessage;
 
 public enum SwapprLogger implements LogMessage {
-    UnknownError("SWP-00001", "Unknown error"), ConfigurationError("SWP-00002", "Configuration error: usage \n%s");
+    UnknownError("SWP-00001", "Unknown error"),
+    ConfigurationError("SWP-00002", "Configuration error: usage \n%s"),
+    DatabaseConnectivity("SWP-0003", "Database connectivity error");
 
     private String code;
     private String messagePattern;

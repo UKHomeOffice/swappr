@@ -19,7 +19,7 @@ public class ApplicationConfigTest {
     public void build_shouldConstructTheConfig_givenValidArguments() throws Exception {
         OpsLogger<SwapprLogger> logger = mock(OpsLogger.class);
 
-        ApplicationConfig config = ApplicationConfig.build(logger, "-server.port", "98765");
+        ApplicationConfig config = ApplicationConfig.build(logger, "-server.port", "98765", "-db.user", "tom", "-db.url", "some:url");
 
         assertEquals(new URI("http://0.0.0.0:98765"), config.serverUri());
     }

@@ -11,7 +11,7 @@ public class JerseyServer {
     private final ApplicationConfig applicationConfig;
     private final OpsLogger<SwapprLogger> logger;
 
-    public JerseyServer(ApplicationConfig applicationConfig, OpsLogger<SwapprLogger> logger) {
+    public JerseyServer(OpsLogger<SwapprLogger> logger, ApplicationConfig applicationConfig) {
         this.applicationConfig = applicationConfig;
         this.logger = logger;
     }
@@ -19,11 +19,11 @@ public class JerseyServer {
     public static void main(String[] args) throws Exception {
         OpsLogger<SwapprLogger> logger = new OpsLoggerFactory().build();
         ApplicationConfig config = ApplicationConfig.build(logger, args);
-        new JerseyServer(config, logger).run();
+        new JerseyServer(logger, config).run();
     }
 
     public void run() {
-        JerseyResourceConfig jerseyResourceConfig = new JerseyResourceConfig();
+        JerseyResourceConfig jerseyResourceConfig = new JerseyResourceConfig(applicationConfig, logger);
         try {
             Server server = JettyHttpContainerFactory.createServer(applicationConfig.serverUri(), jerseyResourceConfig);
             server.join();

@@ -12,10 +12,27 @@ public class ApplicationConfig {
 
     @Parameter(names = "-server.port", description = "port for web service to listen on", required = true)
     private int port;
-
+    @Parameter(names = "-db.user", description = "username for database connection", required = true)
+    private String dbUser;
+    @Parameter(names = "-db.url", description = "JDBC url for database connection", required = true)
+    private String dbUrl;
+    @Parameter(names = "-db.password", description = "Password for database connection", required = false)
+    private String dbPassword;
 
     public URI serverUri() {
         return UriBuilder.fromUri("http://0.0.0.0").port(port).build();
+    }
+
+    public String getDbUser() {
+        return dbUser;
+    }
+
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
+    public String getDbPassword() {
+        return dbPassword;
     }
 
     public static ApplicationConfig build(OpsLogger<SwapprLogger> logger, String... args) {
