@@ -1,14 +1,29 @@
 apply from: 'ide-support.gradle'
 apply from: 'dependencies.gradle'
+apply plugin: 'jetty'
+apply plugin: 'compass'
 
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
     }
 
     dependencies {
         classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+        classpath 'org.gradle.plugins:gradle-compass:1.0.7'
     }
+}
+
+repositories {
+    mavenCentral() // or any other repository containing JRuby
+}
+
+compass {
+    cssDir = file('service/src/main/resources/css')
+    sassDir = file('service/src/main/resources/scss')
+    debugInfo = false
+    noLineComments = true
 }
 
 task ci(type: GradleBuild) {
@@ -16,3 +31,9 @@ task ci(type: GradleBuild) {
     group = "CI"
     tasks = ['clean', 'build']
 }
+
+processResources.inputs.files compileSass
+jettyRun.dependsOn watchSass
+clean.dependsOn cleanCompileSass
+
+jettyRun.webAppSourceDirectory = file("service/src/main/resources")
