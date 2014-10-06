@@ -1,0 +1,39 @@
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+def jettyVersion = "9.2.3.v20140905"
+def jerseyVersion = "2.13"
+
+ext {
+//    javamail     = "com.sun.mail:javax.mail:1.5.2"
+//    subetha      = "org.subethamail:subethasmtp:3.1.7"
+
+    jetty        = ["org.eclipse.jetty:jetty-server:$jettyVersion", "org.eclipse.jetty:jetty-servlet:$jettyVersion"]
+    jersey       = ["org.glassfish.jersey.core:jersey-server:$jerseyVersion",
+                    "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion",
+                    "org.glassfish.jersey.ext:jersey-mvc:$jerseyVersion",
+                    "org.glassfish.jersey.core:jersey-common:$jerseyVersion"]
+    ioutils      = "org.apache.commons:commons-io:1.3.2"
+    commons_lang = "org.apache.commons:commons-lang3:3.3.2"
+
+    hsql         = 'org.hsqldb:hsqldb:2.3.2'
+    mysql        = 'mysql:mysql-connector-java:5.1.31'
+    codec        = 'commons-codec:commons-codec:1.9'
+    pool         = 'com.jolbox:bonecp:0.8.0.RELEASE'
+
+    slf4j        = ['org.slf4j:slf4j-api:1.7.7','org.slf4j:slf4j-nop:1.7.7','org.slf4j:slf4j-simple:1.7.7'    ]
+    jodaTime     = "joda-time:joda-time:2.3"
+    //////////////////////////
+    //   TEST DEPENDENCIES
+    //////////////////////////
+    junit        = "junit:junit:4.11"
+    mockito      = "org.mockito:mockito-core:1.9.5"
+    makeItEasy   = 'com.natpryce:make-it-easy:3.1.0'
+    velocity     = 'org.apache.velocity:velocity:1.7'
+//    jsoup        = 'org.jsoup:jsoup:1.7.3'
+    greenmail    = 'com.icegreen:greenmail:1.3.1b'
+    jerseyTest = "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:$jerseyVersion"
+}

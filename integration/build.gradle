@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+dependencies {
+    testCompile junit
+}
+
+test.enabled = false
+
+task integrationTest(type: Test, dependsOn: ["compileTestJava"]) {
+}
