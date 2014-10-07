@@ -24,4 +24,4 @@ gradlew.bat
 
 .sass-cache
 .jruby
-*.css
+service/**/*.css
