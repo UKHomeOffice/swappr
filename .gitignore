@@ -2,6 +2,7 @@
 .idea
 *.ipr
 *.iml
+*.iws
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -19,3 +20,7 @@ gradlew
 gradlew.bat
 .gradle
 */build
+
+.sass-cache
+.jruby
+*.css
