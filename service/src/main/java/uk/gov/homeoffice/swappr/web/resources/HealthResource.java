@@ -9,7 +9,7 @@ public class HealthResource {
 
     @GET
     @Produces("text/plain")
-    public String getHello() {
+    public String ping() {
         return "pong";
     }
 }
