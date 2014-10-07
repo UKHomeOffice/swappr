@@ -1,0 +1,17 @@
+body {
+    color: $primary;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 300;
+    text-transform: none;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+.phase-tag {
+    color: $theme-color;
+    font-weight: 300;
+}
