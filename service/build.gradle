@@ -29,7 +29,6 @@ compass {
 
 
 processResources.inputs.files compileSass
-jettyRun.dependsOn watchSass
 clean.dependsOn cleanCompileSass
 
 watch {
