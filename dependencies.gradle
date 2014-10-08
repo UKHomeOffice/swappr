@@ -8,13 +8,10 @@ def jettyVersion = "9.2.3.v20140905"
 def jerseyVersion = "2.13"
 
 ext {
-//    javamail     = "com.sun.mail:javax.mail:1.5.2"
-//    subetha      = "org.subethamail:subethasmtp:3.1.7"
 
     jetty        = ["org.eclipse.jetty:jetty-server:$jettyVersion", "org.eclipse.jetty:jetty-servlet:$jettyVersion"]
     jersey       = ["org.glassfish.jersey.core:jersey-server:$jerseyVersion",
                     "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion",
-                    "org.glassfish.jersey.ext:jersey-mvc:$jerseyVersion",
                     "org.glassfish.jersey.core:jersey-common:$jerseyVersion"]
     velocity     = 'org.apache.velocity:velocity:1.7'
     mysql        = 'mysql:mysql-connector-java:5.1.31'
