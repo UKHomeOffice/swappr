@@ -5,8 +5,8 @@ group = 'uk.gov.homeoffice.swappr'
 version = '1.1'
 
 dependencies {
-    compile jetty, velocity, jersey, pool, mysql, cliParser, files('libs/operations-aware-logging-0.1.0-rc1.jar')
-    testCompile junit, mockito, makeItEasy, jerseyTest, hsql
+    compile jetty, thymeleaf, jersey, pool, mysql, cliParser, files('libs/operations-aware-logging-0.1.0-rc1.jar')
+    testCompile junit, mockito, makeItEasy, jerseyTest, hsql, springMock
 }
 
 apply plugin: 'fatjar'
