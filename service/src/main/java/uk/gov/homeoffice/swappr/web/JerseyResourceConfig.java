@@ -17,6 +17,7 @@ public class JerseyResourceConfig extends ResourceConfig {
     public JerseyResourceConfig(ApplicationConfig config, OpsLogger<SwapprLogger> logger) {
         DataSource ds = createDataSource(config, logger);
         register(new HealthResource());
+        register(new ThymeleafWriter());
     }
 
     private DataSource createDataSource(ApplicationConfig config, OpsLogger<SwapprLogger> logger) {

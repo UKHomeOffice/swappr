@@ -1,12 +1,10 @@
 package uk.gov.homeoffice.swappr.web;
 
-import org.glassfish.jersey.server.mvc.Viewable;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.StandardTemplateModeHandlers;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
+import uk.gov.homeoffice.swappr.web.resources.Viewable;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,20 +19,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.Map;
+import java.util.Locale;
 
 public class ThymeleafWriter implements MessageBodyWriter<Viewable>  {
-
-    private final HttpServletRequest request;
-    private final HttpServletResponse response;
-    private final ServletContext servletContext;
-
-    public ThymeleafWriter(@Context HttpServletRequest request, @Context HttpServletResponse response, @Context ServletContext servletContext) {
-        this.request = request;
-        this.response = response;
-        this.servletContext = servletContext;
-    }
-
 
     @Override
     public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
@@ -59,15 +46,10 @@ public class ThymeleafWriter implements MessageBodyWriter<Viewable>  {
 
         templateEngine.setTemplateResolver(templateResolver);
 
-        WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-
-        Object model = viewable.getModel();
-        if (Map.class.isAssignableFrom(model.getClass())) {
-            context.setVariables((Map<String, ?>) viewable.getModel());
-        }
+        org.thymeleaf.context.Context context = new org.thymeleaf.context.Context(Locale.ENGLISH, viewable.getModel());
 
         OutputStreamWriter writer = new OutputStreamWriter(entityStream);
-        templateEngine.process(viewable.getTemplateName(), context, writer);
+        templateEngine.process(viewable.getView(), context, writer);
         writer.flush();
         writer.close();
     }
