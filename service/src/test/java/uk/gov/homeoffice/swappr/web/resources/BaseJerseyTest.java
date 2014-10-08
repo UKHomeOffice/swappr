@@ -1,19 +1,15 @@
-package uk.gov.homeoffice.swappr.web;
+package uk.gov.homeoffice.swappr.web.resources;
 
 import com.equalexperts.logging.OpsLogger;
 import com.equalexperts.logging.OpsLoggerFactory;
-import org.eclipse.jetty.http.HttpStatus;
 import org.glassfish.jersey.test.JerseyTest;
-import org.junit.Test;
+import uk.gov.homeoffice.swappr.web.ApplicationConfig;
+import uk.gov.homeoffice.swappr.web.JerseyResourceConfig;
 import uk.gov.homeoffice.swappr.web.logging.SwapprLogger;
 
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Response;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-
-public class CssResourceTest extends JerseyTest {
+public abstract class BaseJerseyTest extends JerseyTest {
 
     @Override
     protected Application configure() {
@@ -27,9 +23,4 @@ public class CssResourceTest extends JerseyTest {
 
     }
 
-    @Test
-    public void downloadCss() {
-        Response response = target("/css/application.css").request().get();
-        assertThat(response.getStatus(), equalTo(HttpStatus.OK_200));
-    }
 }
