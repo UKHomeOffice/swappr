@@ -7,7 +7,7 @@ group = 'uk.gov.homeoffice.swappr'
 version = '1.1'
 
 dependencies {
-    compile jetty, thymeleaf, jersey, pool, mysql, cliParser, files('libs/operations-aware-logging-0.1.0-rc1.jar')
+    compile jetty, thymeleaf, jersey, pool, mysql, cliParser, files('libs/operations-aware-logging-0.1.0-rc1.jar'), slf4j
     testCompile junit, mockito, makeItEasy, jerseyTest, hsql
 }
 
@@ -25,6 +25,12 @@ compass {
     sassDir = file('src/main/resources/scss')
     debugInfo = false
     noLineComments = true
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 

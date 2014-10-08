@@ -18,7 +18,7 @@ ext {
     pool         = 'com.jolbox:bonecp:0.8.0.RELEASE'
     cliParser    = "com.beust:jcommander:1.30"
 
-    slf4j        = ['org.slf4j:slf4j-api:1.7.7','org.slf4j:slf4j-nop:1.7.7','org.slf4j:slf4j-simple:1.7.7'    ]
+    slf4j        = ['org.slf4j:slf4j-api:1.7.7','org.slf4j:slf4j-simple:1.7.7']
     //////////////////////////
     //   TEST DEPENDENCIES
     //////////////////////////
