@@ -6,11 +6,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import uk.gov.homeoffice.swappr.web.resources.Viewable;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
@@ -22,6 +18,21 @@ import java.lang.reflect.Type;
 import java.util.Locale;
 
 public class ThymeleafWriter implements MessageBodyWriter<Viewable>  {
+
+    private final TemplateEngine templateEngine;
+
+    public ThymeleafWriter() {
+        templateEngine = new TemplateEngine();
+        TemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+
+        templateResolver.setTemplateMode(StandardTemplateModeHandlers.XHTML.getTemplateModeName());
+        templateResolver.setPrefix("templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCacheable(false);
+        //templateResolver.setCacheTTLMs(3600000L); // Template cache TTL=1h. If not set, entries would be cached until expelled by LRU
+
+        templateEngine.setTemplateResolver(templateResolver);
+    }
 
     @Override
     public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
@@ -35,16 +46,6 @@ public class ThymeleafWriter implements MessageBodyWriter<Viewable>  {
 
     @Override
     public void writeTo(Viewable viewable, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
-
-        TemplateEngine templateEngine = new TemplateEngine();
-        TemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-
-        templateResolver.setTemplateMode(StandardTemplateModeHandlers.XHTML.getTemplateModeName());
-        templateResolver.setPrefix("templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCacheTTLMs(3600000L); // Template cache TTL=1h. If not set, entries would be cached until expelled by LRU
-
-        templateEngine.setTemplateResolver(templateResolver);
 
         org.thymeleaf.context.Context context = new org.thymeleaf.context.Context(Locale.ENGLISH, viewable.getModel());
 
