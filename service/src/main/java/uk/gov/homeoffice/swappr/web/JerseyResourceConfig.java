@@ -5,6 +5,7 @@ import com.equalexperts.logging.OpsLogger;
 import com.jolbox.bonecp.BoneCPConfig;
 import com.jolbox.bonecp.BoneCPDataSource;
 import org.glassfish.jersey.server.ResourceConfig;
+import uk.gov.homeoffice.swappr.web.handlers.CssResource;
 import uk.gov.homeoffice.swappr.web.handlers.HomeResource;
 import uk.gov.homeoffice.swappr.web.logging.SwapprLogger;
 import uk.gov.homeoffice.swappr.web.resources.HealthResource;
@@ -20,6 +21,7 @@ public class JerseyResourceConfig extends ResourceConfig {
         register(new HealthResource());
         register(new ThymeleafWriter());
         register(new HomeResource());
+        register(new CssResource());
     }
 
     private DataSource createDataSource(ApplicationConfig config, OpsLogger<SwapprLogger> logger) {
