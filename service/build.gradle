@@ -2,7 +2,6 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'compass'
 apply plugin: 'watch'
-apply plugin: 'jetty'
 
 group = 'uk.gov.homeoffice.swappr'
 version = '1.1'
@@ -32,8 +31,6 @@ compass {
 processResources.inputs.files compileSass
 jettyRun.dependsOn watchSass
 clean.dependsOn cleanCompileSass
-
-jettyRun.webAppSourceDirectory = file("src/main/resources")
 
 watch {
 
