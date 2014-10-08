@@ -29,5 +29,4 @@ ext {
     greenmail    = 'com.icegreen:greenmail:1.3.1b'
     jerseyTest = "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:$jerseyVersion"
     hsql         = 'org.hsqldb:hsqldb:2.3.2'
-    springMock   = ['org.springframework:spring-mock:2.0.8', 'org.springframework:spring-core:2.0.8']
 }

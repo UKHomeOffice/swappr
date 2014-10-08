@@ -8,7 +8,7 @@ version = '1.1'
 
 dependencies {
     compile jetty, thymeleaf, jersey, pool, mysql, cliParser, files('libs/operations-aware-logging-0.1.0-rc1.jar')
-    testCompile junit, mockito, makeItEasy, jerseyTest, hsql, springMock
+    testCompile junit, mockito, makeItEasy, jerseyTest, hsql
 }
 
 apply plugin: 'fatjar'
