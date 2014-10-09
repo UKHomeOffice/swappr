@@ -21,6 +21,8 @@ gradlew
 gradlew.bat
 .gradle
 */build
+out/
+build/
 
 .sass-cache
 .jruby

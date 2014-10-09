@@ -1,3 +1,8 @@
+/*
+ * Swappr styles
+ */
+
+//Base rules and utilities
 @import "base/normalize";
 @import "base/conditionals";
 @import "base/helpers";
@@ -6,6 +11,7 @@
 @import "base/typography";
 @import "base/images";
 
+//Module rules
 @import "modules/header";
 @import "modules/navbar";
 @import "modules/footer";
