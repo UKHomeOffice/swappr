@@ -1,25 +1,46 @@
+/*
+ * Typography styles
+ *
+ * Requires: [colours.scss]
+ */
+
+/* Defaults */
+$text__family-sans:  "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base__font-size: 16;
+$base__line-height: 22;
+
+/* mixins */
+@mixin text($size, $line, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal) {
+  font-size: calc-em($size);
+  line-height: ($line/$size);
+  font-family: $family;
+  font-weight: $weight;
+  color: $color;
+}
+
+/* Styles */
+html {
+  font-size: $base__font-size * 1px;
+}
+
 body {
-    color: $primary;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: 300;
-    text-transform: none;
+  @include text($base__font-size, $base__line-height, $color: $text__colour--primary);
 }
 
 h1 {
-    font-size: 24px;
-    font-weight: 600;
-}
-.phase-tag {
-    color: $theme-color;
-    font-weight: 300;
+  @include text(24, 24, $color: $text__colour--primary, $weight: bold);
+  margin: 16px 10%;
 }
 
 a {
-  color: $link;
+  color: $link__colour;
   text-decoration: none;
   &:hover, :focus, :active {
-    color: $link-hover;
+    color: $link__colour--hover;
   }
+}
+
+.highlight {
+  background-color: $background__colour--theme--secondary;
+  padding: 4px 6px 4px 6px;
 }

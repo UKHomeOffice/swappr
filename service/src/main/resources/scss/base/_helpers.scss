@@ -1,0 +1,25 @@
+/*
+ * Helper styles and utility functions
+ *
+ * Requires: []
+ */
+
+//Used to hide accessible text from view
+.hidden {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+@mixin gutter( $lr: both, $size: 10% ) {
+  @if($lr == left ){ margin-left: $size; }
+  @else if( $lr == right ) { margin-right: $size; }
+  @else { margin: 0 $size; }
+}
+
+@function calc-em($target, $context: $base__font-size) {
+  @return ($target / $context) * 1em;
+}

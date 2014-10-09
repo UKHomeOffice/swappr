@@ -1,5 +1,6 @@
 @import "base/normalize";
 @import "base/conditionals";
+@import "base/helpers";
 @import "base/shims";
 @import "base/colours";
 @import "base/typography";
@@ -7,3 +8,4 @@
 
 @import "modules/header";
 @import "modules/navbar";
+@import "modules/footer";

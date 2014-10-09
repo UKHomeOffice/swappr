@@ -5,7 +5,23 @@
   padding: 0.2em 0;
 }
 
-.header--main {
-    background-color: $background;
-    border-top: 3px solid $theme-color;
+.header__banner {
+  @extend %contain-floats;
+  background-color: $background__colour--theme--secondary;
+  border-top: 3px solid $background__colour--theme--primary;
+  margin-bottom: 50px;
+
+  .header__logo {
+    @include gutter(left);
+    float: left;
+  }
+  .phase-tag {
+    color: $text__colour--theme;
+    font-weight: normal;
+  }
+  .user-settings {
+    float: right;
+    margin: 16px 0;
+    @include gutter(right);
+  }
 }

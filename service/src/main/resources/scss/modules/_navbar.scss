@@ -1,36 +1,47 @@
 .header__menu {
-  border-bottom: 1px solid $hr;
-  [class*='sprite-'] {
-    background: url(images/swapper.png) no-repeat top left;
-  }
+  border-bottom: 1px solid $border__colour--light;
+
   .menubar {
     @extend %contain-floats;
+    @include gutter();
+    margin-bottom: 15px;
+    padding: 0;
   }
   .menubar__item {
     float: left;
     list-style-type: none;
+    margin-right: 15px;
 
-    &.selected {
-      border-bottom: 6px solid $theme-color;
+    &--right {
+      float: right;
     }
-  }
-  .menubar__item--right {
-    @extend .menubar__item;
-    float: right;
-  }
-  a {
-    display: block;
-    color: $theme-color;
-    font-size: 19px;
-    padding: 10px 10px 10px 52px;
-    .sprite-user {
-      background-position: 0 -556px;
-    }
-    .sprite-users {
-      background-position: 0 -638px;
-    }
-    .sprite-envelop {
-      background-position: 0 -198px;
+
+    a {
+      display: block;
+
+      padding: 10px 10px 10px 52px;
+      background: url(images/swapper.png) no-repeat top left;
+
+      .sprite-user {
+        background-position: 0 -556px;
+      }
+      .sprite-users {
+        background-position: 0 -638px;
+      }
+      .sprite-envelop {
+        background-position: 0 -198px;
+      }
+
+      &.selected,
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom: 6px solid $text__colour--theme;
+      }
+
+      .msg-indicator {
+        @extend .highlight;
+      }
     }
   }
 }

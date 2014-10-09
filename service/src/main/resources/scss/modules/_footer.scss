@@ -1,0 +1,12 @@
+footer {
+  background-color: $background__colour--theme--secondary;
+}
+.footer__inner {
+  @extend %contain-floats;
+  @include gutter();
+
+  .strapline {
+    float: right;
+    margin-top: 120px;
+  }
+}
