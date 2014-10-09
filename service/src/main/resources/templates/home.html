@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!-- Swappr CSS -->
-    <link rel="stylesheet" href="css/application.css"/>
+    <link rel="stylesheet" href="css/swappr.css"/>
 
     <script type="text/javascript" src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -21,99 +21,28 @@
 <![endif]-->
 
 
-<header class="header--main">
-    <h1>Swappr.<span class="phase-tag">alpha</span></h1>
-    <div class="d8-d11 t9-t11 m2"><p><a href="#">Jane King <img src="./img/cog.png" alt="Settings" /></a></p></div>
+<header class="header">
+    <div class="header--main">
+        <h1>Swappr.<span class="phase-tag">alpha</span></h1>
+        <div class="d8-d11 t9-t11 m2"><p><a href="#">Jane King <img src="./img/cog.png" alt="Settings" /></a></p></div>
+    </div>
+    <nav class="header__menu">
+        <div class="d-all t-all m-all"></div>
+
+        <!-- Menu bar -->
+        <ul class="d2-d4 t2-t6 m1-m2 menubar">
+            <li class="menubar__item selected">
+                <a href="./" class="sprite-user"><span class="m-hide">You</span></a>
+            </li>
+            <li class="menubar__item">
+                <a href="./timeline.html" class="sprite-users"><span class="m-hide">Timeline</span></a>
+            </li>
+            <li class="menubar__item--right">
+                <a href="./messages.html"><img src="./img/envelop.png" alt="Messages" title="Messages"/><span class="msg-indicator">3</span></a>
+            </li>
+        </ul>
+    </nav>
 </header>
-
-<nav>
-
-    <div class="d-all t-all m-all"></div>
-
-    <!-- Menu bar -->
-    <div class="d2-d4 t2-t6 m1-m2 menubar">
-        <a href="./" class="sprite-user selected"><span class="m-hide">You</span></a>
-        <a href="./timeline.html" class="sprite-users selected"><span class="m-hide">Timeline</span></a></div>
-    <div class="d10-d11 t10-t11 menubar menubarmsg"><a href="./messages.html"><img src="./img/envelop.png" alt="Messages" title="Messages"/><span class="msg-indicator">3</span></a></div>
-
-    <div class="d-all t-all"><hr /></div>
-
-</nav>
-
-<div class="d-all t-all"></div>
-
-
-<div class="d2-d11 t2-t11">
-
-    <table>
-        <thead>
-        <tr>
-            <th colspan="3"><h2><span class="text-secondary">You / </span>October</h2></th>
-            <th class="row-add"><a href="#" class="button">Request swap</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="row-date">03 <span class="text-secondary">Friday</span></td>
-            <td class="row-shift">S1H shift</td>
-            <td class="row-request">You've requested a swap</td>
-            <td class="row-add">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="row-date">07 <span class="text-secondary">Tuesday</span></td>
-            <td class="row-shift">Swapped with <a href="#">Paul B</a></td>
-            <td class="row-request">Waiting for authorisation</td>
-            <td class="row-add">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="row-date">15 <span class="text-secondary">Wednesday</span></td>
-            <td class="row-shift">Z1T shift</td>
-            <td class="row-request">You've requested a swap</td>
-            <td class="row-add">&nbsp;</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-        <tr>
-            <th colspan="3"><h2><span class="text-secondary">You / </span>November</h2></th>
-            <th class="row-add"><a href="#" class="button">Request swap</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="row-date">03 <span class="text-secondary">Monday</span></td>
-            <td class="row-shift">S1H shift</td>
-            <td class="row-request">You've requested a swap</td>
-            <td class="row-add">&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="row-date">05 <span class="text-secondary">Wednesday</span></td>
-            <td class="row-shift">Swapped with <a href="#">Seema P</a></td>
-            <td class="row-request">Confirmed</td>
-            <td class="row-add">&nbsp;</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-        <tr>
-            <th><h2><span class="text-secondary">You / </span>December</h2></th>
-            <th></th>
-            <th></th>
-            <th class="row-add"><a href="#" class="button">Request swap</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="row-shift" colspan="4" ><span class="text-secondary">No requests yet</span></td>
-        </tr>
-        </tbody>
-    </table>
-
-</div>
 
 <footer class="d-all t-all">
     <div class="d10-d11 t9-t11">

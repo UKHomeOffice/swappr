@@ -1,10 +1,28 @@
-nav {
+.header__menu {
+  border-bottom: 1px solid $hr;
   [class*='sprite-'] {
     background: url(images/swapper.png) no-repeat top left;
   }
+  .menubar {
+    @extend %contain-floats;
+  }
+  .menubar__item {
+    float: left;
+    list-style-type: none;
+
+    &.selected {
+      border-bottom: 6px solid $theme-color;
+    }
+  }
+  .menubar__item--right {
+    @extend .menubar__item;
+    float: right;
+  }
   a {
     display: block;
-    padding-left: 32px;
+    color: $theme-color;
+    font-size: 19px;
+    padding: 10px 10px 10px 52px;
     .sprite-user {
       background-position: 0 -556px;
     }
