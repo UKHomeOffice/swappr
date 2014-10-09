@@ -20,8 +20,11 @@
     font-weight: normal;
   }
   .user-settings {
+    background: url(images/swapper.png) no-repeat;
+    background-position: 85px -128px;
     float: right;
     margin: 16px 0;
     @include gutter(right);
+    padding-right: 30px;
   }
 }
