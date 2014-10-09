@@ -5,15 +5,16 @@
  */
 
 /* Defaults */
-$text__family-sans:  "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$text__family-sans: sans-serif;
 $base__font-size: 16;
 $base__line-height: 22;
-
+$base__font-size--small: 14;
+$base__line-height--small: 19;
 $base__font-size--large: 19;
 $base__line-height--large: 24;
 
 /* mixins */
-@mixin text($size, $line, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal) {
+@mixin text( $size, $line, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
   font-size: calc-em($size);
   line-height: ($line/$size);
   font-family: $family;
@@ -27,11 +28,11 @@ html {
 }
 
 body {
-  @include text($base__font-size, $base__line-height, $color: $text__colour--primary);
+  @include text( $base__font-size, $base__line-height, $color: $text__colour--primary );
 }
 
 h1 {
-  @include text(24, 24, $color: $text__colour--primary, $weight: bold);
+  @include text( 24, 24, $color: $text__colour--primary, $weight: bold );
   margin: 16px 10%;
 }
 
