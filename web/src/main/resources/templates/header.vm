@@ -1,0 +1,14 @@
+<header>
+    <div class="header__banner">
+        <h1 class="header__logo">Swappr.<span class="phase-tag">alpha</span></h1>
+
+##  TODO: if logged in
+        <a href="#" class="user-settings">Jane King<span class="hidden"> Settings</span></a>
+##  endif
+    </div>
+
+##  TODO: if logged in
+    #parse('main_nav.vm')
+##  endif
+
+</header>

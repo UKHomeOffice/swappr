@@ -19,35 +19,14 @@
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-
-
-<header class="header">
-    <div class="header__banner">
-        <h1 class="header__logo">Swappr.<span class="phase-tag">alpha</span></h1>
-        <a href="#" class="user-settings">Jane King<span class="hidden"> Settings</span></a>
-    </div>
-    <nav class="header__menu">
-        <!-- Menu bar -->
-        <ul class="d2-d4 t2-t6 m1-m2 menubar">
-            <li class="menubar__item">
-                <a href="./" class="sprite-user selected"><span class="m-hide">You</span></a>
-            </li>
-            <li class="menubar__item">
-                <a href="./timeline.html" class="sprite-users"><span class="m-hide">Timeline</span></a>
-            </li>
-            <li class="menubar__item menubar__item--right">
-                <a href="./messages.html" class="sprite-envelop"><span class="msg-indicator">3</span></a>
-            </li>
-        </ul>
-    </nav>
+<header>
+    #parse('header.vm')
 </header>
 <main>
     $screen_content
 </main>
 <footer>
-    <div class="footer__inner">
-        <p class="strapline">A Home Office Digital project.</p>
-    </div>
+    #parse('footer.vm')
 </footer>
 
 </body>
