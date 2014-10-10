@@ -54,7 +54,7 @@ public class HomeControllerTest {
 
         @Bean
         public HomeDao homeDao() {
-            return new HomeDao() {
+            return new HomeDao(null) {
                 @Override
                 public String name() {
                     return "Jonnie";
