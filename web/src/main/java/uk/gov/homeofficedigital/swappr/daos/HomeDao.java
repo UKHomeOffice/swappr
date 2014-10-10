@@ -15,7 +15,7 @@ public class HomeDao {
     }
 
     public String name() {
-        String result = jdbcTemplate.queryForObject("values (current_date )", new HashMap<String, Object>(), String.class);
-        return "billy " + result;
+
+        return "billy ";
     }
 }
