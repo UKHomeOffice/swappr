@@ -503,7 +503,7 @@ label {
     color: #9325b2;
     font-weight: normal; }
   .header__banner .user-settings {
-    background: url(images/swappr.png) no-repeat;
+    background: url('/images/swappr.png') no-repeat;
     background-position: 85px -128px;
     float: right;
     margin: 16px 0;
@@ -535,7 +535,7 @@ label {
       color: #9325b2;
       display: block;
       padding: 10px 10px 10px 52px;
-      background: url(images/swappr.png) no-repeat top left; }
+      background: url(/images/swappr.png) no-repeat top left; }
       .header__menu .menubar__item a.sprite-user {
         background-position: 15px -550px; }
       .header__menu .menubar__item a.sprite-users {
