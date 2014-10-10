@@ -1,0 +1,36 @@
+/*
+ * Header styles
+ *
+ * Requires: [shims, helpers, colours, typography]
+ */
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #cccccc;
+  color: #000000;
+  padding: 0.2em 0;
+}
+
+.header__banner {
+  @extend %contain-floats;
+  background-color: $background__colour--theme--secondary;
+  border-top: 3px solid $background__colour--theme--primary;
+  margin-bottom: 50px;
+
+  .header__logo {
+    @include gutter(left);
+    float: left;
+  }
+  .phase-tag {
+    color: $text__colour--theme;
+    font-weight: normal;
+  }
+  .user-settings {
+    background: url(images/swappr.png) no-repeat;
+    background-position: 85px -128px;
+    float: right;
+    margin: 16px 0;
+    @include gutter(right);
+    padding-right: 30px;
+  }
+}

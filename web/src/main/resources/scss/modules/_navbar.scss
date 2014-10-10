@@ -1,0 +1,53 @@
+/*
+ * Footer styles
+ *
+ * Requires: [shims, helpers, colours, typography]
+ */
+
+.header__menu {
+  border-bottom: 1px solid $border__colour--light;
+
+  .menubar {
+    @extend %contain-floats;
+    @include gutter();
+    margin-bottom: 15px;
+    padding: 0;
+  }
+  .menubar__item {
+    float: left;
+    list-style-type: none;
+    margin-right: 15px;
+
+    &--right {
+      float: right;
+    }
+
+    a {
+      @include text($base__font-size--large, $base__line-height--large, $color: $text__colour--theme);
+      display: block;
+      padding: 10px 10px 10px 52px;
+      background: url(images/swappr.png) no-repeat top left;
+
+      &.sprite-user {
+        background-position: 15px -550px;
+      }
+      &.sprite-users {
+        background-position: 15px -634px;
+      }
+      &.sprite-envelop {
+        background-position: 15px -192px;
+      }
+
+      &.selected,
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom: 6px solid $text__colour--theme;
+      }
+
+      .msg-indicator {
+        @extend .highlight;
+      }
+    }
+  }
+}

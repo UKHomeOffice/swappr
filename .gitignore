@@ -26,4 +26,3 @@ build/
 
 .sass-cache
 .jruby
-service/**/*.css
