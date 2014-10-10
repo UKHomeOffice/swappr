@@ -46,7 +46,7 @@
 </main>
 <footer>
     <div class="footer__inner">
-        <p class="strapline">A Home Office Digital project for ${name}.</p>
+        <p class="strapline">A Home Office Digital project for ${name} - ${user}.</p>
     </div>
 </footer>
 

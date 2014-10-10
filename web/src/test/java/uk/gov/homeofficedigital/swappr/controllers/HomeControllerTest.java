@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -16,6 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import uk.gov.homeofficedigital.swappr.daos.HomeDao;
+
+import java.security.Principal;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,7 +43,12 @@ public class HomeControllerTest {
 
     @Test
     public void hello() throws Exception {
-        mvc.perform(get("/")).andExpect(status().isOk()).andExpect(content().string(containsString("Jonnie")));
+        mvc.perform(get("/").principal(new Principal() {
+            @Override
+            public String getName() {
+                return "Freddie";
+            }
+        })).andExpect(status().isOk()).andExpect(content().string(containsString("Jonnie")));
     }
 
     @Configuration
@@ -49,12 +58,13 @@ public class HomeControllerTest {
     public static class TestApplication {
 
     }
+
     @Configuration
     public static class DummyDAOs {
 
         @Bean
-        public HomeDao homeDao() {
-            return new HomeDao() {
+        public HomeDao homeDao(NamedParameterJdbcTemplate jdbcTemplate) {
+            return new HomeDao(jdbcTemplate) {
                 @Override
                 public String name() {
                     return "Jonnie";

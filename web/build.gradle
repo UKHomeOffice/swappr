@@ -19,6 +19,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-velocity")
     compile("org.springframework.boot:spring-boot-starter-logging")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile hsql
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
