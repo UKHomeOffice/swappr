@@ -6,14 +6,14 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>$!pageTitle</title>
+    <title>Swappr.</title>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!-- Swappr CSS -->
-    <link rel="stylesheet" href="css/application.css"/>
+    <link rel="stylesheet" href="../static/css/swappr.css"/>
 
-    <script type="text/javascript" src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script type="text/javascript" src="../static/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -46,9 +46,13 @@
 </main>
 <footer>
     <div class="footer__inner">
-        <p class="strapline">A Home Office Digital project for $!{name}.</p>
+        <p class="strapline">A Home Office Digital project.</p>
     </div>
 </footer>
+
+</body>
+</html>
+
 
 
 </body>
