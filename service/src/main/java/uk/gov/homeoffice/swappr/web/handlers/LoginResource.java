@@ -4,8 +4,6 @@ import uk.gov.homeoffice.swappr.model.User;
 import uk.gov.homeoffice.swappr.repository.UserRepository;
 import uk.gov.homeoffice.swappr.web.resources.Viewable;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -33,7 +31,9 @@ public class LoginResource {
 
     public Response login(String name, String password) {
         User user = repo.findUser(name, password);
-
-        return Response.seeOther(UriBuilder.fromPath("/").build()).cookie(new NewCookie("user", user.getId())).build();
+        if (user == null) {
+            return Response.temporaryRedirect(UriBuilder.fromPath("/login").build()).build();
+        }
+        return Response.seeOther(UriBuilder.fromPath("/").build()).cookie(new NewCookie("user", String.valueOf(user.getId()))).build();
     }
 }
