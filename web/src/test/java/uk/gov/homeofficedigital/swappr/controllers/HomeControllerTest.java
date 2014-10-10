@@ -48,7 +48,7 @@ public class HomeControllerTest {
             public String getName() {
                 return "Freddie";
             }
-        })).andExpect(status().isOk()).andExpect(content().string(containsString("Jonnie")));
+        })).andExpect(status().isOk()).andExpect(content().string(containsString("home page")));
     }
 
     @Configuration

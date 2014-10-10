@@ -1,2 +1,2 @@
 include 'integration'
-include 'service'
+include 'web'
