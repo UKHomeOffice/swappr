@@ -1,0 +1,44 @@
+/*
+ * Form styles
+ *
+ * Requires: [conditionals, colours, typography]
+ */
+
+form {
+  @extend %contain-floats;
+}
+
+[type='submit'],
+button,
+.button {
+  @include text($base__font-size, 40, $color: $link__colour--hover, $weight: bold);
+  background-color: $background__colour--theme--secondary;
+  border: 1px solid $background__colour--theme--primary;
+  border-radius: 6px;
+  clear: both;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 1.75em;
+
+  @include ie-lte(7) {
+    display: inline;
+    zoom: 1;
+  }
+}
+
+fieldset {
+  background: $background__colour--theme--secondary;
+  border: 0;
+  float: left;
+}
+
+legend {
+  @extend h3;
+  float: left;
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
