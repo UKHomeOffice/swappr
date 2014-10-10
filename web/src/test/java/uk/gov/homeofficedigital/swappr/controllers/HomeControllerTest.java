@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -22,6 +24,7 @@ import uk.gov.homeofficedigital.swappr.daos.HomeDao;
 import java.security.Principal;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,6 +73,16 @@ public class HomeControllerTest {
                     return "Jonnie";
                 }
             };
+        }
+
+        @Bean
+        public JdbcUserDetailsManager userManager() {
+            return mock(JdbcUserDetailsManager.class);
+        }
+
+        @Bean
+        public PasswordEncoder encoder() {
+            return mock(PasswordEncoder.class);
         }
     }
 }

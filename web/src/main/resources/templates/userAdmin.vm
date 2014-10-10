@@ -1,0 +1,22 @@
+#set($pageTitle = 'User Admin')
+<h2>User Admin</h2>
+<div>
+    <form action="/admin/users/add" method="post">
+
+        <div>
+            Username: #springFormInput("user.username" "")
+            #springShowErrors("<br/>")
+        </div>
+        <div>
+            #springBind("user.matchingPassword")
+            #springShowErrors("<br/>")
+            Password: #springFormPasswordInput("user.password" "")
+            #springShowErrors("<br/>")
+        </div>
+        <div>
+            Confirm password: #springFormPasswordInput("user.confirmPassword" "")
+            #springShowErrors("<br/>")
+        </div>
+        <input id="submitBtn" class="button" type="submit" value="Sign in"/>
+    </form>
+</div>

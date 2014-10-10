@@ -4,13 +4,16 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class LoginForm {
+public class UserForm {
     @NotNull
     @Size(min=3, max=25)
     private String username;
     @NotNull
     @Size(min=4, max=25)
     private String password;
+    @NotNull
+    @Size(min=4, max=25)
+    private String confirmPassword;
 
     public String getUsername() {
         return username;
@@ -28,4 +31,17 @@ public class LoginForm {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    @AssertTrue(message = "Passwords do not match")
+    public boolean isMatchingPassword() {
+        if (password == null) return true;
+        return password.equals(confirmPassword);
+    }
 }

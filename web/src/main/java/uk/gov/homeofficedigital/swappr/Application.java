@@ -13,7 +13,7 @@ import uk.gov.homeofficedigital.swappr.daos.DAOs;
 
 @Configuration
 @EnableAutoConfiguration
-@Import({Controllers.class, DAOs.class, Security.class, Security.AuthenticationConfiguration.class})
+@Import({DAOs.class, Security.class, Security.AuthenticationConfiguration.class, Controllers.class})
 public class Application {
 
     @Bean
