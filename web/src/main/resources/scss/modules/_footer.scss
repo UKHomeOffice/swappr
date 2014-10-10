@@ -1,0 +1,19 @@
+/*
+ * Footer styles
+ *
+ * Requires: [helpers, colours, typography]
+ */
+
+footer {
+  background-color: $background__colour--theme--secondary;
+}
+.footer__inner {
+  @include text( $base__font-size--small, $base__line-height--small, $color: $text__colour--secondary );
+  @extend %contain-floats;
+  @include gutter();
+
+  .strapline {
+    float: right;
+    margin-top: 120px;
+  }
+}
