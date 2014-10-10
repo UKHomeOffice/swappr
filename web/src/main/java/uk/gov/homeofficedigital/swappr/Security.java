@@ -25,6 +25,7 @@ public class Security extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
             .antMatchers("/css/**").permitAll()
             .antMatchers("/js/**").permitAll()
+            .antMatchers("/images/**").permitAll()
             .anyRequest().authenticated();
         http.formLogin()
             .loginPage("/login")

@@ -422,6 +422,14 @@ a {
  *
  * Requires: [conditionals, colours, typography]
  */
+form {
+  margin-bottom: 15px; }
+
+input {
+  float: left;
+  margin-bottom: 15px;
+  outline-color: #9325b2; }
+
 [type='submit'],
 button,
 .button {
@@ -492,6 +500,9 @@ label {
   color: #000000;
   padding: 0.2em 0; }
 
+header {
+  margin-bottom: 15px; }
+
 .header__banner {
   background-color: #f8f8f8;
   border-top: 3px solid #9325b2;
@@ -503,7 +514,7 @@ label {
     color: #9325b2;
     font-weight: normal; }
   .header__banner .user-settings {
-    background: url('/images/swappr.png') no-repeat;
+    background: url(/images/swappr.png) no-repeat;
     background-position: 85px -128px;
     float: right;
     margin: 16px 0;
@@ -544,6 +555,14 @@ label {
         background-position: 15px -192px; }
       .header__menu .menubar__item a.selected, .header__menu .menubar__item a:hover, .header__menu .menubar__item a:focus, .header__menu .menubar__item a:active {
         border-bottom: 6px solid #9325b2; }
+
+/*
+ * Main content styles
+ *
+ * Requires: [shims, helpers, colours, typography]
+ */
+main {
+  margin: 0 10%; }
 
 /*
  * Footer styles

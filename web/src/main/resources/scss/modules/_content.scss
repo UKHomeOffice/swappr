@@ -1,0 +1,9 @@
+/*
+ * Main content styles
+ *
+ * Requires: [shims, helpers, colours, typography]
+ */
+
+main {
+  @include gutter();
+}

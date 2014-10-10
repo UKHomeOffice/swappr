@@ -6,6 +6,13 @@
 
 form {
   @extend %contain-floats;
+  margin-bottom : 15px;
+}
+
+input {
+  float: left;
+  margin-bottom: 15px;
+  outline-color: $background__colour--theme--primary;
 }
 
 [type='submit'],
@@ -30,6 +37,7 @@ fieldset {
   background: $background__colour--theme--secondary;
   border: 0;
   float: left;
+  margin-bottom : 15px;
 }
 
 legend {

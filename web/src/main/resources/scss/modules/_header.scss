@@ -11,6 +11,10 @@
   padding: 0.2em 0;
 }
 
+header {
+  margin-bottom : 15px;
+}
+
 .header__banner {
   @extend %contain-floats;
   background-color: $background__colour--theme--secondary;
@@ -26,7 +30,7 @@
     font-weight: normal;
   }
   .user-settings {
-    background: url(images/swappr.png) no-repeat;
+    background: url(/images/swappr.png) no-repeat;
     background-position: 85px -128px;
     float: right;
     margin: 16px 0;
