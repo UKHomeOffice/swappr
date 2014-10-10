@@ -1,3 +1,9 @@
+/*
+ * Footer styles
+ *
+ * Requires: [shims, helpers, colours, typography]
+ */
+
 .header__menu {
   border-bottom: 1px solid $border__colour--light;
 
@@ -17,19 +23,19 @@
     }
 
     a {
+      @include text($base__font-size--large, $base__line-height--large, $color: $text__colour--theme);
       display: block;
-
       padding: 10px 10px 10px 52px;
-      background: url(images/swapper.png) no-repeat top left;
+      background: url(images/swappr.png) no-repeat top left;
 
-      .sprite-user {
-        background-position: 0 -556px;
+      &.sprite-user {
+        background-position: 15px -550px;
       }
-      .sprite-users {
-        background-position: 0 -638px;
+      &.sprite-users {
+        background-position: 15px -634px;
       }
-      .sprite-envelop {
-        background-position: 0 -198px;
+      &.sprite-envelop {
+        background-position: 15px -192px;
       }
 
       &.selected,

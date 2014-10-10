@@ -1,3 +1,9 @@
+/*
+ * Shims
+ *
+ * Requires: [conditionals]
+ */
+
 %contain-floats {
   &:after {
     content: "";
