@@ -11,6 +11,10 @@
   padding: 0.2em 0;
 }
 
+header {
+  margin-bottom : 15px;
+}
+
 .header__banner {
   @extend %contain-floats;
   background-color: $background__colour--theme--secondary;
