@@ -13,6 +13,18 @@
   height:1px;
   overflow:hidden;
 }
+
+@include media(mobile) {
+  .m-hide {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+  }
+}
+
 //Defines left and right main page gutters
 @mixin gutter( $lr: both, $size: 10% ) {
   @if($lr == left ){ margin-left: $size; }

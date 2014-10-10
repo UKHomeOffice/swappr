@@ -357,6 +357,14 @@ table {
   height: 1px;
   overflow: hidden; }
 
+@media (max-width: 640px) {
+  .m-hide {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden; } }
 /*
  * Shims
  *
@@ -449,7 +457,8 @@ button,
 fieldset {
   background: #f8f8f8;
   border: 0;
-  float: left; }
+  float: left;
+  margin-bottom: 15px; }
 
 legend {
   float: left;
@@ -545,6 +554,7 @@ header {
       font-weight: normal;
       color: #9325b2;
       display: block;
+      min-height: 24px;
       padding: 10px 10px 10px 52px;
       background: url(/images/swappr.png) no-repeat top left; }
       .header__menu .menubar__item a.sprite-user {

@@ -25,6 +25,7 @@
     a {
       @include text($base__font-size--large, $base__line-height--large, $color: $text__colour--theme);
       display: block;
+      min-height: $base__line-height--large+px;
       padding: 10px 10px 10px 52px;
       background: url(/images/swappr.png) no-repeat top left;
 
