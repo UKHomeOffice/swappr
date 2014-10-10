@@ -22,8 +22,6 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return velocityLayoutViewResolver;
     }
 
-
-
     @Bean
     public HomeController home(HomeDao dao) {
         return new HomeController(dao);
