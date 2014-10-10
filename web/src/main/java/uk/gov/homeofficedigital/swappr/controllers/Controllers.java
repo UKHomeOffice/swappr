@@ -1,13 +1,24 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
+import org.springframework.boot.autoconfigure.velocity.VelocityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
 import uk.gov.homeofficedigital.swappr.daos.HomeDao;
 
 @Configuration
 public class Controllers extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public VelocityLayoutViewResolver velocityViewResolver(VelocityProperties velocityProperties) {
+        VelocityLayoutViewResolver velocityLayoutViewResolver = new VelocityLayoutViewResolver();
+        velocityProperties.applyToViewResolver(velocityLayoutViewResolver);
+        return velocityLayoutViewResolver;
+    }
+
+
 
     @Bean
     public HomeController home(HomeDao dao) {
