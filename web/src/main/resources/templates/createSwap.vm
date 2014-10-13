@@ -27,9 +27,9 @@
             <td colspan="4">For shift</td>
         </tr>
         <tr>
-            <td>#springFormInput("swap.fromDay")</td>
-            <td>#springFormInput("swap.fromMonth")</td>
-            <td>#springFormInput("swap.fromYear")</td>
+            <td>#springFormInput("swap.toDay")</td>
+            <td>#springFormInput("swap.toMonth")</td>
+            <td>#springFormInput("swap.toYear")</td>
             <td>#springFormSingleSelect("swap.toShiftType", ${shifts})</td>
         </tr>
         #springBind("swap.validToDate")

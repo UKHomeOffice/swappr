@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import uk.gov.homeofficedigital.swappr.daos.HomeDao;
-
-import java.security.Principal;
+import uk.gov.homeofficedigital.swappr.daos.SwapDao;
+import uk.gov.homeofficedigital.swappr.model.Swap;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.mock;
@@ -81,6 +81,16 @@ public class MappingTest {
                 @Override
                 public String name() {
                     return "Jonnie";
+                }
+            };
+        }
+
+        @Bean
+        public SwapDao swapDao() {
+            return new SwapDao() {
+                @Override
+                public void createSwap(Swap swap) {
+                    // do nothing
                 }
             };
         }

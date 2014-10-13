@@ -14,6 +14,12 @@ public class DAOs {
     public HomeDao homeDao(NamedParameterJdbcTemplate jdbcTemplate) {
         return new HomeDao(jdbcTemplate);
     }
+
+    @Bean
+    public SwapDao swapDao() {
+        return new SwapDao();
+    }
+
     @Bean
     public JdbcUserDetailsManager userManager(DataSource ds) {
         JdbcUserDetailsManager mgr = new JdbcUserDetailsManager();

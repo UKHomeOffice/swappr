@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
 import uk.gov.homeofficedigital.swappr.daos.HomeDao;
+import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 
 @Configuration
 public class Controllers extends WebMvcConfigurerAdapter {
@@ -33,8 +34,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public SwapController swap() {
-        return new SwapController();
+    public SwapController swap(SwapDao swapDao) {
+        return new SwapController(swapDao);
     }
 
     @Override

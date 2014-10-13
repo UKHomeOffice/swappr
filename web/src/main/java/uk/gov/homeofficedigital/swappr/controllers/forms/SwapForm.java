@@ -5,6 +5,8 @@ import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 
 public class SwapForm {
 
@@ -92,11 +94,29 @@ public class SwapForm {
 
     @AssertTrue(message = "Not a valid date")
     public boolean isValidFromDate() {
-        return false;
+        try {
+            getFromDate();
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
     }
 
     @AssertTrue(message = "Not a valid date")
     public boolean isValidToDate() {
-        return false;
+        try {
+            getToDate();
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    public LocalDate getFromDate() {
+        return LocalDate.of(fromYear, fromMonth, fromDay);
+    }
+
+    public LocalDate getToDate() {
+        return LocalDate.of(toYear, toMonth, toDay);
     }
 }
