@@ -32,6 +32,11 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return new UserAdminController(userManager, encoder);
     }
 
+    @Bean
+    public SwapController swap() {
+        return new SwapController();
+    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");

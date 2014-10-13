@@ -25,9 +25,9 @@ public class UserAdminController {
     private final PasswordEncoder encoder;
     private UserDetailsManager manager;
 
-    public UserAdminController(UserDetailsService manager, PasswordEncoder encoder) {
+    public UserAdminController(UserDetailsManager manager, PasswordEncoder encoder) {
         this.encoder = encoder;
-        this.manager = (UserDetailsManager) manager;
+        this.manager = manager;
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)

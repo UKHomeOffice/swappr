@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,8 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = HomeControllerTest.TestApplication.class)
-public class HomeControllerTest {
+@ContextConfiguration(classes = MappingTest.TestApplication.class)
+public class MappingTest {
 
     @Autowired
     private WebApplicationContext ctx;
@@ -45,13 +44,24 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void hello() throws Exception {
-        mvc.perform(get("/").principal(new Principal() {
-            @Override
-            public String getName() {
-                return "Freddie";
-            }
-        })).andExpect(status().isOk()).andExpect(content().string(containsString("home page")));
+    public void homePage_isBoundToRoot() throws Exception {
+        mvc.perform(get("/").principal(() -> "Freddie"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("home page")));
+    }
+
+    @Test
+    public void login_isBound() throws Exception {
+        mvc.perform(get("/login"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("login")));
+    }
+
+    @Test
+    public void userAdmin_isBound() throws Exception {
+        mvc.perform(get("/admin/users"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("user")));
     }
 
     @Configuration

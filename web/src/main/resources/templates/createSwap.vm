@@ -1,0 +1,49 @@
+#set($pageTitle = 'Create a swap')
+<p>I&apos;d like to swap</p>
+<form action="/swap/create" method="POST">
+<table>
+    <thead>
+        <th>Day</th>
+        <th>Month</th>
+        <th>Year</th>
+        <th>Shift</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>#springFormInput("swap.fromDay")</td>
+            <td>#springFormInput("swap.fromMonth")</td>
+            <td>#springFormInput("swap.fromYear")</td>
+            <td>#springFormSingleSelect("swap.fromShiftType", ${shifts})</td>
+        </tr>
+        #springBind("swap.validFromDate")
+        #if($status.errorMessages)
+        <tr>
+            <td colspan="4" class="error">
+                #springShowErrors(" ")
+            </td>
+        </tr>
+        #end
+        <tr>
+            <td colspan="4">For shift</td>
+        </tr>
+        <tr>
+            <td>#springFormInput("swap.fromDay")</td>
+            <td>#springFormInput("swap.fromMonth")</td>
+            <td>#springFormInput("swap.fromYear")</td>
+            <td>#springFormSingleSelect("swap.toShiftType", ${shifts})</td>
+        </tr>
+        #springBind("swap.validToDate")
+        #if($status.errorMessages)
+        <tr>
+            <td colspan="4" class="error">
+                #springShowErrors(" ")
+            </td>
+        </tr>
+        #end
+        <tr>
+            <td colspan="3"></td>
+            <td><input type="submit" value="submit"/></td>
+        </tr>
+    </tbody>
+</table>
+</form>
