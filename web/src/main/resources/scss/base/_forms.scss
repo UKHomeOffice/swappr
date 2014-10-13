@@ -49,4 +49,11 @@ legend {
 label {
   display: block;
   font-weight: bold;
+  &.block-label {
+    float: left;
+    margin-right: 15px;
+    span {
+      display: block;
+    }
+  }
 }

@@ -6,4 +6,5 @@
 
 main {
   @include gutter();
+  display: inline-block;
 }

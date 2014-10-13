@@ -12,6 +12,8 @@ $base__font-size--small: 14;
 $base__line-height--small: 19;
 $base__font-size--large: 19;
 $base__line-height--large: 24;
+$base__font-size--xlarge: 24;
+$base__line-height--xlarge: 32;
 
 /* mixins */
 @mixin text( $size, $line, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
@@ -32,8 +34,8 @@ body {
 }
 
 h1 {
-  @include text( $base__font-size--large, 24, $color: $text__colour--primary, $weight: bold );
-  margin: 16px 10%;
+  @include text( $base__font-size--xlarge, $base__line-height--xlarge, $color: $text__colour--primary, $weight: bold );
+  margin: 15px 0;
 }
 
 h3,

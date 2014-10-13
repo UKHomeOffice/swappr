@@ -1,49 +1,58 @@
-#set($pageTitle = 'Create a swap')
-<p>I&apos;d like to swap</p>
+#set($pageTitle = 'Request a swap')
+<h1>Request swap</h1>
+<p>Choose the date and shift type.</p>
 <form action="/swap/create" method="POST">
-<table>
-    <thead>
-        <th>Day</th>
-        <th>Month</th>
-        <th>Year</th>
-        <th>Shift</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>#springFormInput("swap.fromDay")</td>
-            <td>#springFormInput("swap.fromMonth")</td>
-            <td>#springFormInput("swap.fromYear")</td>
-            <td>#springFormSingleSelect("swap.fromShiftType", ${shifts})</td>
-        </tr>
+    <fieldset>
+        <legend>Current shift</legend>
         #springBind("swap.validFromDate")
         #if($status.errorMessages)
-        <tr>
-            <td colspan="4" class="error">
+            <p class="error">
                 #springShowErrors(" ")
-            </td>
-        </tr>
+            </p>
         #end
-        <tr>
-            <td colspan="4">For shift</td>
-        </tr>
-        <tr>
-            <td>#springFormInput("swap.toDay")</td>
-            <td>#springFormInput("swap.toMonth")</td>
-            <td>#springFormInput("swap.toYear")</td>
-            <td>#springFormSingleSelect("swap.toShiftType", ${shifts})</td>
-        </tr>
+        <label class="block-label" for="fromDay">
+            <span>Day</span>
+            #springFormInput("swap.fromDay")
+        </label>
+        <label class="block-label" for="fromMonth">
+            <span>Month</span>
+            #springFormInput("swap.fromMonth")
+        </label>
+        <label class="block-label" for="fromYear">
+            <span>Year</span>
+            #springFormInput("swap.fromYear")
+        </label>
+        <label class="block-label" for="fromShiftType">
+            <span>Shift</span>
+            #springFormSingleSelect("swap.fromShiftType", ${shifts})
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Swapp shift</legend>
         #springBind("swap.validToDate")
         #if($status.errorMessages)
-        <tr>
-            <td colspan="4" class="error">
+            <p class="error">
                 #springShowErrors(" ")
-            </td>
-        </tr>
+            </p>
         #end
-        <tr>
-            <td colspan="3"></td>
-            <td><input type="submit" value="submit"/></td>
-        </tr>
-    </tbody>
-</table>
+        <label class="block-label" for="toDay">
+            <span>Day</span>
+            #springFormInput("swap.toDay")
+        </label>
+        <label class="block-label" for="toMonth">
+            <span>Month</span>
+            #springFormInput("swap.toMonth")
+        </label>
+        <label class="block-label" for="toYear">
+            <span>Year</span>
+            #springFormInput("swap.toYear")
+        </label>
+        <label class="block-label" for="toShiftType">
+            <span>Shift</span>
+            #springFormSingleSelect("swap.toShiftType", ${shifts})
+        </label>
+    </fieldset>
+    <p>
+        <input type="submit" value="submit"/>
+    </p>
 </form>
