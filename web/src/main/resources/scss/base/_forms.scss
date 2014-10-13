@@ -49,6 +49,7 @@ legend {
 label {
   display: block;
   font-weight: bold;
+  clear: both;
   &.block-label {
     float: left;
     margin-right: 15px;
@@ -57,3 +58,9 @@ label {
     }
   }
 }
+
+.error {
+  color: $text__colour--error;
+  display: block;
+}
+
