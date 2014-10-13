@@ -469,6 +469,7 @@ label {
   font-weight: bold;
   clear: both; }
   label.block-label {
+    clear: none;
     float: left;
     margin-right: 15px; }
     label.block-label span {

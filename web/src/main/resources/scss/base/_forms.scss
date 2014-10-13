@@ -51,6 +51,7 @@ label {
   font-weight: bold;
   clear: both;
   &.block-label {
+    clear: none;
     float: left;
     margin-right: 15px;
     span {
