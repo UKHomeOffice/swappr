@@ -512,7 +512,7 @@ tr {
 
 th,
 td {
-  padding: 20px 0; }
+  padding: 20px 5px; }
   th:nth-child(1),
   td:nth-child(1) {
     width: 25%; }
@@ -521,7 +521,7 @@ td {
     width: 50%; }
   th:nth-child(3),
   td:nth-child(3) {
-    width: 309%; }
+    width: 30%; }
 
 .sprite-checkmark {
   background-position: 0 0;
