@@ -23,3 +23,14 @@ create table persistent_logins (
     token varchar(64) not null,
     last_used timestamp not null
 ) engine = InnoDb;
+
+create table swap (
+  id int UNSIGNED NOT NULL AUTO_INCREMENT,
+  username varchar(250) not null,
+  fromDate date not null,
+  fromShift varchar(50) not null,
+  toDate date not null,
+  toShift varchar(50) not null,
+  PRIMARY KEY(id),
+  foreign key (username) references users (username)
+) engine = InnoDb;

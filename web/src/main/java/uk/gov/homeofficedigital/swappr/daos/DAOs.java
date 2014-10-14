@@ -16,8 +16,8 @@ public class DAOs {
     }
 
     @Bean
-    public SwapDao swapDao() {
-        return new SwapDao();
+    public SwapDao swapDao(NamedParameterJdbcTemplate jdbcTemplate) {
+        return new SwapDao(jdbcTemplate);
     }
 
     @Bean

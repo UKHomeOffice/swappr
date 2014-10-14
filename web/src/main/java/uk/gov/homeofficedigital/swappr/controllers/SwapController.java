@@ -1,6 +1,8 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,7 @@ import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -48,12 +51,13 @@ public class SwapController {
     }
 
     @RequestMapping(value="/create", method = RequestMethod.POST)
-    public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result) {
+    public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return "createSwap";
         }
-
-        swapDao.createSwap(new Swap(swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType()));
+        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
+        User user = (User) auth.getPrincipal();
+        swapDao.createSwap(new Swap(user.getUsername(), swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType()));
         return "redirect:/";
     }
 }

@@ -64,6 +64,13 @@ public class MappingTest {
                 .andExpect(content().string(containsString("user")));
     }
 
+    @Test
+    public void createSwap_isBound() throws Exception {
+        mvc.perform(get("/swap"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("swap")));
+    }
+
     @Configuration
     @EnableWebMvc
     @EnableAutoConfiguration
@@ -86,8 +93,9 @@ public class MappingTest {
         }
 
         @Bean
-        public SwapDao swapDao() {
-            return new SwapDao() {
+        public SwapDao swapDao(NamedParameterJdbcTemplate jdbcTemplate) {
+
+            return new SwapDao(jdbcTemplate) {
                 @Override
                 public void createSwap(Swap swap) {
                     // do nothing
