@@ -47,7 +47,7 @@ public class MappingTest {
     public void homePage_isBoundToRoot() throws Exception {
         mvc.perform(get("/").principal(() -> "Freddie"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("home page")));
+                .andExpect(content().string(containsString("You /")));
     }
 
     @Test
