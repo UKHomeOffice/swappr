@@ -398,7 +398,8 @@ body {
   font-weight: normal;
   color: #222222; }
 
-h1 {
+h1,
+.h1 {
   font-size: 1.5em;
   line-height: 1.33333;
   font-family: sans-serif;
@@ -408,8 +409,8 @@ h1 {
 
 h3, legend,
 .h3 {
-  font-size: 1.1875em;
-  line-height: 1.26316;
+  font-size: 1em;
+  line-height: 1.375;
   font-family: sans-serif;
   font-weight: bold;
   color: #222222;
@@ -420,6 +421,10 @@ a {
   text-decoration: none; }
   a:hover, a :focus, a :active {
     color: #2e8aca; }
+
+.secondary-text {
+  color: #9b9b9b;
+  font-weight: normal; }
 
 .highlight, .header__menu .menubar__item a .msg-indicator {
   background-color: #f8f8f8;
@@ -484,6 +489,39 @@ label {
 .error {
   color: #ff0000;
   display: block; }
+
+/*
+ * Table styles
+ *
+ * Requires: [colours]
+ */
+table {
+  margin-bottom: 25px;
+  width: 100%; }
+
+caption {
+  text-align: left; }
+
+tbody {
+  border-top: 1px solid #cccccc; }
+
+tr {
+  border-bottom: 1px solid #cccccc; }
+  tr:hover {
+    background-color: #e1ecfc; }
+
+th,
+td {
+  padding: 20px 0; }
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 25%; }
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 50%; }
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 309%; }
 
 .sprite-checkmark {
   background-position: 0 0;
@@ -590,6 +628,7 @@ header {
  */
 main {
   margin: 0 10%;
+  width: 80%;
   display: inline-block; }
 
 /*

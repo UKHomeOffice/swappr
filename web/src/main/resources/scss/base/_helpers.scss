@@ -26,10 +26,11 @@
 }
 
 //Defines left and right main page gutters
-@mixin gutter( $lr: both, $size: 10% ) {
-  @if($lr == left ){ margin-left: $size; }
+@mixin gutter( $lr: both, $size: 10%, $setFullWidth: false ) {
+  @if( $lr == left ){ margin-left: $size; }
   @else if( $lr == right ) { margin-right: $size; }
   @else { margin: 0 $size; }
+  @if( $setFullWidth ) { width: 100-2*$size; }
 }
 //TODO: use rem?
 @function calc-em($target, $context: $base__font-size) {

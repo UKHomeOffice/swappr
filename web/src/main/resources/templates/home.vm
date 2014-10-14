@@ -1,2 +1,47 @@
-#set($pageTitle = 'Home Page Title')
-<p>This is the home page</p>
+#set($pageTitle = 'My swaps')
+
+<table>
+    <caption class="h1"><span class="secondary-text">You / </span>October</caption>
+    <thead class="hidden">
+        <tr>
+            <th scope=col>Date</th>
+            <th scope=col>Shift</th>
+            <th scope=col>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
+            <td>S1H</td>
+            <td class="secondary-text">You&apos;ve requested a swap</td>
+        </tr>
+        <tr>
+            <td><span class="h3">07</span> <span class="secondary-text">Tuesday</span></td>
+            <td>Swapped with <a href="#">Paul B</a></td>
+            <td class="secondary-text">Waiting authorization</td>
+        </tr>
+    </tbody>
+</table>
+##TODO: extract table into a reusable template as we will be using it multiple times on this page and for timeline page as well
+<table>
+    <caption class="h1"><span class="secondary-text">You / </span>November</caption>
+    <thead class="hidden">
+    <tr>
+        <th scope=col>Date</th>
+        <th scope=col>Shift</th>
+        <th scope=col>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
+        <td>S1H</td>
+        <td class="secondary-text">You&apos;ve requested a swap</td>
+    </tr>
+    <tr>
+        <td><span class="h3">07</span> <span class="secondary-text">Tuesday</span></td>
+        <td>S1H</td>
+        <td class="secondary-text">Waiting authorization</td>
+    </tr>
+    </tbody>
+</table>

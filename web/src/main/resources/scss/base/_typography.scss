@@ -33,14 +33,15 @@ body {
   @include text( $base__font-size, $base__line-height, $color: $text__colour--primary );
 }
 
-h1 {
+h1,
+.h1 {
   @include text( $base__font-size--xlarge, $base__line-height--xlarge, $color: $text__colour--primary, $weight: bold );
   margin: 15px 0;
 }
 
 h3,
 .h3{
-  @include text( $base__font-size--large, $base__line-height--large, $color: $text__colour--primary, $weight: bold );
+  @include text( $base__font-size, $base__line-height, $color: $text__colour--primary, $weight: bold );
   margin: 1em 0;
 }
 
@@ -50,6 +51,11 @@ a {
   &:hover, :focus, :active {
     color: $link__colour--hover;
   }
+}
+
+.secondary-text {
+  color: $text__colour--secondary;
+  font-weight: normal;
 }
 
 .highlight {
