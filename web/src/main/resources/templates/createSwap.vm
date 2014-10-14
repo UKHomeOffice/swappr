@@ -6,9 +6,7 @@
         <legend>Current shift</legend>
         #springBind("swap.validFromDate")
         #if($status.errorMessages)
-            <p class="error">
-                #springShowErrors(" ")
-            </p>
+            #springShowErrors("" "error")
         #end
         <label class="block-label" for="fromDay">
             <span>Day</span>
@@ -31,9 +29,7 @@
         <legend>Swapp shift</legend>
         #springBind("swap.validToDate")
         #if($status.errorMessages)
-            <p class="error">
-                #springShowErrors(" ")
-            </p>
+            #springShowErrors("", "error")
         #end
         <label class="block-label" for="toDay">
             <span>Day</span>

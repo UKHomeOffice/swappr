@@ -9,10 +9,15 @@ form {
   margin-bottom : 15px;
 }
 
-input {
+input,
+select,
+textarea {
   float: left;
   margin-bottom: 15px;
-  outline-color: $background__colour--theme--primary;
+  &:focus {
+    outline: 0;
+    border: 3px solid $background__colour--theme--primary;
+  }
 }
 
 [type='submit'],
@@ -49,7 +54,9 @@ legend {
 label {
   display: block;
   font-weight: bold;
+  clear: both;
   &.block-label {
+    clear: none;
     float: left;
     margin-right: 15px;
     span {
@@ -57,3 +64,9 @@ label {
     }
   }
 }
+
+.error {
+  color: $text__colour--error;
+  display: block;
+}
+

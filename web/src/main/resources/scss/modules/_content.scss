@@ -5,6 +5,6 @@
  */
 
 main {
-  @include gutter();
+  @include gutter($setFullWidth: true);
   display: inline-block;
 }

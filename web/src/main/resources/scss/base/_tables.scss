@@ -1,0 +1,39 @@
+/*
+ * Table styles
+ *
+ * Requires: [colours]
+ */
+
+table {
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+caption {
+  text-align: left;
+}
+
+tbody {
+  border-top: 1px solid $border__colour--dark;
+}
+
+tr {
+  border-bottom: 1px solid $border__colour--dark;
+  &:hover {
+    background-color: $background__colour--theme--hover;
+  }
+}
+
+th,
+td {
+  padding: 20px 5px;
+  &:nth-child(1) {
+    width: 25%;
+  }
+  &:nth-child(2){
+    width: 50%;
+  }
+  &:nth-child(3) {
+    width: 30%;
+  }
+}
