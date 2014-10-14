@@ -75,8 +75,9 @@ tbody td {
     border-right: 0px;
     padding: 15px 0 15px 0;
     margin: 0;
-    cursor: pointer;
+    /* cursor: pointer; */
     font-size: 16px;
+    /* debugging border: 1px solid #f8f8f8; */
 }
 tbody tr {
 	border-top: 1px solid #ccc;
@@ -86,7 +87,8 @@ tbody tr:last-child {
 }
 .row-date {width: 20%; font-weight: bold;}
 .row-shift {width: 40%;}
-.row-request {width: 20%;  color: #9B9B9B;}
+.row-controls {width:10%;}
+.row-request {width: 30%;  color: #9B9B9B;}
 .row-add {width:20%; text-align: right;}
 .row-add img {padding-right: 10px; padding-bottom: 3px;}
 .row-timeline {width:60%;}
@@ -175,6 +177,19 @@ input, select {
     cursor: not-allowed;;
 }
 .button-disabled a {color: #666;}
+.icon-button {
+    /* border: 1px solid #005ea5; */
+    border: 1px solid #9325b2;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.icon-button-disabled {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #fff;
+}
 ul.confirm-dates {
     margin: 0;
     padding: 0;
@@ -219,6 +234,10 @@ blockquote {
 .checkbox {
     font-size: 16px;
     font-weight: 400;
+}
+
+.shiftcode {
+    margin-left: 10px;
 }
 
 footer {
