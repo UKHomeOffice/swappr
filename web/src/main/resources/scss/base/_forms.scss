@@ -9,10 +9,15 @@ form {
   margin-bottom : 15px;
 }
 
-input {
+input,
+select,
+textarea {
   float: left;
   margin-bottom: 15px;
-  outline-color: $background__colour--theme--primary;
+  &:focus {
+    outline: 0;
+    border: 3px solid $background__colour--theme--primary;
+  }
 }
 
 [type='submit'],
