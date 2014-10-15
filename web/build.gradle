@@ -12,6 +12,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-logging")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile mysql
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile hsql
