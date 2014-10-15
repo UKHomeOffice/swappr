@@ -23,7 +23,10 @@ gradlew.bat
 */build
 out/
 build/
-/css
+
+# generated css files
+*.css
+*.css.map
 
 .sass-cache
 .jruby
