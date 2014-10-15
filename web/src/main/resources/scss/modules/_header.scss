@@ -33,11 +33,11 @@ header {
 
   .user-settings {
     background: url(/images/swappr.png) no-repeat;
-    background-position: 55px -129px;
+    background-position: right -129px;
     float: right;
     margin: 16px 0;
     @include gutter(right);
-    padding-right: 30px;
+    padding-right: 35px;
     position: relative;
 
     &:hover {
