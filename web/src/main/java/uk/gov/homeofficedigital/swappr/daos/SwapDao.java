@@ -19,12 +19,12 @@ public class SwapDao {
     }
 
     public void createSwap(Swap swap) {
-        GeneratedKeyHolder holder = new GeneratedKeyHolder(new ArrayList<>(Arrays.asList(new HashMap<String, Object>(){{put("id", Integer.class);}})));
+        GeneratedKeyHolder holder = new GeneratedKeyHolder(new ArrayList<>(Arrays.asList(new HashMap<String, Object>(){{put("id", Long.class);}})));
 
         jdbcTemplate.update("insert into shift (username, shiftType, shiftDate) values (:username, :fromShift, :fromDate)",
                 new MapSqlParameterSource(toMap("username", swap.getUsername(), "fromShift", swap.getFromShift().name(), "fromDate", Date.valueOf(swap.getFromDate()))),
                 holder);
-        int shiftId = (Integer) holder.getKey();
+        int shiftId = holder.getKey().intValue();
 
         jdbcTemplate.update("insert into swap (shiftId, alternateShiftType, alternateShiftDate, status) values (:shiftId, :alternateShiftType, :alternateShiftDate, 'Offered')",
                 toMap("shiftId", shiftId, "alternateShiftDate", Date.valueOf(swap.getToDate()), "alternateShiftType", swap.getToShift().name()));
