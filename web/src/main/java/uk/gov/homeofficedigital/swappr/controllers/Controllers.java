@@ -11,6 +11,10 @@ import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
 import uk.gov.homeofficedigital.swappr.daos.HomeDao;
 import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
+import uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class Controllers extends WebMvcConfigurerAdapter {
@@ -24,6 +28,9 @@ public class Controllers extends WebMvcConfigurerAdapter {
             }
         };
         velocityProperties.applyToViewResolver(velocityLayoutViewResolver);
+        Map<String, Object> attrs = new HashMap<>();
+        attrs.put("sec", new VelocitySecurityHelper());
+        velocityLayoutViewResolver.setAttributesMap(attrs);
         return velocityLayoutViewResolver;
     }
 
