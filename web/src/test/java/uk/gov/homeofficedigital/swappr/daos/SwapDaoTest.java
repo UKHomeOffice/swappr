@@ -1,54 +1,20 @@
 package uk.gov.homeofficedigital.swappr.daos;
 
-import org.hsqldb.jdbc.JDBCDataSource;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class SwapDaoTest {
+public class SwapDaoTest extends SpringIntegrationTest {
 
-
+    @Autowired
     private SwapDao swapDao;
-    private JDBCDataSource ds;
-    private JdbcTemplate template;
-
-    @Before
-    public void setUp() throws Exception {
-        ds = new JDBCDataSource();
-        ds.setUrl("jdbc:hsqldb:mem:noddydb");
-        ds.setUser("SA");
-
-        template = new JdbcTemplate(ds);
-        executeScript("/schema.sql");
-        executeScript("/seed.sql");
-
-        swapDao = new SwapDao(new NamedParameterJdbcTemplate(ds));
-    }
-
-    private void executeScript(String classpathOfScript) {
-        InputStream inputStream = SwapDaoTest.class.getResourceAsStream(classpathOfScript);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String sql = reader.lines().collect(Collectors.joining("\n"));
-        template.execute(sql);
-    }
-
-    @After
-    public void tearDown() {
-        template.execute("drop schema public cascade");
-    }
 
     @Test
     public void createSwap_shouldPersistTheSwapInstance() throws Exception {
