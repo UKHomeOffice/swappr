@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
+import uk.gov.homeofficedigital.swappr.model.Role;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
     @Test
     public void loggedInUserShouldReturnUserWhenLoggedIn() {
 
-        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority("MYROLE")));
+        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
         login(user);
 
         assertThat(sec.loggedInUser().get(), equalTo(user));
@@ -39,11 +40,11 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
 
     @Test
     public void hasAuthorityShouldTestForAuthorityName() {
-        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority("AROLE")));
+        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority(Role.ADMIN.name())));
         login(user);
 
-        assertThat(sec.hasAuthority("AROLE"), equalTo(true));
-        assertThat(sec.hasAuthority("NOTTHISONE"), equalTo(false));
+        assertThat(sec.hasAuthority(Role.ADMIN), equalTo(true));
+        assertThat(sec.hasAuthority(Role.USER), equalTo(false));
     }
 
 
