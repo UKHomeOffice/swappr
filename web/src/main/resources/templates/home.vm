@@ -1,32 +1,32 @@
 #set($pageTitle = 'My swaps')
 
 #foreach($month in $months)
-<table>
-    <caption class="h1"><span class="secondary-text">You / </span>$month</caption>
-    <thead class="hidden">
-        <tr>
-            <th scope=col class="table__cell--date">Date</th>
-            <th scope=col class="table__cell--action">Action</th>
-            <th scope=col class="table__cell--shift">Shift</th>
-            <th scope=col class="table__cell--status">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        #if(!$swaps[$month])
-        <tr>
-            <td colspan="4">No swaps</td>
-        </tr>
-        #end
-        #foreach($swap in $swaps[$month])
-        <tr>
-            <td class="table__cell--date"><span class="h3">$swap.fromDate.dayOfMonth</span> <span class="secondary-text">$display.day($swap.fromDate)</span></td>
-            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
-            <td class="table__cell--shift">$swap.fromShift</td>
-            <td class="secondary-text table__cell--status">Waiting for offers</td>
-        </tr>
-        #end
-    </tbody>
-</table>
+    <table>
+        <caption class="h1"><span class="secondary-text">You / </span>$month</caption>
+        <thead class="hidden">
+            <tr>
+                <th scope=col class="table__cell--date">Date</th>
+                <th scope=col class="table__cell--action">Action</th>
+                <th scope=col class="table__cell--shift">Shift</th>
+                <th scope=col class="table__cell--status">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            #if(!$swaps[$month])
+            <tr>
+                <td colspan="4">No swaps</td>
+            </tr>
+            #end
+            #foreach($swap in $swaps[$month])
+            <tr>
+                <td class="table__cell--date"><span class="h3">$swap.fromDate.dayOfMonth</span> <span class="secondary-text">$display.day($swap.fromDate)</span></td>
+                <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
+                <td class="table__cell--shift">$swap.fromShift</td>
+                <td class="secondary-text table__cell--status">Waiting for offers</td>
+            </tr>
+            #end
+        </tbody>
+    </table>
 #end
 <!--  <tr>
             <td class="table__cell--date"><span class="h3">03</span> <span class="secondary-text">Friday</span></td>

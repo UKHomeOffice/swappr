@@ -8,7 +8,6 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
-import uk.gov.homeofficedigital.swappr.daos.HomeDao;
 import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
 

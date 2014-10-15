@@ -1,15 +1,15 @@
 package uk.gov.homeofficedigital.swappr.daos;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SwapDao {
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -19,28 +19,37 @@ public class SwapDao {
     }
 
     public void createSwap(Swap swap) {
-        Map<String, Object> args = new HashMap<>();
-        args.put("username", swap.getUsername());
-        args.put("fromDate", Date.valueOf(swap.getFromDate()));
-        args.put("fromShift", swap.getFromShift().name());
-        args.put("toDate", Date.valueOf(swap.getToDate()));
-        args.put("toShift", swap.getToShift().name());
+        GeneratedKeyHolder holder = new GeneratedKeyHolder(new ArrayList<>(Arrays.asList(new HashMap<String, Object>(){{put("id", Integer.class);}})));
 
-        jdbcTemplate.update("insert into swap (username, fromDate, fromShift, toDate, toShift) values (:username, :fromDate, :fromShift, :toDate, :toShift)", args);
+        jdbcTemplate.update("insert into shift (username, shiftType, shiftDate) values (:username, :fromShift, :fromDate)",
+                new MapSqlParameterSource(toMap("username", swap.getUsername(), "fromShift", swap.getFromShift().name(), "fromDate", Date.valueOf(swap.getFromDate()))),
+                holder);
+        int shiftId = (Integer) holder.getKey();
+
+        jdbcTemplate.update("insert into swap (shiftId, alternateShiftType, alternateShiftDate, status) values (:shiftId, :alternateShiftType, :alternateShiftDate, 'Offered')",
+                toMap("shiftId", shiftId, "alternateShiftDate", Date.valueOf(swap.getToDate()), "alternateShiftType", swap.getToShift().name()));
+    }
+
+    private Map<String, Object> toMap(Object... args) {
+        Map<String, Object> map = new HashMap<>();
+        for(int i = 0; i < args.length; i+= 2) {
+            map.put((String) args[i], args[i+1]);
+        }
+        return map;
     }
 
     public List<Swap> findSwapsForUser(String username) {
         Map<String, Object> args = new HashMap<>();
         args.put("username", username);
-        String sql = "select * from swap where username = :username";
+        String sql = "select * from swap s, shift h where h.username = :username and s.shiftId = h.id";
         return jdbcTemplate.query(sql, args, this::mapSwap);
     }
 
     private Swap mapSwap(ResultSet rs, int row) throws SQLException {
         return new Swap(rs.getString("username"),
-                rs.getDate("fromDate").toLocalDate(),
-                ShiftType.valueOf(rs.getString("fromShift")),
-                rs.getDate("toDate").toLocalDate(),
-                ShiftType.valueOf(rs.getString("toShift")));
+                rs.getDate("shiftDate").toLocalDate(),
+                ShiftType.valueOf(rs.getString("shiftType")),
+                rs.getDate("alternateShiftDate").toLocalDate(),
+                ShiftType.valueOf(rs.getString("alternateShiftType")));
     }
 }

@@ -24,13 +24,23 @@ create table persistent_logins (
     last_used timestamp not null
 ) engine = InnoDb;
 
+create table shift (
+  id int UNSIGNED NOT NULL AUTO_INCREMENT,
+  username varchar(50) not null,
+  shiftType varchar(50) not null,
+  shiftDate date not null,
+  primary key (id),
+  foreign key (username) references users (username)
+) engine = InnoDb;
+
 create table swap (
   id int UNSIGNED NOT NULL AUTO_INCREMENT,
-  username varchar(250) not null,
-  fromDate date not null,
-  fromShift varchar(50) not null,
-  toDate date not null,
-  toShift varchar(50) not null,
-  PRIMARY KEY(id),
-  foreign key (username) references users (username)
+  shiftId int not null,
+  alternateShiftDate date not null,
+  alternateShiftType varchar(50) not null,
+  status varchar(50) not null,
+  relatedSwapId int,
+  primary key (id),
+  foreign key (shiftId) references shift (id),
+  foreign key (relatedSwapId) references swap(id)
 ) engine = InnoDb;
