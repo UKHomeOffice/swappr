@@ -3,8 +3,6 @@ package uk.gov.homeofficedigital.swappr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import uk.gov.homeofficedigital.swappr.model.Role;
 
 import javax.sql.DataSource;
 
@@ -53,7 +52,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN", "USER");
+            auth.inMemoryAuthentication().withUser("admin").password("admin").authorities(Role.USER.name(), Role.ADMIN.name());
             auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder);
         }
     }

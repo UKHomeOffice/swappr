@@ -4,7 +4,7 @@
 #if($sec.loggedInUser().isPresent())
     <div class="user-settings">${sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span>
         <ul class="user-settings__list">
-            #if($sec.hasAuthority("ROLE_ADMIN"))
+            #if($sec.isAdmin())
                 <li class="user-settings__list-item"><a href="#">Admin</a></li>
             #end
             <li class="user-settings__list-item"><a href="/logout">Logout</a></li>
