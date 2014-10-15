@@ -35,11 +35,11 @@ create table shift (
 
 create table swap (
   id int UNSIGNED NOT NULL AUTO_INCREMENT,
-  shiftId int not null,
+  shiftId int unsigned not null,
   alternateShiftDate date not null,
   alternateShiftType varchar(50) not null,
   status varchar(50) not null,
-  relatedSwapId int,
+  relatedSwapId int unsigned,
   primary key (id),
   foreign key (shiftId) references shift (id),
   foreign key (relatedSwapId) references swap(id)
