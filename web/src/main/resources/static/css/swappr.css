@@ -449,21 +449,13 @@ textarea {
     outline: 0;
     border: 3px solid #9325b2; }
 
-[type='submit'],
-button,
-.button {
-  font-size: 1em;
-  line-height: 2.5;
-  font-family: sans-serif;
-  font-weight: bold;
-  color: #2e8aca;
-  background-color: #f8f8f8;
-  border: 1px solid #9325b2;
-  border-radius: 6px;
-  clear: both;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0 1.75em; }
+.input--two-digit {
+  text-align: center;
+  width: 2em; }
+
+.input--four-digit {
+  text-align: center;
+  width: 3em; }
 
 fieldset {
   background: #f8f8f8;
@@ -513,15 +505,62 @@ tr {
 th,
 td {
   padding: 20px 5px; }
-  th:nth-child(1),
-  td:nth-child(1) {
-    width: 25%; }
-  th:nth-child(2),
-  td:nth-child(2) {
-    width: 50%; }
-  th:nth-child(3),
-  td:nth-child(3) {
+  th.table__cell--date,
+  td.table__cell--date {
+    width: 20%; }
+  th.table__cell--action,
+  td.table__cell--action {
+    width: 10%; }
+  th.table__cell--shift,
+  td.table__cell--shift {
+    width: 40%; }
+  th.table__cell--status,
+  td.table__cell--status {
     width: 30%; }
+
+/*
+ * Form styles
+ *
+ * Requires: [conditionals, colours, typography]
+ */
+.submit-button {
+  font-size: 1em;
+  line-height: 2.5;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #2e8aca;
+  background-color: #f8f8f8;
+  border: 1px solid #9325b2;
+  border-radius: 6px;
+  clear: both;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 1.75em; }
+
+.action-button, .action-button--disabled {
+  background: transparent url(/images/swappr.png) no-repeat top left;
+  border: 1px solid #9325b2;
+  border-radius: 50%;
+  display: block;
+  width: 26px;
+  padding: 26px 0 0 0;
+  height: 0;
+  overflow: hidden; }
+
+.action-button--disabled {
+  border: 1px solid #cccccc; }
+
+.action-button--swap {
+  background-position: 5px -917px; }
+
+.action-button--swapped {
+  background-position: 5px -854px; }
+
+.action-button--wait {
+  background-position: 5px -791px; }
+
+.action-button--add {
+  background-position: 5px -982px; }
 
 .sprite-checkmark {
   background-position: 0 0;
@@ -648,6 +687,6 @@ footer {
   margin: 0 10%; }
   .footer__inner .strapline {
     float: right;
-    margin-top: 120px; }
+    margin-top: 15%; }
 
 /*# sourceMappingURL=swappr.css.map */

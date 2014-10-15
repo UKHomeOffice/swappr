@@ -1,47 +1,39 @@
 #set($pageTitle = 'My swaps')
-
+##TODO: extract table into a reusable template as we will be using it multiple times on this page and for timeline page as well
 <table>
     <caption class="h1"><span class="secondary-text">You / </span>October</caption>
     <thead class="hidden">
         <tr>
-            <th scope=col>Date</th>
-            <th scope=col>Shift</th>
-            <th scope=col>Status</th>
+            <th scope=col class="table__cell--date">Date</th>
+            <th scope=col class="table__cell--action">Action</th>
+            <th scope=col class="table__cell--shift">Shift</th>
+            <th scope=col class="table__cell--status">Status</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
-            <td>S1H</td>
-            <td class="secondary-text">You&apos;ve requested a swap</td>
+            <td class="table__cell--date"><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
+            <td class="table__cell--action"><a href="/swap" class="action-button action-button--swap" title="Request swap">Request swap</a></td>
+            <td class="table__cell--shift">S1H</td>
+            <td class="secondary-text table__cell--status"></td>
         </tr>
         <tr>
-            <td><span class="h3">07</span> <span class="secondary-text">Tuesday</span></td>
-            <td>Swapped with <a href="#">Paul B</a></td>
-            <td class="secondary-text">Waiting authorization</td>
+            <td class="table__cell--date"><span class="h3">17</span> <span class="secondary-text">Tuesday</span></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
+            <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
+            <td class="secondary-text table__cell--status">Waiting authorization</td>
         </tr>
-    </tbody>
-</table>
-##TODO: extract table into a reusable template as we will be using it multiple times on this page and for timeline page as well
-<table>
-    <caption class="h1"><span class="secondary-text">You / </span>November</caption>
-    <thead class="hidden">
-    <tr>
-        <th scope=col>Date</th>
-        <th scope=col>Shift</th>
-        <th scope=col>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
-        <td>S1H</td>
-        <td class="secondary-text">You&apos;ve requested a swap</td>
-    </tr>
-    <tr>
-        <td><span class="h3">07</span> <span class="secondary-text">Tuesday</span></td>
-        <td>S1H</td>
-        <td class="secondary-text">Waiting authorization</td>
-    </tr>
+        <tr>
+            <td class="table__cell--date"><span class="h3">27</span> <span class="secondary-text">Tuesday</span></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span></td>
+            <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
+            <td class="secondary-text table__cell--status">Confirmed</td>
+        </tr>
+        <tr>
+            <td><span class="h3 table__cell--date">28</span> <span class="secondary-text">Tuesday</span></td>
+            <td class="table__cell--action"><a href="#" class="action-button action-button--add" title="Add shift">Add shift</a></td>
+            <td class="table__cell--shift"></td>
+            <td class="secondary-text table__cell--status"></td>
+        </tr>
     </tbody>
 </table>
