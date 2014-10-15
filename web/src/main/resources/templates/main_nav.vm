@@ -2,7 +2,7 @@
     <!-- Menu bar -->
     <ul class="d2-d4 t2-t6 m1-m2 menubar">
         <li class="menubar__item">
-            <a href="./" class="sprite-user selected"><span class="m-hide">You</span></a>
+            <a href="/" class="sprite-user selected"><span class="m-hide">You</span></a>
         </li>
         <li class="menubar__item">
             <a href="./timeline.html" class="sprite-users"><span class="m-hide">Timeline</span></a>
