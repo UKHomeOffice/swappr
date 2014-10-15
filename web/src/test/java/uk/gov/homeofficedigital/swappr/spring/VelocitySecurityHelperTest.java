@@ -37,6 +37,16 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
         assertThat(sec.loggedInUser().get(), equalTo(user));
     }
 
+    @Test
+    public void hasAuthorityShouldTestForAuthorityName() {
+        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority("AROLE")));
+        login(user);
+
+        assertThat(sec.hasAuthority("AROLE"), equalTo(true));
+        assertThat(sec.hasAuthority("NOTTHISONE"), equalTo(false));
+    }
+
+
     private void login(User user) {
         Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);

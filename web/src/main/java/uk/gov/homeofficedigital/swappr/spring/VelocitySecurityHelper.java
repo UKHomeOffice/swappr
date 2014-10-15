@@ -17,4 +17,10 @@ public class VelocitySecurityHelper {
         });
 
     }
+
+    public boolean hasAuthority(final String authority) {
+        return loggedInUser()
+                .map(u -> u.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals(authority)))
+                .orElse(false);
+    }
 }

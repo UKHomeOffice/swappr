@@ -2,9 +2,9 @@
     <h1 class="header__logo">Swappr.<span class="phase-tag">alpha</span></h1>
 
 #if($sec.loggedInUser().isPresent())
-    <div class="user-settings">#{$sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span>
+    <div class="user-settings">${sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span>
         <ul class="user-settings__list">
-            #if($sec.loggedInUser().get().getAuthorities().contains("ADMIN"))
+            #if($sec.hasAuthority("ROLE_ADMIN"))
                 <li class="user-settings__list-item"><a href="#">Admin</a></li>
             #end
             <li class="user-settings__list-item"><a href="/logout">Logout</a></li>
