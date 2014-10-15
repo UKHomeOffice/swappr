@@ -1,11 +1,18 @@
 <div class="header__banner">
     <h1 class="header__logo">Swappr.<span class="phase-tag">alpha</span></h1>
 
-##  TODO: if logged in
-    <a href="#" class="user-settings">Jane King<span class="hidden"> Settings</span></a>
-##  endif
+#if($sec.loggedInUser().isPresent())
+    <div class="user-settings">${sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span>
+        <ul class="user-settings__list">
+            #if($sec.isAdmin())
+                <li class="user-settings__list-item"><a href="#">Admin</a></li>
+            #end
+            <li class="user-settings__list-item"><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+#end
 </div>
 
-##  TODO: if logged in
-#parse('main_nav.vm')
-##  endif
+#if($sec.loggedInUser().isPresent())
+    #parse('main_nav.vm')
+#end

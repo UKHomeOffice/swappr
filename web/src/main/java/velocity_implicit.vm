@@ -1,0 +1,2 @@
+#* @implicitly included *#
+#* @vtlvariable name="sec" type="uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper" *#

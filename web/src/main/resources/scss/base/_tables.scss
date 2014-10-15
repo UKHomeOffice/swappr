@@ -19,6 +19,7 @@ tbody {
 
 tr {
   border-bottom: 1px solid $border__colour--dark;
+
   &:hover {
     background-color: $background__colour--theme--hover;
   }
@@ -31,12 +32,15 @@ td {
   &.table__cell--date {
     width: 20%;
   }
+
   &.table__cell--action {
     width: 10%;
   }
+
   &.table__cell--shift {
     width: 40%;
   }
+
   &.table__cell--status  {
     width: 30%;
   }

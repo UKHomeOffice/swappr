@@ -25,16 +25,43 @@ header {
     @include gutter(left);
     float: left;
   }
+
   .phase-tag {
     color: $text__colour--theme;
     font-weight: normal;
   }
+
   .user-settings {
     background: url(/images/swappr.png) no-repeat;
-    background-position: 85px -128px;
+    background-position: 55px -129px;
     float: right;
     margin: 16px 0;
     @include gutter(right);
     padding-right: 30px;
+    position: relative;
+
+    &:hover {
+      .user-settings__list {
+        display: block;
+      }
+    }
+  }
+
+  .user-settings__list {
+    background-color: $background__colour--theme--secondary;
+    display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: right;
+    width: 100%;
+  }
+
+  .user-settings__list-item {
+    a {
+      display: block;
+      padding-right: 30px;
+    }
   }
 }
