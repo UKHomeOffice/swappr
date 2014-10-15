@@ -24,7 +24,7 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public HomeController home(HomeDao dao) {
+    public HomeController home(SwapDao dao) {
         return new HomeController(dao);
     }
 

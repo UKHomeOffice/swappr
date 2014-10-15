@@ -18,9 +18,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import uk.gov.homeofficedigital.swappr.daos.HomeDao;
 import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.model.Swap;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.mock;
@@ -83,16 +85,6 @@ public class MappingTest {
     public static class DummyDAOs {
 
         @Bean
-        public HomeDao homeDao(NamedParameterJdbcTemplate jdbcTemplate) {
-            return new HomeDao(jdbcTemplate) {
-                @Override
-                public String name() {
-                    return "Jonnie";
-                }
-            };
-        }
-
-        @Bean
         public SwapDao swapDao(NamedParameterJdbcTemplate jdbcTemplate) {
 
             return new SwapDao(jdbcTemplate) {
@@ -100,8 +92,15 @@ public class MappingTest {
                 public void createSwap(Swap swap) {
                     // do nothing
                 }
+
+                @Override
+                public List<Swap> findSwapsForUser(String username) {
+                    return Collections.emptyList();
+                }
             };
         }
+
+
 
         @Bean
         public JdbcUserDetailsManager userManager() {
