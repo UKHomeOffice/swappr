@@ -5,7 +5,7 @@
     <div class="user-settings">${sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span>
         <ul class="user-settings__list">
             #if($sec.isAdmin())
-                <li class="user-settings__list-item"><a href="#">Admin</a></li>
+                <li class="user-settings__list-item"><a href="/admin/users">Admin</a></li>
             #end
             <li class="user-settings__list-item"><a href="/logout">Logout</a></li>
         </ul>
