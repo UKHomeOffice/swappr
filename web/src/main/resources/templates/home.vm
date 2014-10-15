@@ -2,27 +2,53 @@
 
 #foreach($month in $months)
 <table>
-    <caption class="h1"><span class="secondary-text">You / </span>$month <a href="/swap">create swap</a></caption>
+    <caption class="h1"><span class="secondary-text">You / </span>$month</caption>
     <thead class="hidden">
-    <tr>
-        <th scope=col>Date</th>
-        <th scope=col>Shift</th>
-        <th scope=col>Status</th>
-    </tr>
+        <tr>
+            <th scope=col class="table__cell--date">Date</th>
+            <th scope=col class="table__cell--action">Action</th>
+            <th scope=col class="table__cell--shift">Shift</th>
+            <th scope=col class="table__cell--status">Status</th>
+        </tr>
     </thead>
     <tbody>
-    #if(!$swaps[$month])
+        #if(!$swaps[$month])
         <tr>
-            <td colspan="3">No swaps</td>
+            <td colspan="4">No swaps</td>
         </tr>
-    #end
-    #foreach($swap in $swaps[$month])
-    <tr>
-        <td><span class="h3">$swap.fromDate.dayOfMonth</span> <span class="secondary-text">$display.day($swap.fromDate)</span></td>
-        <td>$swap.fromShift</td>
-        <td class="secondary-text">You&apos;ve requested a swap</td>
-    </tr>
-    #end
+        #end
+        #foreach($swap in $swaps[$month])
+        <tr>
+            <td class="table__cell--date"><span class="h3">$swap.fromDate.dayOfMonth</span> <span class="secondary-text">$display.day($swap.fromDate)</span></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
+            <td class="table__cell--shift">$swap.fromShift</td>
+            <td class="secondary-text table__cell--status">Waiting for offers</td>
+        </tr>
+        #end
     </tbody>
 </table>
 #end
+<!--  <tr>
+            <td class="table__cell--date"><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
+            <td class="table__cell--action"><a href="/swap" class="action-button action-button--swap" title="Request swap">Request swap</a></td>
+            <td class="table__cell--shift">S1H</td>
+            <td class="secondary-text table__cell--status"></td>
+        </tr>
+        <tr>
+            <td class="table__cell--date"><span class="h3">17</span> <span class="secondary-text">Tuesday</span></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
+            <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
+            <td class="secondary-text table__cell--status">Waiting authorization</td>
+        </tr>
+        <tr>
+            <td class="table__cell--date"><span class="h3">27</span> <span class="secondary-text">Tuesday</span></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span></td>
+            <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
+            <td class="secondary-text table__cell--status">Confirmed</td>
+        </tr>
+        <tr>
+            <td><span class="h3 table__cell--date">28</span> <span class="secondary-text">Tuesday</span></td>
+            <td class="table__cell--action"><a href="#" class="action-button action-button--add" title="Add shift">Add shift</a></td>
+            <td class="table__cell--shift"></td>
+            <td class="secondary-text table__cell--status"></td>
+        </tr> -->

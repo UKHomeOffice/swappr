@@ -20,22 +20,14 @@ textarea {
   }
 }
 
-[type='submit'],
-button,
-.button {
-  @include text($base__font-size, 40, $color: $link__colour--hover, $weight: bold);
-  background-color: $background__colour--theme--secondary;
-  border: 1px solid $background__colour--theme--primary;
-  border-radius: 6px;
-  clear: both;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0 1.75em;
+.input--two-digit {
+  text-align: center;
+  width: 2em;
+}
 
-  @include ie-lte(7) {
-    display: inline;
-    zoom: 1;
-  }
+.input--four-digit {
+  text-align: center;
+  width: 3em;
 }
 
 fieldset {

@@ -27,13 +27,17 @@ tr {
 th,
 td {
   padding: 20px 5px;
-  &:nth-child(1) {
-    width: 25%;
+
+  &.table__cell--date {
+    width: 20%;
   }
-  &:nth-child(2){
-    width: 50%;
+  &.table__cell--action {
+    width: 10%;
   }
-  &:nth-child(3) {
+  &.table__cell--shift {
+    width: 40%;
+  }
+  &.table__cell--status  {
     width: 30%;
   }
 }

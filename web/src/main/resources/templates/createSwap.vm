@@ -10,15 +10,15 @@
         #end
         <label class="block-label" for="fromDay">
             <span>Day</span>
-            #springFormInput("swap.fromDay")
+            #springFormInput("swap.fromDay" "class='input--two-digit'")
         </label>
         <label class="block-label" for="fromMonth">
             <span>Month</span>
-            #springFormInput("swap.fromMonth")
+            #springFormInput("swap.fromMonth" "class='input--two-digit'")
         </label>
         <label class="block-label" for="fromYear">
             <span>Year</span>
-            #springFormInput("swap.fromYear")
+            #springFormInput("swap.fromYear" "class='input--four-digit'")
         </label>
         <label class="block-label" for="fromShiftType">
             <span>Shift</span>
@@ -33,22 +33,20 @@
         #end
         <label class="block-label" for="toDay">
             <span>Day</span>
-            #springFormInput("swap.toDay")
+            #springFormInput("swap.toDay" "class='input--two-digit'")
         </label>
         <label class="block-label" for="toMonth">
             <span>Month</span>
-            #springFormInput("swap.toMonth")
+            #springFormInput("swap.toMonth" "class='input--two-digit'")
         </label>
         <label class="block-label" for="toYear">
             <span>Year</span>
-            #springFormInput("swap.toYear")
+            #springFormInput("swap.toYear" "class='input--four-digit'")
         </label>
         <label class="block-label" for="toShiftType">
             <span>Shift</span>
             #springFormSingleSelect("swap.toShiftType", ${shifts})
         </label>
     </fieldset>
-    <p>
-        <input type="submit" value="submit"/>
-    </p>
+    <input class="submit-button" type="submit" value="submit"/>
 </form>
