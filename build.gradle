@@ -12,6 +12,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.M1")
         classpath 'org.gradle.plugins:gradle-compass:1.0.7'
         classpath 'com.bluepapa32:gradle-watch-plugin:0.1.3'
+        classpath("org.ajoberstar:gradle-git:0.9.0")
     }
 }
 

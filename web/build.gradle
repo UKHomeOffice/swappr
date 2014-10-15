@@ -51,3 +51,22 @@ watch {
         tasks 'processResources'
     }
 }
+
+classes.doLast {
+    def repo = org.ajoberstar.grgit.Grgit.open(project.file('../'))
+
+    def gitFile = new File(project.buildDir, "resources/main/git.properties")
+    gitFile.createNewFile()
+    def map = ["git.branch" : repo.branch.current.name,
+               "git.commit.id" : repo.head().id,
+               "git.commit.id.abbrev" : repo.head().abbreviatedId,
+               "git.commit.user.name" : repo.head().author.name,
+               "git.commit.user.email" : repo.head().author.email,
+               "git.commit.message.short" : repo.head().shortMessage,
+               "git.commit.message.full" : repo.head().fullMessage,
+               "git.commit.time" : repo.head().time.toString()]
+    def props = new Properties()
+    props.putAll(map)
+    props.store(gitFile.newWriter(), "")
+
+}
