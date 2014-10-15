@@ -622,6 +622,21 @@ header {
     float: right;
     margin: 16px 0;
     margin-right: 10%;
+    padding-right: 30px;
+    position: relative; }
+    .header__banner .user-settings:hover .user-settings__list {
+      display: block; }
+  .header__banner .user-settings__list {
+    background-color: #f8f8f8;
+    display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: right;
+    width: 100%; }
+  .header__banner .user-settings__list-item a {
+    display: block;
     padding-right: 30px; }
 
 /*

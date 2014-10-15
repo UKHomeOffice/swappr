@@ -2,7 +2,13 @@
     <h1 class="header__logo">Swappr.<span class="phase-tag">alpha</span></h1>
 
 ##  TODO: if logged in
-    <a href="#" class="user-settings">Jane King<span class="hidden"> Settings</span></a>
+    <div class="user-settings">Jane King<span class="hidden"> Settings</span>
+        <ul class="user-settings__list">
+##  TODO if admin
+            <li class="user-settings__list-item"><a href="#">Admin</a></li>
+            <li class="user-settings__list-item"><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
 ##  endif
 </div>
 
