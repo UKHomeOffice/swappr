@@ -19,7 +19,18 @@ header {
   @extend %contain-floats;
   background-color: $background__colour--theme--secondary;
   border-top: 3px solid $background__colour--theme--primary;
-  margin-bottom: 50px;
+
+  @include media(mobile){
+    margin-bottom: 1%;
+  }
+
+  @include media(tablet){
+    margin-bottom: 2%;
+  }
+
+  @include media(desktop){
+    margin-bottom: 4%;
+  }
 
   .header__logo {
     @include gutter(left);
