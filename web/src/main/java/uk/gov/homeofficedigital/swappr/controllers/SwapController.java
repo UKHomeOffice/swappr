@@ -63,7 +63,7 @@ public class SwapController {
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public String showSwap(Model model, @PathVariable int id) {
+    public String showSwap(Model model, @PathVariable Long id) {
         model.addAttribute("swap", swapService.loadSwap(id));
         return "showSwap";
     }

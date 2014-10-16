@@ -83,10 +83,10 @@ public class SwapControllerTest {
     @Test
     public void showSwap_shouldDisplayTheSelectedSwap_givenAValidSwapId() throws Exception {
         Swap swap = make(a(SwapMaker.Swap, with(SwapMaker.id, 1003L)));
-        when(swapService.loadSwap(1003)).thenReturn(swap);
+        when(swapService.loadSwap(1003l)).thenReturn(swap);
         ExtendedModelMap model = new ExtendedModelMap();
 
-        String viewName = controller.showSwap(model, 1003);
+        String viewName = controller.showSwap(model, 1003l);
 
         assertEquals("showSwap", viewName);
         assertTrue(model.containsAttribute("swap"));

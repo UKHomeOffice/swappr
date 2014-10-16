@@ -63,7 +63,9 @@ public class SwapDao {
                 ShiftType.valueOf(rs.getString("shiftType")),
                 rs.getDate("alternateShiftDate").toLocalDate(),
                 ShiftType.valueOf(rs.getString("alternateShiftType")),
-                SwapStatus.valueOf(rs.getString("status")));
+                SwapStatus.valueOf(rs.getString("status")),
+                new ArrayList<Swap>()
+                );
     }
 
     public List<Swap> findAllSwaps() {
