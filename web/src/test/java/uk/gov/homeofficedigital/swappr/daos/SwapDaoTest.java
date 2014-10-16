@@ -17,11 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
+import static uk.gov.homeofficedigital.swappr.model.SwapStatus.*;
 
 public class SwapDaoTest extends SpringIntegrationTest {
 
@@ -34,7 +33,7 @@ public class SwapDaoTest extends SpringIntegrationTest {
     @Test
     public void createSwap_shouldPersistTheSwapInstance() throws Exception {
         User user = createUser();
-        Swap swap = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, SwapStatus.PROPOSED);
+        Swap swap = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
 
         swapDao.createSwap(swap);
 
@@ -53,8 +52,8 @@ public class SwapDaoTest extends SpringIntegrationTest {
     @Test
     public void updatingStatusShouldOnlyAffectTheGivenSwap() throws Exception {
         User user = createUser();
-        Swap first = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, SwapStatus.PROPOSED);
-        Swap second = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(3), ShiftType.Lates, SwapStatus.ACCEPTED);
+        Swap first = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
+        Swap second = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(3), ShiftType.Lates, ACCEPTED);
 
         swapDao.createSwap(first);
         swapDao.createSwap(second);
@@ -62,17 +61,17 @@ public class SwapDaoTest extends SpringIntegrationTest {
         List<Swap> savedSwaps = swapDao.findSwapsForUser(user.getUsername());
         assertThat(savedSwaps, hasSize(2));
 
-        Swap proposed = savedSwaps.stream().filter(s -> s.getStatus() == SwapStatus.PROPOSED).findFirst().get();
+        Swap proposed = savedSwaps.stream().filter(withStatus(PROPOSED)).findFirst().get();
 
-        swapDao.updateSwapStatus(proposed.getId(), SwapStatus.DENIED);
+        swapDao.updateSwapStatus(proposed.getId(), DENIED);
 
         List<Swap> updatedSwaps = swapDao.findSwapsForUser(user.getUsername());
 
         assertThat(updatedSwaps, hasSize(2));
 
-        assertThat(updatedSwaps.stream().filter(withStatus(SwapStatus.ACCEPTED)).count(), equalTo(1l));
-        assertThat(updatedSwaps.stream().filter(withStatus(SwapStatus.DENIED)).count(), equalTo(1l));
-        assertThat(updatedSwaps.stream().filter(withStatus(SwapStatus.PROPOSED)).count(), equalTo(0l));
+        assertThat(updatedSwaps.stream().filter(withStatus(ACCEPTED)).toArray(), arrayWithSize(1));
+        assertThat(updatedSwaps.stream().filter(withStatus(DENIED)).toArray(), arrayWithSize(1));
+        assertThat(updatedSwaps.stream().filter(withStatus(PROPOSED)).toArray(), arrayWithSize(0));
     }
 
     private User createUser() {
