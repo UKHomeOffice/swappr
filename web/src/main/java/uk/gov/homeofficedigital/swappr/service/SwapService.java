@@ -44,7 +44,7 @@ public class SwapService {
 
     }
 
-    public Swap loadSwap(int id) {
+    public Swap loadSwap(Long id) {
         return swapDao.loadSwap(id).orElseThrow(() -> new IllegalArgumentException("not a valid ID"));
     }
 }
