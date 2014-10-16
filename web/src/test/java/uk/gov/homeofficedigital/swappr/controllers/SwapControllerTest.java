@@ -15,8 +15,7 @@ import uk.gov.homeofficedigital.swappr.model.Swap;
 import java.time.LocalDate;
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class SwapControllerTest {
@@ -31,10 +30,11 @@ public class SwapControllerTest {
 
         assertEquals("createSwap", viewName);
         assertNotNull(model.containsAttribute("swap"));
+        assertTrue(model.containsAttribute("shifts"));
     }
 
     @Test
-    public void create_shouldCreateASwap_givenAValidSwapForm() throws Exception {
+    public void add_shouldCreateASwap_givenAValidSwapForm() throws Exception {
         SwapForm swapForm = new SwapForm();
         swapForm.setFromDay(10);
         swapForm.setFromMonth(7);
@@ -60,5 +60,26 @@ public class SwapControllerTest {
         assertEquals(LocalDate.parse("2014-08-11"), actual.getToDate());
         assertEquals(ShiftType.Lates, actual.getToShift());
         assertEquals("redirect:/", target);
+    }
+
+    @Test
+    public void add_shouldRedisplayCreateSwap_givenAnInvalidSwap() throws Exception {
+        SwapForm swapForm = new SwapForm();
+        swapForm.setFromDay(10);
+        swapForm.setFromMonth(14); // invalid month
+        swapForm.setFromYear(2013);
+        swapForm.setFromShiftType(ShiftType.Earlies);
+        swapForm.setToDay(11);
+        swapForm.setToMonth(8);
+        swapForm.setToYear(2014);
+        swapForm.setToShiftType(ShiftType.Lates);
+
+        UsernamePasswordAuthenticationToken principal = mock(UsernamePasswordAuthenticationToken.class);
+        when(principal.getPrincipal()).thenReturn(new User("Trevor", "its a secret", Collections.emptyList()));
+        BeanPropertyBindingResult binding = new BeanPropertyBindingResult(swapForm, "swap");
+        binding.rejectValue("toMonth", "broke");
+        String target = controller.add(swapForm, binding, principal);
+
+        assertEquals("createSwap", target);
     }
 }

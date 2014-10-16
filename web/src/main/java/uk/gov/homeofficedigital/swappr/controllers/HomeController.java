@@ -28,10 +28,11 @@ public class HomeController {
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String home(Model model, Principal user) {
         List<Swap> swaps = swapDao.findSwapsForUser(user.getName());
-        Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> getMonthName(swap.getFromDate())));
+        DateDisplay dateDisplay = new DateDisplay();
+        Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> dateDisplay.month(swap.getFromDate())));
         model.addAttribute("swaps", swapsByMonth);
-        model.addAttribute("months", Arrays.asList(getMonthName(LocalDate.now()), getMonthName(LocalDate.now().plusMonths(1))));
-        model.addAttribute("display", new DateDisplay());
+        model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
+        model.addAttribute("display", dateDisplay);
         return "home";
     }
 
@@ -45,7 +46,4 @@ public class HomeController {
         }
     }
 
-    private String getMonthName(LocalDate date) {
-        return date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-    }
 }
