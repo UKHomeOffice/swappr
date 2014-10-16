@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
-import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.model.Swap;
-import uk.gov.homeofficedigital.swappr.model.SwapStatus;
+import uk.gov.homeofficedigital.swappr.service.SwapService;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -24,10 +22,11 @@ import java.util.stream.Stream;
 @Controller
 @RequestMapping("/swap")
 public class SwapController {
-    private final SwapDao swapDao;
 
-    public SwapController(SwapDao swapDao) {
-        this.swapDao = swapDao;
+    private final SwapService swapService;
+
+    public SwapController(SwapService swapService) {
+        this.swapService = swapService;
     }
 
     @RequestMapping(method= RequestMethod.GET)
@@ -58,7 +57,7 @@ public class SwapController {
         }
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
         User user = (User) auth.getPrincipal();
-        swapDao.createSwap(new Swap(user.getUsername(), swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType(), SwapStatus.PROPOSED));
+        swapService.offerSwap(user, swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType());
         return "redirect:/";
     }
 }

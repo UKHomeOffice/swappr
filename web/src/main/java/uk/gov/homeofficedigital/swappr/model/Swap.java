@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class Swap {
 
-    private int id;
+    private final Long id;
     private final String username;
     private final LocalDate fromDate;
     private final ShiftType fromShiftType;
@@ -16,7 +16,8 @@ public class Swap {
     private final ShiftType toShiftType;
     private final SwapStatus status;
 
-    public Swap(String username, LocalDate fromDate, ShiftType fromShiftType, LocalDate toDate, ShiftType toShiftType, SwapStatus status) {
+    public Swap(Long id, String username, LocalDate fromDate, ShiftType fromShiftType, LocalDate toDate, ShiftType toShiftType, SwapStatus status) {
+        this.id = id;
         this.username = username;
         this.fromDate = fromDate;
         this.fromShiftType = fromShiftType;
@@ -25,10 +26,8 @@ public class Swap {
         this.status = status;
     }
 
-    public Swap withStatus(SwapStatus status) {
-        Swap swap = new Swap(username, fromDate, fromShiftType, toDate, toShiftType, status);
-        swap.setId(id);
-        return swap;
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -70,11 +69,4 @@ public class Swap {
         return ToStringBuilder.reflectionToString(this);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

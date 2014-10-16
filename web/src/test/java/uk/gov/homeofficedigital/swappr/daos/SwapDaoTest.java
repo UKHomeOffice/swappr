@@ -33,30 +33,32 @@ public class SwapDaoTest extends SpringIntegrationTest {
     @Test
     public void createSwap_shouldPersistTheSwapInstance() throws Exception {
         User user = createUser();
-        Swap swap = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
 
-        swapDao.createSwap(swap);
+        String username = user.getUsername();
+        LocalDate fromShiftDate = LocalDate.now();
+        LocalDate toShiftDate = LocalDate.now().plusDays(2);
+        ShiftType fromShiftType = ShiftType.Earlies;
+        ShiftType toShiftType = ShiftType.Lates;
+        swapDao.createSwap(username, fromShiftDate, fromShiftType, toShiftDate, toShiftType, PROPOSED);
 
-        List<Swap> swaps = swapDao.findSwapsForUser(user.getUsername());
+        List<Swap> swaps = swapDao.findSwapsForUser(username);
         assertEquals(1, swaps.size());
         Swap saved = swaps.get(0);
-        assertThat(saved.getId(), greaterThan(1000));
-        assertEquals(swap.getUsername(), saved.getUsername());
-        assertEquals(swap.getFromDate(), saved.getFromDate());
-        assertEquals(swap.getFromShift(), saved.getFromShift());
-        assertEquals(swap.getToDate(), saved.getToDate());
-        assertEquals(swap.getToShift(), saved.getToShift());
-        assertEquals(swap.getStatus(), saved.getStatus());
+        assertThat(saved.getId(), greaterThan(1000l));
+        assertEquals(username, saved.getUsername());
+        assertEquals(fromShiftDate, saved.getFromDate());
+        assertEquals(fromShiftType, saved.getFromShift());
+        assertEquals(toShiftDate, saved.getToDate());
+        assertEquals(toShiftType, saved.getToShift());
+        assertEquals(PROPOSED, saved.getStatus());
     }
 
     @Test
     public void updatingStatusShouldOnlyAffectTheGivenSwap() throws Exception {
         User user = createUser();
-        Swap first = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
-        Swap second = new Swap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(3), ShiftType.Lates, ACCEPTED);
 
-        swapDao.createSwap(first);
-        swapDao.createSwap(second);
+        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
+        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(3), ShiftType.Lates, ACCEPTED);
 
         List<Swap> savedSwaps = swapDao.findSwapsForUser(user.getUsername());
         assertThat(savedSwaps, hasSize(2));

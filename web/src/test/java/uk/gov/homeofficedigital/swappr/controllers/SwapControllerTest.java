@@ -1,17 +1,14 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
-import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.model.Swap;
-import uk.gov.homeofficedigital.swappr.model.SwapStatus;
+import uk.gov.homeofficedigital.swappr.service.SwapService;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -20,8 +17,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class SwapControllerTest {
-    private SwapDao swapDao = mock(SwapDao.class);
-    private SwapController controller = new SwapController(swapDao);
+
+    private SwapService swapService = mock(SwapService.class);
+    private SwapController controller = new SwapController(swapService);
 
     @Test
     public void view_shouldDisplayTheCreateSwapTemplate() throws Exception {
@@ -47,20 +45,12 @@ public class SwapControllerTest {
         swapForm.setToShiftType(ShiftType.Lates);
 
         UsernamePasswordAuthenticationToken principal = mock(UsernamePasswordAuthenticationToken.class);
-        when(principal.getPrincipal()).thenReturn(new User("Trevor", "its a secret", Collections.emptyList()));
+        User trevor = new User("Trevor", "its a secret", Collections.emptyList());
+        when(principal.getPrincipal()).thenReturn(trevor);
         String target = controller.add(swapForm, new BeanPropertyBindingResult(swapForm, "swap"), principal);
 
-        ArgumentCaptor<Swap> captor = ArgumentCaptor.forClass(Swap.class);
-        verify(swapDao).createSwap(captor.capture());
+        verify(swapService).offerSwap(trevor, LocalDate.parse("2013-07-10"), ShiftType.Earlies, LocalDate.parse("2014-08-11"), ShiftType.Lates);
 
-        assertNotNull(captor.getValue());
-        Swap actual = captor.getValue();
-        assertEquals("Trevor", captor.getValue().getUsername());
-        assertEquals(LocalDate.parse("2013-07-10"), actual.getFromDate());
-        assertEquals(ShiftType.Earlies, actual.getFromShift());
-        assertEquals(LocalDate.parse("2014-08-11"), actual.getToDate());
-        assertEquals(ShiftType.Lates, actual.getToShift());
-        assertEquals(SwapStatus.PROPOSED, actual.getStatus());
         assertEquals("redirect:/", target);
     }
 

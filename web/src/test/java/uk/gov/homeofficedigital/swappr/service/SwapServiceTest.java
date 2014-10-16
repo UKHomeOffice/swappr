@@ -3,16 +3,16 @@ package uk.gov.homeofficedigital.swappr.service;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.daos.SwapDao;
-import uk.gov.homeofficedigital.swappr.model.Swap;
-import uk.gov.homeofficedigital.swappr.model.SwapMaker;
-import uk.gov.homeofficedigital.swappr.model.SwapStatus;
-import static com.natpryce.makeiteasy.MakeItEasy.a;
-import static com.natpryce.makeiteasy.MakeItEasy.make;
-import static com.natpryce.makeiteasy.MakeItEasy.with;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
+import uk.gov.homeofficedigital.swappr.model.*;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+
+import static com.natpryce.makeiteasy.MakeItEasy.*;
+import static org.mockito.Mockito.*;
 
 public class SwapServiceTest {
 
@@ -32,9 +32,8 @@ public class SwapServiceTest {
     @Test
     public void acceptingVolunteeredSwapShouldUpdateTheVolunteeredSwapStatusToAccepted() {
         Swap swap = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.VOLUNTEERED)));
-        swap.setId(23);
         service.acceptVolunteeredSwap(swap);
-        verify(swapDao).updateSwapStatus(23, SwapStatus.ACCEPTED);
+        verify(swapDao).updateSwapStatus(swap.getId(), SwapStatus.ACCEPTED);
     }
 
     @Ignore
@@ -45,6 +44,14 @@ public class SwapServiceTest {
     @Ignore
     public void acceptingVolunteeredSwapShouldNotifyTAMS() {
         service.acceptVolunteeredSwap(make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.PROPOSED))));
+    }
+
+    @Test
+    public void offerSwapShouldCreateSwapWithOfferedState() {
+        User user = new User("Bob", "password", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
+        LocalDate now = LocalDate.now();
+        service.offerSwap(user, now, ShiftType.Earlies, now.plusDays(2), ShiftType.Lates);
+        verify(swapDao).createSwap(user.getUsername(), now, ShiftType.Earlies, now.plusDays(2), ShiftType.Lates, SwapStatus.OFFERED);
     }
 
 }
