@@ -30,7 +30,7 @@ public class SwapService {
         List<Swap> related = volunteered.getRelatedSwaps();
 
         if (related.size() != 1) {
-            throw new IllegalStateException("To accept a swap, it must have only 1 related swap");
+            throw new IllegalStateException("To accept a swap, it must have exactly 1 related swap");
         }
 
         Swap offered = related.get(0);
