@@ -1,7 +1,7 @@
 #set($pageTitle = 'My swaps')
 #set($tab = 'home')
 
-<a href="/swap" class="submit-button">create swap</a>
+<a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
 #foreach($month in $months)
     <table>
         <caption class="h1"><span class="secondary-text">You / </span>$month</caption>

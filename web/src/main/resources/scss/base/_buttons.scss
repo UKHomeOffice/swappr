@@ -22,6 +22,13 @@
   }
 }
 
+.submit-button--right-lowered {
+  @include media(tablet){
+    float: right;
+    margin-bottom: -40px;
+  }
+}
+
 .action-button {
   background: transparent url(/images/swappr.png) no-repeat top left;
   border: 1px solid $border__colour--theme;
