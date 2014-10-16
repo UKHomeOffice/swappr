@@ -36,6 +36,17 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping(value="/timeline", method=RequestMethod.GET)
+    public String timeline(Model model, Principal user) {
+        List<Swap> swaps = swapDao.findAllSwaps();
+        DateDisplay dateDisplay = new DateDisplay();
+        Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> dateDisplay.month(swap.getFromDate())));
+        model.addAttribute("swaps", swapsByMonth);
+        model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
+        model.addAttribute("display", dateDisplay);
+        return "home";
+    }
+
     public static class DateDisplay {
         public String month(LocalDate date) {
             return date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);

@@ -52,4 +52,10 @@ public class SwapDao {
                 rs.getDate("alternateShiftDate").toLocalDate(),
                 ShiftType.valueOf(rs.getString("alternateShiftType")));
     }
+
+    public List<Swap> findAllSwaps() {
+        Map<String, Object> args = new HashMap<>();
+        String sql = "select * from swap s, shift h where s.shiftId = h.id";
+        return jdbcTemplate.query(sql, args, this::mapSwap);
+    }
 }

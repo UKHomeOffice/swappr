@@ -1,10 +1,10 @@
 #set($pageTitle = 'My swaps')
-#set($tab = 'home')
+#set($tab = 'timeline')
 
 <a href="/swap" class="submit-button">create swap</a>
 #foreach($month in $months)
     <table>
-        <caption class="h1"><span class="secondary-text">You / </span>$month</caption>
+        <caption class="h1"><span class="secondary-text">All / </span>$month</caption>
         <thead class="hidden">
             <tr>
                 <th scope=col class="table__cell--date">Date</th>
@@ -16,15 +16,13 @@
         <tbody>
             #if(!$swaps[$month])
             <tr>
-                <td colspan="4">No swaps</td>
+                <td colspan="2">No swaps</td>
             </tr>
             #end
             #foreach($swap in $swaps[$month])
             <tr>
                 <td class="table__cell--date"><span class="h3">$swap.fromDate.dayOfMonth</span> <span class="secondary-text">$display.day($swap.fromDate)</span></td>
-                <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
-                <td class="table__cell--shift">$swap.fromShift</td>
-                <td class="secondary-text table__cell--status">Waiting for offers</td>
+                <td class="table__cell--action"><span class="secondary-text"><a href="/swap/$swap.id">$swap.username</a> wants to swap a shift</span></td>
             </tr>
             #end
         </tbody>
