@@ -28,18 +28,6 @@
 //Defines left and/or right main page gutters
 //TODO: refactor to be a little more efficient/less duplicated. Or just find a better way of doing it :-p
 @mixin gutter( $lr: both, $size: 10%, $setFullWidth: false ) {
-  @include media(tablet){
-    @if( $lr == left ) {
-      margin-left: $size/2;
-    } @else if( $lr == right ) {
-      margin-right: $size/2;
-    } @else {
-      margin-left:  $size/2;
-      margin-right:  $size/2;
-    }
-    @if( $setFullWidth ) { width: 100-2*$size/2; }
-  }
-
   @include media(mobile){
     @if( $lr == left ) {
       margin-left: $size/10;
@@ -52,6 +40,31 @@
     @if( $setFullWidth ) { width: 100-2*$size/10; }
   }
 
+  @include media(tablet){
+    @if( $lr == left ) {
+      margin-left: $size/2;
+    } @else if( $lr == right ) {
+      margin-right: $size/2;
+    } @else {
+      margin-left:  $size/2;
+      margin-right:  $size/2;
+    }
+    @if( $setFullWidth ) { width: 100-2*$size/2; }
+  }
+
+  @include media(desktop) {
+    @if ($lr == left) {
+      margin-left: $size;
+    } @else if ($lr == right) {
+      margin-right: $size;
+    } @else {
+      margin-left: $size;
+      margin-right: $size;
+    }
+    @if ($setFullWidth) {
+      width: 100-2*$size;
+    }
+  }
 }
 //TODO: use rem?
 @function calc-em($target, $context: $base__font-size) {
