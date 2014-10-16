@@ -3,18 +3,21 @@ package uk.gov.homeofficedigital.swappr.model;
 import java.time.LocalDate;
 
 public class Swap {
+
     private final String username;
     private final LocalDate fromDate;
     private final ShiftType fromShiftType;
     private final LocalDate toDate;
     private final ShiftType toShiftType;
+    private final SwapStatus status;
 
-    public Swap(String username, LocalDate fromDate, ShiftType fromShiftType, LocalDate toDate, ShiftType toShiftType) {
+    public Swap(String username, LocalDate fromDate, ShiftType fromShiftType, LocalDate toDate, ShiftType toShiftType, SwapStatus status) {
         this.username = username;
         this.fromDate = fromDate;
         this.fromShiftType = fromShiftType;
         this.toDate = toDate;
         this.toShiftType = toShiftType;
+        this.status = status;
     }
 
     public String getUsername() {
@@ -35,5 +38,9 @@ public class Swap {
 
     public ShiftType getToShift() {
         return toShiftType;
+    }
+
+    public SwapStatus getStatus() {
+        return status;
     }
 }

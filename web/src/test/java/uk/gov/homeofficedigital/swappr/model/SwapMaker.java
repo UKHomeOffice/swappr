@@ -15,6 +15,7 @@ public class SwapMaker {
                 LocalDate.now(),
                 ShiftType.Earlies,
                 LocalDate.now().plusDays(2),
-                ShiftType.Lates
+                ShiftType.Lates,
+                SwapStatus.PROPOSED
         );
 }

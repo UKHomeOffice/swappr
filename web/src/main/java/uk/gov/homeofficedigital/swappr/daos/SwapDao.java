@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
+import uk.gov.homeofficedigital.swappr.model.SwapStatus;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +27,11 @@ public class SwapDao {
                 holder);
         int shiftId = holder.getKey().intValue();
 
-        jdbcTemplate.update("insert into swap (shiftId, alternateShiftType, alternateShiftDate, status) values (:shiftId, :alternateShiftType, :alternateShiftDate, 'Offered')",
-                toMap("shiftId", shiftId, "alternateShiftDate", Date.valueOf(swap.getToDate()), "alternateShiftType", swap.getToShift().name()));
+        jdbcTemplate.update("insert into swap (shiftId, alternateShiftType, alternateShiftDate, status) values (:shiftId, :alternateShiftType, :alternateShiftDate, :status)",
+                toMap("shiftId", shiftId,
+                        "alternateShiftDate", Date.valueOf(swap.getToDate()),
+                        "alternateShiftType", swap.getToShift().name(),
+                        "status", swap.getStatus().name()));
     }
 
     private Map<String, Object> toMap(Object... args) {
@@ -50,6 +54,7 @@ public class SwapDao {
                 rs.getDate("shiftDate").toLocalDate(),
                 ShiftType.valueOf(rs.getString("shiftType")),
                 rs.getDate("alternateShiftDate").toLocalDate(),
-                ShiftType.valueOf(rs.getString("alternateShiftType")));
+                ShiftType.valueOf(rs.getString("alternateShiftType")),
+                SwapStatus.valueOf(rs.getString("status")));
     }
 }
