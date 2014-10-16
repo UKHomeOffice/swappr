@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class SwapMaker {
 
     public static Property<Swap, String> user = Property.newProperty();
+    public static Property<Swap, SwapStatus> status = Property.newProperty();
 
     public static Instantiator<Swap> Swap = (lookup) ->
         new Swap(
@@ -16,6 +17,6 @@ public class SwapMaker {
                 ShiftType.Earlies,
                 LocalDate.now().plusDays(2),
                 ShiftType.Lates,
-                SwapStatus.PROPOSED
+                lookup.valueOf(status, SwapStatus.PROPOSED)
         );
 }
