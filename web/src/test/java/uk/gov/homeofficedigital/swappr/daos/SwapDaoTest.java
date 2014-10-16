@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
+import uk.gov.homeofficedigital.swappr.model.SwapStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,7 @@ public class SwapDaoTest extends SpringIntegrationTest {
 
     @Test
     public void createSwap_shouldPersistTheSwapInstance() throws Exception {
-        Swap swap = new Swap("Bill", LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates);
+        Swap swap = new Swap("Bill", LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, SwapStatus.PROPOSED);
 
         swapDao.createSwap(swap);
 
@@ -30,5 +31,6 @@ public class SwapDaoTest extends SpringIntegrationTest {
         assertEquals(swap.getFromShift(), saved.getFromShift());
         assertEquals(swap.getToDate(), saved.getToDate());
         assertEquals(swap.getToShift(), saved.getToShift());
+        assertEquals(swap.getStatus(), saved.getStatus());
     }
 }

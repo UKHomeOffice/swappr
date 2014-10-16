@@ -13,6 +13,7 @@ import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
+import uk.gov.homeofficedigital.swappr.model.SwapStatus;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -57,7 +58,7 @@ public class SwapController {
         }
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
         User user = (User) auth.getPrincipal();
-        swapDao.createSwap(new Swap(user.getUsername(), swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType()));
+        swapDao.createSwap(new Swap(user.getUsername(), swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType(), SwapStatus.PROPOSED));
         return "redirect:/";
     }
 }

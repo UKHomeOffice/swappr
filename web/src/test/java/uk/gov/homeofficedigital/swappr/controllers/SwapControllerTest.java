@@ -11,6 +11,7 @@ import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.model.Swap;
+import uk.gov.homeofficedigital.swappr.model.SwapStatus;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -59,6 +60,7 @@ public class SwapControllerTest {
         assertEquals(ShiftType.Earlies, actual.getFromShift());
         assertEquals(LocalDate.parse("2014-08-11"), actual.getToDate());
         assertEquals(ShiftType.Lates, actual.getToShift());
+        assertEquals(SwapStatus.PROPOSED, actual.getStatus());
         assertEquals("redirect:/", target);
     }
 
