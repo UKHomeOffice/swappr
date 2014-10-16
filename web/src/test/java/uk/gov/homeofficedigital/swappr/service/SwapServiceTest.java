@@ -29,16 +29,39 @@ public class SwapServiceTest {
         service.acceptVolunteeredSwap(make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.OFFERED))));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void acceptingVolunteeredSwapShouldThrowAnExceptionIfTheRelatedSwapIsNotInTheExpectedState() {
+        Swap proposed = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.PROPOSED)));
+        Swap volunteered = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.VOLUNTEERED)).but(with(SwapMaker.related, Arrays.asList(proposed))));
+
+        service.acceptVolunteeredSwap(volunteered);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void acceptingVolunteeredSwapShouldThrowAnExceptionIfThereIsMoreThanOneRelatedSwap() {
+        Swap proposed = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.PROPOSED)));
+        Swap offered = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.OFFERED)));
+        Swap volunteered = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.VOLUNTEERED)).but(with(SwapMaker.related, Arrays.asList(offered, proposed))));
+
+        service.acceptVolunteeredSwap(volunteered);
+    }
+
     @Test
     public void acceptingVolunteeredSwapShouldUpdateTheVolunteeredSwapStatusToAccepted() {
-        Swap swap = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.VOLUNTEERED)));
+        Swap offered = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.OFFERED)));
+        Swap swap = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.VOLUNTEERED)).but(with(SwapMaker.related, Arrays.asList(offered))));
         service.acceptVolunteeredSwap(swap);
         verify(swapDao).updateSwapStatus(swap.getId(), SwapStatus.ACCEPTED);
     }
 
-    @Ignore
+    @Test
     public void acceptingVolunteeredSwapShouldUpdateTheRelatedOfferedSwapToProposed() {
-        service.acceptVolunteeredSwap(make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.PROPOSED))));
+        Swap offered = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.OFFERED)).but(with(SwapMaker.id, 1l)));
+        Swap volunteered = make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.VOLUNTEERED)).but(with(SwapMaker.related, Arrays.asList(offered))).but(with(SwapMaker.id, 2l)));
+
+        service.acceptVolunteeredSwap(volunteered);
+
+        verify(swapDao).updateSwapStatus(offered.getId(), SwapStatus.PROPOSED);
     }
 
     @Ignore

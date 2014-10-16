@@ -5,6 +5,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Swap {
 
@@ -15,8 +16,9 @@ public class Swap {
     private final LocalDate toDate;
     private final ShiftType toShiftType;
     private final SwapStatus status;
+    private final List<Swap> relatedSwaps;
 
-    public Swap(Long id, String username, LocalDate fromDate, ShiftType fromShiftType, LocalDate toDate, ShiftType toShiftType, SwapStatus status) {
+    public Swap(Long id, String username, LocalDate fromDate, ShiftType fromShiftType, LocalDate toDate, ShiftType toShiftType, SwapStatus status, List<Swap> relatedSwaps) {
         this.id = id;
         this.username = username;
         this.fromDate = fromDate;
@@ -24,6 +26,8 @@ public class Swap {
         this.toDate = toDate;
         this.toShiftType = toShiftType;
         this.status = status;
+        this.relatedSwaps = relatedSwaps;
+        
     }
 
     public Long getId() {
@@ -53,6 +57,11 @@ public class Swap {
     public SwapStatus getStatus() {
         return status;
     }
+
+    public List<Swap> getRelatedSwaps() {
+        return relatedSwaps;
+    }
+
 
     @Override
     public int hashCode() {
