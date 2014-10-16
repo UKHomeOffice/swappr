@@ -1,10 +1,12 @@
 package uk.gov.homeofficedigital.swappr.model;
 
+import org.apache.commons.collections.collection.UnmodifiableCollection;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 public class Swap {
@@ -59,7 +61,7 @@ public class Swap {
     }
 
     public List<Swap> getRelatedSwaps() {
-        return relatedSwaps;
+        return Collections.unmodifiableList(relatedSwaps);
     }
 
 
