@@ -41,7 +41,6 @@ public class HomeControllerTest {
         assertEquals(2, ((List)model.get("months")).size());
         assertTrue(model.containsAttribute("swaps"));
         assertEquals(expectedSwaps, ((Map <String, Swap>)model.get("swaps")).get(LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)));
-        assertTrue(model.containsAttribute("display"));
     }
 
     @Test
@@ -58,6 +57,5 @@ public class HomeControllerTest {
         assertEquals(2, ((List)model.get("months")).size());
         assertTrue(model.containsAttribute("swaps"));
         assertEquals(expectedSwaps, ((Map <String, Swap>)model.get("swaps")).get(LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)));
-        assertTrue(model.containsAttribute("display"));
     }
 }

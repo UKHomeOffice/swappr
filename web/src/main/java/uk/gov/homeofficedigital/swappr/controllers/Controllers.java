@@ -30,6 +30,7 @@ public class Controllers extends WebMvcConfigurerAdapter {
         velocityProperties.applyToViewResolver(velocityLayoutViewResolver);
         Map<String, Object> attrs = new HashMap<>();
         attrs.put("sec", new VelocitySecurityHelper());
+        attrs.put("display", new DateDisplay());
         velocityLayoutViewResolver.setAttributesMap(attrs);
         return velocityLayoutViewResolver;
     }

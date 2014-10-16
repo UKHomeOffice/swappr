@@ -9,10 +9,8 @@ import uk.gov.homeofficedigital.swappr.model.Swap;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,7 +30,6 @@ public class HomeController {
         Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> dateDisplay.month(swap.getFromDate())));
         model.addAttribute("swaps", swapsByMonth);
         model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
-        model.addAttribute("display", dateDisplay);
         return "home";
     }
 
@@ -43,18 +40,6 @@ public class HomeController {
         Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> dateDisplay.month(swap.getFromDate())));
         model.addAttribute("swaps", swapsByMonth);
         model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
-        model.addAttribute("display", dateDisplay);
         return "timeline";
     }
-
-    public static class DateDisplay {
-        public String month(LocalDate date) {
-            return date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-        }
-
-        public String day(LocalDate date) {
-            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-        }
-    }
-
 }

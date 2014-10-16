@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
@@ -59,5 +60,11 @@ public class SwapController {
         User user = (User) auth.getPrincipal();
         swapService.offerSwap(user, swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType());
         return "redirect:/";
+    }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    public String showSwap(Model model, @PathVariable int id) {
+        model.addAttribute("swap", swapService.loadSwap(id));
+        return "showSwap";
     }
 }

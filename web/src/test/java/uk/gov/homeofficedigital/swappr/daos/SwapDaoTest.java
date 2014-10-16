@@ -15,6 +15,7 @@ import uk.gov.homeofficedigital.swappr.model.SwapStatus;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -74,6 +75,19 @@ public class SwapDaoTest extends SpringIntegrationTest {
         assertThat(updatedSwaps.stream().filter(withStatus(ACCEPTED)).toArray(), arrayWithSize(1));
         assertThat(updatedSwaps.stream().filter(withStatus(DENIED)).toArray(), arrayWithSize(1));
         assertThat(updatedSwaps.stream().filter(withStatus(PROPOSED)).toArray(), arrayWithSize(0));
+    }
+
+    @Test
+    public void loadSwap_shouldReturnASwap_givenAMatchingId() throws Exception {
+        User user = createUser();
+
+        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
+        List<Swap> userSwaps = swapDao.findSwapsForUser(user.getUsername());
+        Swap swap = userSwaps.get(0);
+
+        Optional<Swap> found = swapDao.loadSwap(swap.getId());
+
+        assertEquals(swap, found.get());
     }
 
     private User createUser() {

@@ -26,4 +26,8 @@ public class SwapService {
         }
         swapDao.updateSwapStatus(volunteered.getId(), SwapStatus.ACCEPTED);
     }
+
+    public Swap loadSwap(int id) {
+        return swapDao.loadSwap(id).orElseThrow(() -> new IllegalArgumentException("not a valid ID"));
+    }
 }

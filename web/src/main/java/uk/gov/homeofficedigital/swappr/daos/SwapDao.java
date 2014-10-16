@@ -71,4 +71,16 @@ public class SwapDao {
         String sql = "select * from swap s, shift h where s.shiftId = h.id";
         return jdbcTemplate.query(sql, args, this::mapSwap);
     }
+
+    public Optional<Swap> loadSwap(long id) {
+        Map<String, Object> args = new HashMap<>();
+        args.put("id", id);
+        String sql = "select * from swap s, shift h where s.shiftId = h.id and s.id = :id";
+        List<Swap> result = jdbcTemplate.query(sql, args, this::mapSwap);
+        if (result.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(result.get(0));
+        }
+    }
 }

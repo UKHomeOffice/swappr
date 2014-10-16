@@ -8,11 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
+import uk.gov.homeofficedigital.swappr.model.Swap;
+import uk.gov.homeofficedigital.swappr.model.SwapMaker;
 import uk.gov.homeofficedigital.swappr.service.SwapService;
 
 import java.time.LocalDate;
 import java.util.Collections;
 
+import static com.natpryce.makeiteasy.MakeItEasy.a;
+import static com.natpryce.makeiteasy.MakeItEasy.make;
+import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -73,5 +78,18 @@ public class SwapControllerTest {
         String target = controller.add(swapForm, binding, principal);
 
         assertEquals("createSwap", target);
+    }
+
+    @Test
+    public void showSwap_shouldDisplayTheSelectedSwap_givenAValidSwapId() throws Exception {
+        Swap swap = make(a(SwapMaker.Swap, with(SwapMaker.id, 1003L)));
+        when(swapService.loadSwap(1003)).thenReturn(swap);
+        ExtendedModelMap model = new ExtendedModelMap();
+
+        String viewName = controller.showSwap(model, 1003);
+
+        assertEquals("showSwap", viewName);
+        assertTrue(model.containsAttribute("swap"));
+        assertEquals(swap, model.get("swap"));
     }
 }
