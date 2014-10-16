@@ -25,6 +25,12 @@ public class Swap {
         this.status = status;
     }
 
+    public Swap withStatus(SwapStatus status) {
+        Swap swap = new Swap(username, fromDate, fromShiftType, toDate, toShiftType, status);
+        swap.setId(id);
+        return swap;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -34,6 +34,12 @@ public class SwapDao {
                         "status", swap.getStatus().name()));
     }
 
+    public void updateSwapStatus(Integer swapId, SwapStatus status) {
+        jdbcTemplate.update("update swap set status = :status where id = :id",
+                toMap("status", status.name(), "id", swapId));
+
+    }
+
     private Map<String, Object> toMap(Object... args) {
         Map<String, Object> map = new HashMap<>();
         for(int i = 0; i < args.length; i+= 2) {
