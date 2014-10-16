@@ -44,7 +44,7 @@ public class HomeController {
         model.addAttribute("swaps", swapsByMonth);
         model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
         model.addAttribute("display", dateDisplay);
-        return "home";
+        return "timeline";
     }
 
     public static class DateDisplay {

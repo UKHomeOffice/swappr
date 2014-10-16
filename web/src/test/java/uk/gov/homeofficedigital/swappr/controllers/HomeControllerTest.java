@@ -43,4 +43,21 @@ public class HomeControllerTest {
         assertEquals(expectedSwaps, ((Map <String, Swap>)model.get("swaps")).get(LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)));
         assertTrue(model.containsAttribute("display"));
     }
+
+    @Test
+    public void timeline_shouldDisplayTheSwapsForAllUsers() throws Exception {
+        ExtendedModelMap model = new ExtendedModelMap();
+        Principal principal = () -> "Fred";
+        List<Swap> expectedSwaps = Arrays.asList(make(a(SwapMaker.Swap, with(SwapMaker.user, "Fred"))));
+        when(swapDao.findAllSwaps()).thenReturn(expectedSwaps);
+
+        String result = controller.timeline(model, principal);
+
+        assertEquals("timeline", result);
+        assertTrue(model.containsAttribute("months"));
+        assertEquals(2, ((List)model.get("months")).size());
+        assertTrue(model.containsAttribute("swaps"));
+        assertEquals(expectedSwaps, ((Map <String, Swap>)model.get("swaps")).get(LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)));
+        assertTrue(model.containsAttribute("display"));
+    }
 }

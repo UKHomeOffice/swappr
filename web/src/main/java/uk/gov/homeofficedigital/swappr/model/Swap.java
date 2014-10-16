@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 public class Swap {
 
+    private int id;
     private final String username;
     private final LocalDate fromDate;
     private final ShiftType fromShiftType;
@@ -61,5 +62,13 @@ public class Swap {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -50,12 +50,14 @@ public class SwapDao {
     }
 
     private Swap mapSwap(ResultSet rs, int row) throws SQLException {
-        return new Swap(rs.getString("username"),
+        Swap swap = new Swap(rs.getString("username"),
                 rs.getDate("shiftDate").toLocalDate(),
                 ShiftType.valueOf(rs.getString("shiftType")),
                 rs.getDate("alternateShiftDate").toLocalDate(),
                 ShiftType.valueOf(rs.getString("alternateShiftType")),
                 SwapStatus.valueOf(rs.getString("status")));
+        swap.setId(rs.getInt("swap.id"));
+        return swap;
     }
 
     public List<Swap> findAllSwaps() {

@@ -1,4 +1,4 @@
-#set($pageTitle = 'My swaps')
+#set($pageTitle = 'Timeline')
 #set($tab = 'timeline')
 
 <a href="/swap" class="submit-button">create swap</a>

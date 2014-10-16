@@ -26,6 +26,7 @@ public class SwapDaoTest extends SpringIntegrationTest {
         List<Swap> swaps = swapDao.findSwapsForUser("Bill");
         assertEquals(1, swaps.size());
         Swap saved = swaps.get(0);
+        assertEquals(1001, saved.getId());
         assertEquals(swap.getUsername(), saved.getUsername());
         assertEquals(swap.getFromDate(), saved.getFromDate());
         assertEquals(swap.getFromShift(), saved.getFromShift());
