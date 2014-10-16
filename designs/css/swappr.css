@@ -58,6 +58,21 @@ header p img {
 }
 .menubar a:hover, .menubar a.selected {border-bottom: 6px solid #9325b2;}
 .menubarmsg {text-align: right;}
+.align-center {text-align: center;}
+.align-right {text-align: right; margin-right: 5px;}
+.swap-offer-box {
+    text-align: center;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    padding: 5px;
+}
+.swap-agreed-box {
+    text-align: center;
+    /*background-color: rgba(147,37,178,0.3);*/
+    background-color: rgba(0,94,165,0.2);
+    border-radius: 6px;
+    padding: 5px;
+}
 table {
     margin: 25px 0 25px 0;
     width: 100%;
@@ -87,7 +102,7 @@ tbody tr:last-child {
 }
 .row-date {width: 20%; font-weight: bold;}
 .row-shift {width: 40%;}
-.row-controls {width:10%;}
+.row-controls {width:10%; text-align: center;}
 .row-request {width: 30%;  color: #9B9B9B;}
 .row-add {width:20%; text-align: right;}
 .row-add img {padding-right: 10px; padding-bottom: 3px;}
@@ -190,6 +205,22 @@ input, select {
     border-radius: 50%;
     background-color: #fff;
 }
+.button-small {
+    font-size: 14px;
+    line-height: 18px;
+    background-color: #f8f8f8;
+    /*line-height: 1.25em;*/
+    display: inline-block;
+    border: 1px solid #9325b2;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+    padding: 0.5em 1em;
+    position: relative;
+    text-decoration: none;
+    vertical-align: top;
+}
 ul.confirm-dates {
     margin: 0;
     padding: 0;
@@ -216,6 +247,7 @@ blockquote {
 .notification img {
     margin-right: 15px;
 }
+.row-confirmation {background-color: rgba(248,231,28,0.1);}
 .shift-offer-list { 
     padding: 0px; 
     margin-top: 12px; 

@@ -54,50 +54,75 @@
 
         <div class="d2-d11"> 
 
+            <!-- 
+            <div class="d6-d11">
+                <p style="text-align:right;"><span class="text-secondary">Location:</span> <strong>Heathrow, Terminal 3</strong></p>
+            </div>
+            -->
+
             <h2>Request swap</h2>
-            <p>Choose a date and shift type.</p>
+            <p>Select the dates and shifts you want to swap.</p>
+            
             <hr />
-            <p><span class="text-secondary">Location:</span> <strong>Heathrow, Terminal 3</strong></p>
-            <div class="d2-d5">
-                
-                <label for="swap-date" class="form-label">Date</label><br /> <input type="text" id="swap-date" placeholder="DD" style="width:50px; text-align:center;">
+            
+            <div class="d2-d3"><label for="swap-date" class="form-label">Current</label></div>
+            <div class="d4-d11">
+                <input type="text" id="swap-date" placeholder="24" style="width:50px; text-align:center;" />
                 <select id="month" style="width:150px;">
                     <option value="October">October</option>
                     <option value="November">November</option>
                     <option value="December">December</option>
                 </select>
 
-                <br />
+                <select id="shift-type" style="width:150px;">
+                    <option value="None">Select shift</option>
+                    <option value="B1H">B1H</option>
+                    <option value="BFH">BFH</option>
+                    <option value="C1H">C1H</option>
+                    <option value="CFH">CFH</option>
+                    <option value="S1H">S1H</option>
+                    <option value="T1H">T1H</option>
+                </select>
+            </div>
+            <div class="d2-d3">
+                <label for="new-swap-date" class="form-label">Requested</label>
+            </div>
+            <div class="d4-d11">
+                <input type="text" id="new-swap-date" placeholder="DD" style="width:50px; text-align:center;">
+                <select id="month" style="width:150px;">
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
 
-                <label class="checkbox" for="checkbox-notify">
+                <select id="shift-type" style="width:150px;">
+                    <option value="None">Select shift</option>
+                    <option value="B1H">B1H</option>
+                    <option value="BFH">BFH</option>
+                    <option value="C1H">C1H</option>
+                    <option value="CFH">CFH</option>
+                    <option value="S1H">S1H</option>
+                    <option value="T1H">T1H</option>
+                </select>
+            
+                 
+
+            <br />
+            <br />
+
+            <label class="checkbox" for="checkbox-notify">
                     <input id="checkbox-notify" value="checkbox-notify" type="checkbox">
-                    Notify me when I receive replies to this swap
+                    Notify me when I receive offers for this swap
                 </label>
                 <br />
                 <br />
 
-                <a href="./" class="button">Send</a>
-
+                <a href="index-confirm.html" class="button">Send</a>
 
             </div>
-            <div class="d6-d7">  
-
-                <label for="shift-type" class="form-label">Shift</label>
-                <br />
-                <select id="shift-type" style="width:100px;">
-                    <option value="None">---</option>
-                    <option value="S1H">S1H</option>
-                    <option value="November">T1H</option>
-                    <option value="T1H">Z1T</option>
-                </select>
-            </div>
-
 
 
         </div>
-
-
-
 
         <footer class="d-all">
             <div class="d10-d11">
