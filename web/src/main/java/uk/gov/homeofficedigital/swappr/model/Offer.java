@@ -9,11 +9,17 @@ public class Offer {
     private final Long id;
     private final Rota swapFrom;
     private final Shift swapTo;
+    private final OfferStatus status;
 
-    public Offer(Long id, Rota swapFrom, Shift swapTo) {
+    public Offer(Long id, Rota swapFrom, Shift swapTo, OfferStatus status) {
         this.id = id;
         this.swapFrom = swapFrom;
         this.swapTo = swapTo;
+        this.status = status;
+    }
+
+    public Offer withStatus(OfferStatus status) {
+        return new Offer(id, swapFrom, swapTo, status);
     }
 
     public Long getId() {
@@ -26,6 +32,10 @@ public class Offer {
 
     public Rota getSwapFrom() {
         return swapFrom;
+    }
+
+    public OfferStatus getStatus() {
+        return status;
     }
 
     @Override

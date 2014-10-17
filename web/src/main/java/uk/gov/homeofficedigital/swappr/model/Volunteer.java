@@ -9,11 +9,17 @@ public class Volunteer {
     private final Long id;
     private final Rota swapFrom;
     private final Offer swapTo;
+    private final VolunteerStatus status;
 
-    public Volunteer(Long id, Rota swapFrom, Offer swapTo) {
+    public Volunteer(Long id, Rota swapFrom, Offer swapTo, VolunteerStatus status) {
         this.id = id;
         this.swapFrom = swapFrom;
         this.swapTo = swapTo;
+        this.status = status;
+    }
+
+    public Volunteer withStatus(VolunteerStatus status) {
+        return new Volunteer(id, swapFrom, swapTo, status);
     }
 
     public Long getId() {
@@ -26,6 +32,10 @@ public class Volunteer {
 
     public Offer getSwapTo() {
         return swapTo;
+    }
+
+    public VolunteerStatus getStatus() {
+        return status;
     }
 
     @Override
@@ -42,4 +52,5 @@ public class Volunteer {
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
+
 }
