@@ -11,6 +11,26 @@ import javax.sql.DataSource;
 public class DAOs {
 
     @Bean
+    public RotaDao rotaDao() {
+        return new RotaDao();
+    }
+
+    @Bean
+    public OfferDao offerDao() {
+        return new OfferDao();
+    }
+
+    @Bean
+    public VolunteerDao volunteerDao() {
+        return new VolunteerDao();
+    }
+
+    @Bean
+    public ShiftDao shiftDao() {
+        return new ShiftDao();
+    }
+
+    @Bean
     public HomeDao homeDao(NamedParameterJdbcTemplate jdbcTemplate) {
         return new HomeDao(jdbcTemplate);
     }

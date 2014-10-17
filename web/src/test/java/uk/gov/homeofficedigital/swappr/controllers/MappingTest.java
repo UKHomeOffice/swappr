@@ -3,10 +3,16 @@ package uk.gov.homeofficedigital.swappr.controllers;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
+import uk.gov.homeofficedigital.swappr.model.Role;
+
+import java.util.Arrays;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,6 +26,8 @@ public class MappingTest extends SpringIntegrationTest {
 
     private MockMvc mvc;
 
+    private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(new User("Bob", "password", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name()))), null);
+
     @Before
     public void setup() {
         this.mvc = MockMvcBuilders.webAppContextSetup(ctx).build();
@@ -27,9 +35,10 @@ public class MappingTest extends SpringIntegrationTest {
 
     @Test
     public void homePage_isBoundToRoot() throws Exception {
-        mvc.perform(get("/").principal(() -> "Freddie"))
+
+        mvc.perform(get("/").principal(principal))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("You /")));
+                .andExpect(content().string(containsString("My swaps")));
     }
 
     @Test
