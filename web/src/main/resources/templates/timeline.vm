@@ -2,10 +2,9 @@
 #set($pageTitle = 'Timeline')
 #set($tab = 'timeline')
 
-<a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
-
 #foreach($rotaMonth in $rotasByMonth.keySet())
     #set($rotaViews = $rotasByMonth.get($rotaMonth))
+    <a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
 
     <table>
         <caption class="h1"><span class="secondary-text">All / </span>$display.month($rotaMonth)</caption>
