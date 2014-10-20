@@ -1,7 +1,7 @@
 #set($pageTitle = 'Sign in')
 <div>
     <form action="/login" method="post">
-        <fieldset>
+        <fieldset class="login__fieldset">
             <legend>Sign in</legend>
             #if($param.error)
                 Invalid username or password
