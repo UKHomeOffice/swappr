@@ -51,8 +51,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
 //    }
 
     @Bean
-    public ExperimentalSwapController experimentalSwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
-        return new ExperimentalSwapController(shiftDao, rotaDao, rotaService, offerDao, volunteerDao);
+    public SwapController experimentalSwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
+        return new SwapController(shiftDao, rotaDao, rotaService, offerDao, volunteerDao);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ExperimentalHomeController experimentalHomeController(RotaService rotaService) {
-        return new ExperimentalHomeController(rotaService);
+    public HomeController experimentalHomeController(RotaService rotaService) {
+        return new HomeController(rotaService);
     }
 
 }

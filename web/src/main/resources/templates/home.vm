@@ -1,56 +1,61 @@
+#* @vtlvariable name="rotasByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.model.RotaView>>" *#
 #set($pageTitle = 'My swaps')
 #set($tab = 'home')
 
-<a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
-#foreach($month in $months)
+#foreach($rotaMonth in $rotasByMonth.keySet())
+    #set($rotaViews = $rotasByMonth.get($rotaMonth))
+    <a href="/swap" class="submit-button submit-button--right-lowered">create swap<span class="hidden"> for $display.month($rotaMonth)</span></a>
     <table>
-        <caption class="h1"><span class="secondary-text">You / </span>$month</caption>
+        <caption class="h1"><span class="secondary-text">You / </span>$display.month($rotaMonth)</caption>
         <thead class="hidden">
-            <tr>
-                <th scope=col class="table__cell--date">Date</th>
-                <th scope=col class="table__cell--action">Action</th>
-                <th scope=col class="table__cell--shift">Shift</th>
-                <th scope=col class="table__cell--status">Status</th>
-            </tr>
+        <tr>
+            <th scope=col class="table__cell--date">Date</th>
+            <th scope=col class="table__cell--shift">Shift</th>
+            <th scope=col class="table__cell--action">Action</th>
+            <th scope=col class="table__cell--status">Status</th>
+        </tr>
         </thead>
         <tbody>
-            #if(!$swaps[$month])
+            #if($rotaViews.isEmpty())
             <tr>
                 <td colspan="4">No swaps</td>
             </tr>
             #end
-            #foreach($swap in $swaps[$month])
+            #foreach($rotaView in $rotaViews)
             <tr>
-                <td class="table__cell--date"><span class="h3">$swap.fromDate.dayOfMonth</span> <span class="secondary-text">$display.day($swap.fromDate)</span></td>
+                <td class="table__cell--date"><span class="h3">$rotaView.rota.shift.date.dayOfMonth</span> <span class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
+                <td class="table__cell--shift">$rotaView.rota.shift.type</td>
                 <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
-                <td class="table__cell--shift">$swap.fromShift</td>
                 <td class="secondary-text table__cell--status">Waiting for offers</td>
             </tr>
             #end
         </tbody>
     </table>
 #end
-<!--  <tr>
+
+<!--
+    Scenarios:
+        <tr>
             <td class="table__cell--date"><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
-            <td class="table__cell--action"><a href="/swap" class="action-button action-button--swap" title="Request swap">Request swap</a></td>
             <td class="table__cell--shift">S1H</td>
+            <td class="table__cell--action"><a href="/swap" class="action-button action-button--swap" title="Request swap">Request swap</a></td>
             <td class="secondary-text table__cell--status"></td>
         </tr>
         <tr>
             <td class="table__cell--date"><span class="h3">17</span> <span class="secondary-text">Tuesday</span></td>
-            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
             <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
             <td class="secondary-text table__cell--status">Waiting authorization</td>
         </tr>
         <tr>
             <td class="table__cell--date"><span class="h3">27</span> <span class="secondary-text">Tuesday</span></td>
-            <td class="table__cell--action"><span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span></td>
             <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
+            <td class="table__cell--action"><span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span></td>
             <td class="secondary-text table__cell--status">Confirmed</td>
         </tr>
         <tr>
             <td><span class="h3 table__cell--date">28</span> <span class="secondary-text">Tuesday</span></td>
-            <td class="table__cell--action"><a href="#" class="action-button action-button--add" title="Add shift">Add shift</a></td>
             <td class="table__cell--shift"></td>
+            <td class="table__cell--action"><a href="#" class="action-button action-button--add" title="Add shift">Add shift</a></td>
             <td class="secondary-text table__cell--status"></td>
         </tr> -->

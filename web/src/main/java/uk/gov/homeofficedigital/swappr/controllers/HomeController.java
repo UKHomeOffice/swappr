@@ -1,45 +1,58 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import uk.gov.homeofficedigital.swappr.daos.SwapDao;
-import uk.gov.homeofficedigital.swappr.model.Swap;
+import uk.gov.homeofficedigital.swappr.model.RotaView;
+import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.Arrays;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
-    private SwapDao swapDao;
+    private final RotaService rotaService;
 
-    public HomeController(SwapDao swapDao) {
-        this.swapDao = swapDao;
+    public HomeController(RotaService rotaService) {
+        this.rotaService = rotaService;
     }
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String home(Model model, Principal user) {
-        List<Swap> swaps = swapDao.findSwapsForUser(user.getName());
-        DateDisplay dateDisplay = new DateDisplay();
-        Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> dateDisplay.month(swap.getFromDate())));
-        model.addAttribute("swaps", swapsByMonth);
-        model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
+    private User userFromPrincipal(Principal principal) {
+        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String showHomePage(Model model, Principal principal) {
+
+        User user = userFromPrincipal(principal);
+        Map<Month, List<RotaView>> rotasByMonth = collectRotasByMonth(rotaService.findMyRotas(user));
+
+        model.addAttribute("rotasByMonth", rotasByMonth);
         return "home";
     }
 
-    @RequestMapping(value="/timeline", method=RequestMethod.GET)
-    public String timeline(Model model, Principal user) {
-        List<Swap> swaps = swapDao.findAllSwaps();
-        DateDisplay dateDisplay = new DateDisplay();
-        Map<String, List<Swap>> swapsByMonth = swaps.stream().collect(Collectors.groupingBy((swap) -> dateDisplay.month(swap.getFromDate())));
-        model.addAttribute("swaps", swapsByMonth);
-        model.addAttribute("months", Arrays.asList(dateDisplay.month(LocalDate.now()), dateDisplay.month(LocalDate.now().plusMonths(1))));
+    private Map<Month, List<RotaView>> collectRotasByMonth(Set<RotaView> rotas) {
+        List<RotaView> rotaList = new ArrayList<>(rotas);
+        rotaList.sort((a, b) -> a.getRota().getShift().getDate().compareTo(b.getRota().getShift().getDate()));
+        return rotaList.stream().collect(Collectors.groupingBy(rv -> rv.getRota().getShift().getDate().getMonth()));
+    }
+
+    @RequestMapping(value = "/timeline", method = RequestMethod.GET)
+    public String showTimeline(Model model) {
+
+        Map<Month, List<RotaView>> allRotasByMonth = collectRotasByMonth(rotaService.findAllRotas());
+        model.addAttribute("rotasByMonth", allRotasByMonth);
+
         return "timeline";
     }
 }
