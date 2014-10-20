@@ -1,4 +1,4 @@
-package uk.gov.homeofficedigital.swappr.controllers.forms;
+package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
@@ -6,13 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.RotaView;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.security.Principal;
 import java.time.Month;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
