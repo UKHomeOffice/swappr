@@ -35,23 +35,15 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return velocityLayoutViewResolver;
     }
 
-//    @Bean
-//    public HomeController home(SwapDao dao) {
-//        return new HomeController(dao);
-//    }
 
     @Bean
     public UserAdminController userAdmin(JdbcUserDetailsManager userManager, PasswordEncoder encoder) {
         return new UserAdminController(userManager, encoder);
     }
 
-//    @Bean
-//    public SwapController swap(SwapService swapService) {
-//        return new SwapController(swapService);
-//    }
 
     @Bean
-    public SwapController experimentalSwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
+    public SwapController swapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
         return new SwapController(shiftDao, rotaDao, rotaService, offerDao, volunteerDao);
     }
 
@@ -61,7 +53,7 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public HomeController experimentalHomeController(RotaService rotaService) {
+    public HomeController homeController(RotaService rotaService) {
         return new HomeController(rotaService);
     }
 
