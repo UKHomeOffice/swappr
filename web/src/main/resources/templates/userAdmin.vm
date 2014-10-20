@@ -1,5 +1,5 @@
-#set($pageTitle = 'User Admin')
-<h1>User Admin</h1>
+#set($pageTitle = 'User Admin - add user')
+<h1 class="hidden">User Admin</h1>
 <div>
     <form action="/admin/users/add" method="post">
         <fieldset #if($status.errors.hasErrors()){ class="erros" }#end>

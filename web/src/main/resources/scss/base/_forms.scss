@@ -9,6 +9,20 @@ form {
   margin-bottom : 15px;
 }
 
+fieldset {
+  border: 0;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+legend {
+  @extend h1;
+  border-bottom: 1px solid $border__colour--light;
+  float: left;
+  padding: 15px 0;
+  width: 100%;
+}
+
 input,
 select,
 textarea {
@@ -34,31 +48,42 @@ textarea {
   width: 3em;
 }
 
-fieldset {
-  border: 0;
-  float: left;
-  margin-bottom : 15px;
-}
-
-legend {
-  @extend h3;
-  float: left;
-  width: 100%;
-}
-
 label {
-  display: block;
-  font-weight: bold;
-  clear: both;
-  &.block-label {
-    clear: none;
-    float: left;
-    margin-right: 15px;
-    span {
-      display: block;
-    }
-  }
+  @extend .h3;
+  clear: left;
+  float: left;
+  width: 20%;
 }
+
+[type=submit],
+[type=checkbox] {
+  @include gutter('left', 20%);
+}
+//fieldset {
+//  border: 0;
+//  float: left;
+//  margin-bottom : 15px;
+//}
+//
+//legend {
+//  @extend h3;
+//  float: left;
+//  width: 100%;
+//}
+//
+//label {
+//  display: block;
+//  font-weight: bold;
+//  clear: both;
+//  &.block-label {
+//    clear: none;
+//    float: left;
+//    margin-right: 15px;
+//    span {
+//      display: block;
+//    }
+//  }
+//}
 
 .error {
   color: $text__colour--error;
