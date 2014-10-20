@@ -47,8 +47,15 @@ public class RotaService {
     }
 
     public Set<RotaView> findMyRotas(User worker) {
-        return rotaDao.findByWorker(worker)
-                .stream()
+        return mapToRotaView(rotaDao.findByWorker(worker));
+    }
+
+    public Set<RotaView> findAllRotas() {
+        return mapToRotaView(rotaDao.findAll());
+    }
+
+    private Set<RotaView> mapToRotaView(Set<Rota> rotas) {
+        return rotas.stream()
                 .map(r -> new RotaView(r, offerDao.findByRota(r.getId()), volunteerDao.findByRota(r.getId())))
                 .collect(Collectors.toSet());
     }

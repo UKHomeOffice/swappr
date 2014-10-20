@@ -8,7 +8,9 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
-import uk.gov.homeofficedigital.swappr.daos.SwapDao;
+import uk.gov.homeofficedigital.swappr.controllers.forms.ExperimentalHomeController;
+import uk.gov.homeofficedigital.swappr.daos.*;
+import uk.gov.homeofficedigital.swappr.service.RotaService;
 import uk.gov.homeofficedigital.swappr.service.SwapService;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
 import uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper;
@@ -35,23 +37,34 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return velocityLayoutViewResolver;
     }
 
-    @Bean
-    public HomeController home(SwapDao dao) {
-        return new HomeController(dao);
-    }
+//    @Bean
+//    public HomeController home(SwapDao dao) {
+//        return new HomeController(dao);
+//    }
 
     @Bean
     public UserAdminController userAdmin(JdbcUserDetailsManager userManager, PasswordEncoder encoder) {
         return new UserAdminController(userManager, encoder);
     }
 
+//    @Bean
+//    public SwapController swap(SwapService swapService) {
+//        return new SwapController(swapService);
+//    }
+
     @Bean
-    public SwapController swap(SwapService swapService) {
-        return new SwapController(swapService);
+    public ExperimentalSwapController experimentalSwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
+        return new ExperimentalSwapController(shiftDao, rotaDao, rotaService, offerDao, volunteerDao);
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }
+
+    @Bean
+    public ExperimentalHomeController experimentalHomeController(RotaService rotaService) {
+        return new ExperimentalHomeController(rotaService);
+    }
+
 }

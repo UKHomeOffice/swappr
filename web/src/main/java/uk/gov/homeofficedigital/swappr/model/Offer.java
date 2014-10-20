@@ -1,10 +1,11 @@
 package uk.gov.homeofficedigital.swappr.model;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class Offer {
+public class Offer implements Comparable {
 
     private final Long id;
     private final Rota swapFrom;
@@ -36,6 +37,11 @@ public class Offer {
 
     public OfferStatus getStatus() {
         return status;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return CompareToBuilder.reflectionCompare(this, o);
     }
 
     @Override

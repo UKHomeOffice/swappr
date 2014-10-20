@@ -28,4 +28,8 @@ public class RotaDao {
     public Set<Rota> findByWorker(User worker) {
         return rotas.stream().filter(r -> r.getWorker().equals(worker)).collect(Collectors.toSet());
     }
+
+    public Set<Rota> findAll() {
+        return rotas;
+    }
 }
