@@ -1,0 +1,16 @@
+<div class="shift-swap">
+    <div class="shift-swap__block">
+        <span class="">$swap.username</span>
+        <span class="h1">$swap.fromShift</span>
+        <span>$display.fullDate($swap.fromDate)</span>
+    </div>
+    <div class="shift-swap__block">
+##        TODO: replace You/username with appropriate attribute
+        <span class="">You/username</span>
+        <span class="h1">$swap.toShift</span>
+        <span>$display.fullDate($swap.toDate)</span>
+    </div>
+    #if($swap.status == "OFFERED")
+        <a href="/swap/$swap.id/volunteer" class="submit-button">Volunteer to swap</a>
+    #end
+</div>

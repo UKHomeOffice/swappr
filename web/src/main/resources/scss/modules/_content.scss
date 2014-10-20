@@ -8,3 +8,34 @@ main {
   @include gutter($setFullWidth: true);
   display: inline-block;
 }
+
+.shift-swap {
+  @extend %contain-floats;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.shift-swap__block {
+  background: $background__colour--theme--secondary;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 15px 0;
+  text-align: center;
+  width: 20%;
+  @include ie-lte(7) {
+    display: inline;
+    zoom: 1;
+  }
+
+  span {
+    display: block;
+  }
+}
+
+.message-block {
+  background-color: $background__colour--theme--secondary;
+  border-bottom: 3px solid $border__colour--theme;
+  border-top: 1px solid $border__colour--dark;
+  margin-bottom: 2%;
+  padding: 0 1%;
+}
