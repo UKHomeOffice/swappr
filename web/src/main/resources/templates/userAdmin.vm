@@ -17,6 +17,6 @@
             #springBind("user.matchingPassword")
             #springShowErrors("" "error")
         </fieldset>
-        <input id="submitBtn" class="submit-button" type="submit" value="Sign in"/>
+        <input id="submitBtn" class="submit-button" type="submit" value="Add"/>
     </form>
 </div>
