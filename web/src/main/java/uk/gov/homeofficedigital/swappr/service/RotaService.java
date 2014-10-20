@@ -56,4 +56,8 @@ public class RotaService {
     public Optional<OfferView> getOffer(Long offerId) {
         return offerDao.findById(offerId).map(o -> new OfferView(o, volunteerDao.findByOffer(o.getId())));
     }
+
+    public Rota addToRota(User worker, Shift shift) {
+        return rotaDao.create(worker, shift);
+    }
 }
