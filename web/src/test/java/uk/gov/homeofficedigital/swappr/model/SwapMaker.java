@@ -19,9 +19,9 @@ public class SwapMaker {
                     lookup.valueOf(id, 1l),
                     lookup.valueOf(user, "Bill"),
                     LocalDate.now(),
-                    ShiftType.Earlies,
+                    ShiftType.B1H,
                     LocalDate.now().plusDays(2),
-                    ShiftType.Lates,
+                    ShiftType.CFH,
                     lookup.valueOf(status, SwapStatus.PROPOSED),
                     lookup.valueOf(related, new ArrayList())
             );

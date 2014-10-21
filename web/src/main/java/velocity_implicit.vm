@@ -1,3 +1,4 @@
 #* @implicitly included *#
+#* @vtlvariable name="context" type="org.apache.velocity.tools.generic.ContextTool" *#
 #* @vtlvariable name="display" type="uk.gov.homeofficedigital.swappr.controllers.DateDisplay" *#
 #* @vtlvariable name="sec" type="uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper" *#

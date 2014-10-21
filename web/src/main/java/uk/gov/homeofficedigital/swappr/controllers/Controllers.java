@@ -35,7 +35,6 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return velocityLayoutViewResolver;
     }
 
-
     @Bean
     public UserAdminController userAdmin(JdbcUserDetailsManager userManager, PasswordEncoder encoder) {
         return new UserAdminController(userManager, encoder);
@@ -55,6 +54,11 @@ public class Controllers extends WebMvcConfigurerAdapter {
     @Bean
     public HomeController homeController(RotaService rotaService) {
         return new HomeController(rotaService);
+    }
+
+    @Bean
+    public ShiftController shiftController(ShiftDao shiftDao, RotaDao rotaDao) {
+        return new ShiftController(shiftDao, rotaDao);
     }
 
 }

@@ -1,0 +1,33 @@
+#* @vtlvariable name="availableMonths" type="java.util.Map<java.lang.String, java.lang.String>" *#
+#* @vtlvariable name="availableShifts" type="java.util.Map<java.lang.String, java.lang.String>" *#
+#set($pageTitle = 'Add shift')
+
+<h2>Add shifts</h2>
+
+<form action="/shifts/new" method="post">
+
+    <div>All Errors
+        #springBind("shift")
+        #springShowErrors()
+    </div>
+
+    From #springFormInput("shift.fromDay" "class='input--two-digit'")
+    #springShowErrors("<br />")
+    #springFormSingleSelect("shift.fromMonth" ${availableMonths})
+    #springShowErrors("<br />")
+
+    To #springFormInput("shift.toDay" "class='input--two-digit'")
+    #springShowErrors("<br />")
+    #springFormSingleSelect("shift.toMonth" ${availableMonths})
+    #springShowErrors("<br />")
+
+    Shift #springFormSingleSelect("shift.type", ${availableShifts})
+    #springShowErrors("<br />")
+
+    <input class="submit-button" type="submit" value="add"/>
+</form>
+
+
+
+
+

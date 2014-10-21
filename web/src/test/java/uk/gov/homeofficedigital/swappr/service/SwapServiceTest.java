@@ -69,12 +69,12 @@ public class SwapServiceTest {
         service.acceptVolunteeredSwap(make(a(SwapMaker.Swap, with(SwapMaker.status, SwapStatus.PROPOSED))));
     }
 
-    @Test
-    public void offerSwapShouldCreateSwapWithOfferedState() {
-        User user = new User("Bob", "password", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
-        LocalDate now = LocalDate.now();
-        service.offerSwap(user, now, ShiftType.Earlies, now.plusDays(2), ShiftType.Lates);
-        verify(swapDao).createSwap(user.getUsername(), now, ShiftType.Earlies, now.plusDays(2), ShiftType.Lates, SwapStatus.OFFERED);
-    }
+//    @Test
+//    public void offerSwapShouldCreateSwapWithOfferedState() {
+//        User user = new User("Bob", "password", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
+//        LocalDate now = LocalDate.now();
+//        service.offerSwap(user, now, ShiftType.Earlies, now.plusDays(2), ShiftType.Lates);
+//        verify(swapDao).createSwap(user.getUsername(), now, ShiftType.Earlies, now.plusDays(2), ShiftType.Lates, SwapStatus.OFFERED);
+//    }
 
 }

@@ -38,8 +38,8 @@ public class SwapDaoTest extends SpringIntegrationTest {
         String username = user.getUsername();
         LocalDate fromShiftDate = LocalDate.now();
         LocalDate toShiftDate = LocalDate.now().plusDays(2);
-        ShiftType fromShiftType = ShiftType.Earlies;
-        ShiftType toShiftType = ShiftType.Lates;
+        ShiftType fromShiftType = ShiftType.B1H;
+        ShiftType toShiftType = ShiftType.S1H;
         swapDao.createSwap(username, fromShiftDate, fromShiftType, toShiftDate, toShiftType, PROPOSED);
 
         List<Swap> swaps = swapDao.findSwapsForUser(username);
@@ -58,8 +58,8 @@ public class SwapDaoTest extends SpringIntegrationTest {
     public void updatingStatusShouldOnlyAffectTheGivenSwap() throws Exception {
         User user = createUser();
 
-        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
-        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(3), ShiftType.Lates, ACCEPTED);
+        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.B1H, LocalDate.now().plusDays(2), ShiftType.S1H, PROPOSED);
+        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.B1H, LocalDate.now().plusDays(3), ShiftType.S1H, ACCEPTED);
 
         List<Swap> savedSwaps = swapDao.findSwapsForUser(user.getUsername());
         assertThat(savedSwaps, hasSize(2));
@@ -81,7 +81,7 @@ public class SwapDaoTest extends SpringIntegrationTest {
     public void loadSwap_shouldReturnASwap_givenAMatchingId() throws Exception {
         User user = createUser();
 
-        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.Earlies, LocalDate.now().plusDays(2), ShiftType.Lates, PROPOSED);
+        swapDao.createSwap(user.getUsername(), LocalDate.now(), ShiftType.B1H, LocalDate.now().plusDays(2), ShiftType.S1H, PROPOSED);
         List<Swap> userSwaps = swapDao.findSwapsForUser(user.getUsername());
         Swap swap = userSwaps.get(0);
 

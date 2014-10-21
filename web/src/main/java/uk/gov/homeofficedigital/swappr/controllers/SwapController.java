@@ -1,6 +1,5 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +35,7 @@ public class SwapController {
     private final RotaService rotaService;
     private final OfferDao offerDao;
     private final VolunteerDao volunteerDao;
+    private final UserHelper userHelper = new UserHelper();
 
     public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
         this.shiftDao = shiftDao;
@@ -66,17 +66,13 @@ public class SwapController {
         return "createSwap";
     }
 
-    private User userFromPrincipal(Principal principal) {
-        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return "createSwap";
         }
 
-        User user = userFromPrincipal(principal);
+        User user = userHelper.userFromPrincipal(principal);
         Shift from = shiftDao.create(swap.getFromDate(), swap.getFromShiftType());
         Shift to = shiftDao.create(swap.getToDate(), swap.getToShiftType());
         Rota rota = rotaDao.create(user, from);
@@ -95,7 +91,7 @@ public class SwapController {
 
         Offer offer = oOffer.get();
 
-        User user = userFromPrincipal(principal);
+        User user = userHelper.userFromPrincipal(principal);
 
         Rota myRota = rotaDao.create(user, offer.getSwapTo());
 
