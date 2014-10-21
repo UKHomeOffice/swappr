@@ -33,7 +33,7 @@
 				#springShowErrors("" "error")
 			#end
         <div class="form-group-inline form-group-fixed-medium">
-            <legend>From<span class="hidden"> date</span></legend>
+            <legend>To<span class="hidden"> date</span></legend>
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toDay">Day</label>
