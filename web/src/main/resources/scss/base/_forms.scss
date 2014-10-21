@@ -26,6 +26,7 @@ fieldset {
 input,
 select,
 textarea {
+  @include text($base__font-size--small);
   background-color: $white;
   border: 1px solid #bfc1c3;
   border-radius: 0;
