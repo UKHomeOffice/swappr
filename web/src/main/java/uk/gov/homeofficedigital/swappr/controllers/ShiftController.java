@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Period;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,7 +26,7 @@ public class ShiftController {
 
     private final ShiftDao shiftDao;
     private final RotaDao rotaDao;
-    private final UserHelper userHelper = new UserHelper();
+    private final ControllerHelper controllerHelper = new ControllerHelper();
 
     public ShiftController(ShiftDao shiftDao, RotaDao rotaDao) {
         this.shiftDao = shiftDao;
@@ -37,26 +36,12 @@ public class ShiftController {
 
     @ModelAttribute("availableShifts")
     public LinkedHashMap<String, String> availableShifts() {
-        return Stream.of(ShiftType.values())
-                .collect(
-                        Collectors.toMap(
-                                ShiftType::name,
-                                st -> st.name() + " - " + st.getLabel().name(),
-                                (a, b) -> a,
-                                LinkedHashMap::new));
-
+        return controllerHelper.availableShifts();
     }
 
     @ModelAttribute("availableMonths")
-    public LinkedHashMap<Integer, String> availableMonths() {
-        Month thisMonth = LocalDate.now().getMonth();
-        return Stream.of(thisMonth, thisMonth.plus(1), thisMonth.plus(2))
-                .collect(
-                        Collectors.toMap(
-                                Month::getValue,
-                                month -> new DateDisplay().month(month),
-                                (a, b) -> a,
-                                LinkedHashMap::new));
+    public LinkedHashMap<String, String> availableMonths() {
+        return controllerHelper.availableMonths();
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -75,7 +60,7 @@ public class ShiftController {
 
         for (LocalDate date = shiftForm.getFromDate().get(); date.isBefore(shiftForm.getToDate().get().plusDays(1)); date = date.plusDays(1)) {
             Shift shift = shiftDao.create(date, shiftForm.getType());
-            rotaDao.create(userHelper.userFromPrincipal(principal), shift);
+            rotaDao.create(controllerHelper.userFromPrincipal(principal), shift);
         }
 
         return "redirect:/";

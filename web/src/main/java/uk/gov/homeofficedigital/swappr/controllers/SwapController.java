@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -30,7 +31,7 @@ public class SwapController {
     private final RotaDao rotaDao;
     private final RotaService rotaService;
     private final OfferDao offerDao;
-    private final UserHelper userHelper = new UserHelper();
+    private final ControllerHelper controllerHelper = new ControllerHelper();
 
     public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao) {
         this.shiftDao = shiftDao;
@@ -38,6 +39,17 @@ public class SwapController {
         this.rotaService = rotaService;
         this.offerDao = offerDao;
     }
+
+    @ModelAttribute("availableMonths")
+    public LinkedHashMap<String, String> availableMonths() {
+        return controllerHelper.availableMonths();
+    }
+
+    @ModelAttribute("availableShifts")
+    public LinkedHashMap<String, String> availableShifts() {
+        return controllerHelper.availableShifts();
+    }
+
 
     @RequestMapping(value = "/{rotaId}", method = RequestMethod.GET)
     public String view(@PathVariable Long rotaId, Model model) {
@@ -50,16 +62,12 @@ public class SwapController {
         form.setFromDay(dateToSwap.getDayOfMonth());
         form.setFromMonth(dateToSwap.getMonthValue());
         form.setFromYear(dateToSwap.getYear());
+        form.setFromShiftType(rota.getShift().getType());
         form.setToDay(dateToSwap.getDayOfMonth());
         form.setToMonth(dateToSwap.getMonthValue());
         form.setToYear(dateToSwap.getYear());
         model.addAttribute("swap", form);
 
-        model.addAttribute("shifts", Stream.of(ShiftType.values()).collect(
-                HashMap::new,
-                (map, shift) -> map.put(shift.name(), shift.name()),
-                (mapA, mapB) -> mapA.putAll(mapB)
-        ));
         return "createSwap";
     }
 
@@ -69,7 +77,7 @@ public class SwapController {
             return "createSwap";
         }
 
-        User user = userHelper.userFromPrincipal(principal);
+        User user = controllerHelper.userFromPrincipal(principal);
         Shift from = shiftDao.create(swap.getFromDate(), swap.getFromShiftType());
         Shift to = shiftDao.create(swap.getToDate(), swap.getToShiftType());
         Rota rota = rotaDao.create(user, from);
@@ -88,7 +96,7 @@ public class SwapController {
 
         Offer offer = oOffer.get();
 
-        User user = userHelper.userFromPrincipal(principal);
+        User user = controllerHelper.userFromPrincipal(principal);
 
         Rota myRota = rotaDao.create(user, offer.getSwapTo());
 

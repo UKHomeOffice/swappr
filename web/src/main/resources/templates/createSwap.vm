@@ -1,3 +1,5 @@
+#* @vtlvariable name="availableMonths" type="java.util.Map<java.lang.String, java.lang.String>" *#
+#* @vtlvariable name="availableShifts" type="java.util.Map<java.lang.String, java.lang.String>" *#
 #set($pageTitle = 'Request a swap')
 <h1>Request swap</h1>
 <form action="/swap/create" method="POST">
@@ -17,7 +19,7 @@
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="fromMonth">Month</label>
-					#springFormInput("swap.fromMonth" "class='input--two-digit'")
+                #springFormSingleSelect("swap.fromMonth", $availableMonths)
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="fromYear">Year</label>
@@ -25,7 +27,7 @@
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="fromShiftType">Shift</label>
-					#springFormSingleSelect("swap.fromShiftType", ${shifts})
+					#springFormSingleSelect("swap.fromShiftType", ${availableShifts})
         </div>
     </fieldset>
 
@@ -43,7 +45,7 @@
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toMonth">Month</label>
-					#springFormInput("swap.toMonth" "class='input--two-digit'")
+					#springFormSingleSelect("swap.toMonth", $availableMonths)
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toYear">Year</label>
@@ -51,7 +53,7 @@
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toShiftType">Shift</label>
-					#springFormSingleSelect("swap.toShiftType", ${shifts})
+					#springFormSingleSelect("swap.toShiftType", ${availableShifts})
         </div>
     </fieldset>
 		<div class="form-group">
