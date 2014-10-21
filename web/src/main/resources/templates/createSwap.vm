@@ -56,12 +56,6 @@
 					#springFormSingleSelect("swap.toShiftType", ${availableShifts})
         </div>
     </fieldset>
-		<div class="form-group">
-        <label class="block-label" for="checkbox-1">
-            <input id="checkbox-1" type="checkbox" value="notifyOfOffers">
-            Notify me when I receive offers for this swap
-				</label>
-		</div>
 		<div class="form-submit">
         <input class="submit-button" type="submit" value="submit"/>
 		</div>
