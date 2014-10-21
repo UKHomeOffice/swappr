@@ -4,15 +4,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
-import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.Shift;
@@ -34,28 +30,29 @@ public class SwapController {
     private final RotaDao rotaDao;
     private final RotaService rotaService;
     private final OfferDao offerDao;
-    private final VolunteerDao volunteerDao;
     private final UserHelper userHelper = new UserHelper();
 
-    public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
+    public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao) {
         this.shiftDao = shiftDao;
         this.rotaDao = rotaDao;
         this.rotaService = rotaService;
         this.offerDao = offerDao;
-        this.volunteerDao = volunteerDao;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String view(Model model) {
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
+    @RequestMapping(value = "/{rotaId}", method = RequestMethod.GET)
+    public String view(@PathVariable Long rotaId, Model model) {
+
+        Rota rota = rotaDao.findById(rotaId).orElseThrow(RotaNotFoundException::new);
+
+        LocalDate dateToSwap = rota.getShift().getDate();
 
         SwapForm form = new SwapForm();
-        form.setFromDay(tomorrow.getDayOfMonth());
-        form.setFromMonth(tomorrow.getMonthValue());
-        form.setFromYear(tomorrow.getYear());
-        form.setToDay(tomorrow.getDayOfMonth());
-        form.setToMonth(tomorrow.getMonthValue());
-        form.setToYear(tomorrow.getYear());
+        form.setFromDay(dateToSwap.getDayOfMonth());
+        form.setFromMonth(dateToSwap.getMonthValue());
+        form.setFromYear(dateToSwap.getYear());
+        form.setToDay(dateToSwap.getDayOfMonth());
+        form.setToMonth(dateToSwap.getMonthValue());
+        form.setToYear(dateToSwap.getYear());
         model.addAttribute("swap", form);
 
         model.addAttribute("shifts", Stream.of(ShiftType.values()).collect(

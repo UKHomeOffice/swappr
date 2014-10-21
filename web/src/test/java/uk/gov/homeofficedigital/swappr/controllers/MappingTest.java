@@ -55,11 +55,4 @@ public class MappingTest extends SpringIntegrationTest {
                 .andExpect(content().string(containsString("user")));
     }
 
-    @Test
-    public void createSwap_isBound() throws Exception {
-        mvc.perform(get("/swap"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("swap")));
-    }
-
 }

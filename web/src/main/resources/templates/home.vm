@@ -25,8 +25,22 @@
             <tr>
                 <td class="table__cell--date"><span class="h3">$rotaView.rota.shift.date.dayOfMonth</span> <span class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
                 <td class="table__cell--shift">$rotaView.rota.shift.type</td>
-                <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
-                <td class="secondary-text table__cell--status">Waiting for offers</td>
+                <td class="table__cell--action">
+
+                    #if($rotaView.offers.isEmpty())
+                        <a href="/swap/$rotaView.rota.id" class="action-button action-button--swap" title="Request swap">Request swap</a>
+                    #else
+                        #foreach($offer in $rotaView.offers)
+                            #if($offer.status.name() == 'APPROVED')
+                                <span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span>
+                            #else
+                                <span class="action-button--disabled action-button--wait" title="In progress">In progress: $offer</span>
+                            #end
+                        #end
+                    #end
+
+                </td>
+                <td class="secondary-text table__cell--status"></td>
             </tr>
             #end
         </tbody>

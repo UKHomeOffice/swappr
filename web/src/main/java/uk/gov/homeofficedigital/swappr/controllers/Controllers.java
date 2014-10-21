@@ -8,7 +8,9 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
-import uk.gov.homeofficedigital.swappr.daos.*;
+import uk.gov.homeofficedigital.swappr.daos.OfferDao;
+import uk.gov.homeofficedigital.swappr.daos.RotaDao;
+import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
 import uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper;
@@ -42,8 +44,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public SwapController swapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
-        return new SwapController(shiftDao, rotaDao, rotaService, offerDao, volunteerDao);
+    public SwapController swapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao) {
+        return new SwapController(shiftDao, rotaDao, rotaService, offerDao);
     }
 
     @Override
