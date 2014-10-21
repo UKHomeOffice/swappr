@@ -14,6 +14,7 @@ caption {
 }
 
 tbody {
+  @include text($base__font-size--small);
   border-top: 1px solid $border__colour--dark;
 }
 
