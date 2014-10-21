@@ -3,33 +3,51 @@
 #set($tab = 'timeline')
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
-    #set($rotaViews = $rotasByMonth.get($rotaMonth))
-    <a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
+	#set($rotaViews = $rotasByMonth.get($rotaMonth))
+<a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
 
-    <table>
-        <caption class="h1"><span class="secondary-text">All / </span>$display.month($rotaMonth)</caption>
-        <thead class="hidden">
+<table>
+    <caption class="h1"><span class="secondary-text">All / </span>$display.month($rotaMonth)</caption>
+    <thead class="hidden">
+    <tr>
+        <th scope=col class="table__cell--date">Date</th>
+        <th scope=col class="table__cell--shift">Shift</th>
+        <th scope=col class="table__cell--action">Action</th>
+        <th scope=col class="table__cell--status">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+			#if($rotaViews.isEmpty())
+      <tr>
+          <td colspan="2">No swaps</td>
+      </tr>
+			#end
+			#foreach($rotaView in $rotaViews)
+				#foreach($offer in $rotaView.getOffers())
         <tr>
-            <th scope=col class="table__cell--date">Date</th>
-            <th scope=col class="table__cell--shift">Shift</th>
-            <th scope=col class="table__cell--action">Action</th>
-            <th scope=col class="table__cell--status">Status</th>
+            <td class="table__cell--date"><span class="h3">$rotaView.rota.shift.date.dayOfMonth</span> <span
+                    class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
+            <td class="table__cell--shift"><a href="/swap/$swap.id">$offer.swapFrom.worker.username</a> wants to
+                swap $offer.swapFrom.shift.type → $offer.swapTo.type on $display.fullDate($offer.swapTo.date)</td>
+
+            <td class="table__cell--action">
+							#if($offer.status.name() == 'APPROVED')
+                  <span class="action-button--disabled action-button--swapped"
+                        title="Shift swapped">Shift swapped</span>
+							#else
+                  <span class="action-button--disabled action-button--wait"
+                        title="In progress">In progress: $offer</span>
+							#end
+            </td>
+            <td class="secondary-text table__cell--status">
+							#if($offer.status.name() != 'APPROVED')
+                  You've offered to swap
+							#end
+            </td>
+
         </tr>
-        </thead>
-        <tbody>
-            #if($rotaViews.isEmpty())
-            <tr>
-                <td colspan="2">No swaps</td>
-            </tr>
-            #end
-            #foreach($rotaView in $rotaViews)
-                #foreach($offer in $rotaView.getOffers())
-                    <tr>
-                        <td class="table__cell--date"><span class="h3">$rotaView.rota.shift.date.dayOfMonth</span> <span class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
-                        <td class="table__cell--action"><span class="secondary-text"><a href="/swap/$swap.id">$offer.swapFrom.worker.username</a> wants to swap a $offer.swapFrom.shift.type for $offer.swapTo.type on $display.fullDate($offer.swapTo.date)</span></td>
-                    </tr>
-                #end
-            #end
-        </tbody>
-    </table>
+				#end
+			#end
+    </tbody>
+</table>
 #end
