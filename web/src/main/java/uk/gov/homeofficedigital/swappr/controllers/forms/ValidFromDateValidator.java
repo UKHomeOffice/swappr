@@ -16,6 +16,6 @@ public class ValidFromDateValidator implements ConstraintValidator<ValidFromDate
             return true;
         }
 
-        return form.getFromDate().isPresent();
+        return form.getFromDate().isPresent() && form.atLeastToday(form.getFromDate().get());
     }
 }

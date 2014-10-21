@@ -58,6 +58,10 @@ public class ShiftForm {
         return inferYear(fromDay, fromMonth);
     }
 
+    boolean atLeastToday(LocalDate localDate) {
+        return LocalDate.now(clock).compareTo(localDate) <= 0;
+    }
+
 
     private Optional<LocalDate> inferYear(Integer day, Integer month) {
         if (day == null || month == null) {
@@ -66,7 +70,7 @@ public class ShiftForm {
         LocalDate now = LocalDate.now(clock);
         try {
             LocalDate fromMonthAndDay = LocalDate.of(now.getYear(), month, day);
-            if (fromMonthAndDay.isBefore(now)) {
+            if (fromMonthAndDay.getMonthValue() < now.getMonthValue()) {
                 fromMonthAndDay = fromMonthAndDay.plusYears(1);
             }
             return Optional.of(fromMonthAndDay);

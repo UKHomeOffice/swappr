@@ -38,6 +38,23 @@ public class ShiftFormTest {
     }
 
     @Test
+    public void fromDateShouldBeNoEarlierThanToday() {
+        form.setFromDay(fixed.getDayOfMonth() - 1);
+        form.setFromMonth(fixed.getMonthValue());
+        form.setToDay(fixed.getDayOfMonth());
+        form.setToMonth(fixed.getMonthValue());
+        form.setType(ShiftType.S1H);
+        Set<ConstraintViolation<ShiftForm>> violations = validator.validate(form);
+
+        assertThat(violations, hasSize(1));
+        assertThat(violations, hasItem((org.hamcrest.Matcher<? super ConstraintViolation<ShiftForm>>) hasProperty("message", equalTo("From Day and Month must together be a valid date"))));
+
+        form.setFromDay(fixed.getDayOfMonth());
+        violations = validator.validate(form);
+        assertThat(violations, hasSize(0));
+    }
+
+    @Test
     public void getFromDateShouldReturnTheNextYearIfTheMonthIsLessThanToday() {
         form.setFromDay(20);
         form.setFromMonth(1);
