@@ -4,7 +4,7 @@
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
     #set($rotaViews = $rotasByMonth.get($rotaMonth))
-    <a href="/shifts/new" class="submit-button submit-button--right-lowered">create shift<span class="hidden"> for $display.month($rotaMonth)</span></a>
+    <a href="/shifts/new" class="submit-button submit-button--right-lowered">Add shifts<span class="hidden"> for $display.month($rotaMonth)</span></a>
     <table>
         <caption class="h1"><span class="secondary-text">You / </span>$display.month($rotaMonth)</caption>
         <thead class="hidden">
