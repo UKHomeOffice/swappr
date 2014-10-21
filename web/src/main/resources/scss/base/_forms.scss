@@ -95,11 +95,18 @@ textarea {
   margin-bottom: 15px;
 }
 
-.form-group-inline {
-  display: inline-block;
+.form-group-inline-container {
+  font-size: 0;
 }
 
-.form-group--fixed-medium {
+.form-group-inline {
+  @include calc-rem($base__font-size);
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.form-group-fixed-medium {
+  padding-right: 0;
   width: 20%;
 }
 
