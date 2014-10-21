@@ -9,8 +9,8 @@
             #if($param.logout)
                 Successfully logged out
             #end
-            <label for="username">Username:</label><input type="text" id="username" name="username"/>
-            <label for="password">Password:</label><input type="password" id="password" name="password"/>
+            <label class="label-inline" for="username">Username:</label><input type="text" id="username" name="username"/>
+            <label class="label-inline" for="password">Password:</label><input type="password" id="password" name="password"/>
         </fieldset>
         <input id="submitBtn" class="submit-button" type="submit" value="Sign in"/>
     </form>
