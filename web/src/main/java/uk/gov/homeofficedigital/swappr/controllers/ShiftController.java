@@ -10,15 +10,11 @@ import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
 import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.ShiftType;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.LinkedHashMap;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/shifts")
@@ -26,11 +22,12 @@ public class ShiftController {
 
     private final ShiftDao shiftDao;
     private final RotaDao rotaDao;
-    private final ControllerHelper controllerHelper = new ControllerHelper();
+    private final ControllerHelper controllerHelper;
 
-    public ShiftController(ShiftDao shiftDao, RotaDao rotaDao) {
+    public ShiftController(ShiftDao shiftDao, RotaDao rotaDao, ControllerHelper helper) {
         this.shiftDao = shiftDao;
         this.rotaDao = rotaDao;
+        this.controllerHelper = helper;
     }
 
 

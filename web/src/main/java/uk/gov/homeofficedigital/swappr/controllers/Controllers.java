@@ -42,10 +42,14 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return new UserAdminController(userManager, encoder);
     }
 
+    @Bean
+    public ControllerHelper controllerHelper() {
+        return new ControllerHelper();
+    }
 
     @Bean
-    public SwapController swapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao) {
-        return new SwapController(shiftDao, rotaDao, rotaService, offerDao);
+    public SwapController swapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
+        return new SwapController(shiftDao, rotaDao, rotaService, offerDao, helper);
     }
 
     @Override
@@ -59,8 +63,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ShiftController shiftController(ShiftDao shiftDao, RotaDao rotaDao) {
-        return new ShiftController(shiftDao, rotaDao);
+    public ShiftController shiftController(ShiftDao shiftDao, RotaDao rotaDao, ControllerHelper helper) {
+        return new ShiftController(shiftDao, rotaDao, helper);
     }
 
 }

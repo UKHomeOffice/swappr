@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import uk.gov.homeofficedigital.swappr.controllers.exceptions.OfferNotFoundException;
+import uk.gov.homeofficedigital.swappr.controllers.exceptions.RotaNotFoundException;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
@@ -12,16 +14,12 @@ import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/swap")
@@ -31,13 +29,14 @@ public class SwapController {
     private final RotaDao rotaDao;
     private final RotaService rotaService;
     private final OfferDao offerDao;
-    private final ControllerHelper controllerHelper = new ControllerHelper();
+    private final ControllerHelper controllerHelper;
 
-    public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao) {
+    public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
         this.shiftDao = shiftDao;
         this.rotaDao = rotaDao;
         this.rotaService = rotaService;
         this.offerDao = offerDao;
+        this.controllerHelper = helper;
     }
 
     @ModelAttribute("availableMonths")
@@ -89,12 +88,8 @@ public class SwapController {
 
     @RequestMapping(value = "/{id}/volunteer", method = RequestMethod.GET)
     public String volunteer(@RequestParam Long offerId, Principal principal) {
-        Optional<Offer> oOffer = offerDao.findById(offerId);
-        if (!oOffer.isPresent()) {
-            throw new OfferNotFoundException();
-        }
 
-        Offer offer = oOffer.get();
+        Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
 
         User user = controllerHelper.userFromPrincipal(principal);
 
