@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.model;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class RotaView {
@@ -20,6 +21,10 @@ public class RotaView {
 
     public Set<Offer> getOffers() {
         return offers;
+    }
+
+    public Optional<Volunteer> getApprovedVolunteer() {
+        return volunteers.stream().filter(v -> v.getStatus().equals(VolunteerStatus.APPROVED)).findFirst();
     }
 
     public Set<Volunteer> getVolunteers() {
