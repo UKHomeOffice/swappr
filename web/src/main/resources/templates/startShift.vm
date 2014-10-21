@@ -2,29 +2,62 @@
 #* @vtlvariable name="availableShifts" type="java.util.Map<java.lang.String, java.lang.String>" *#
 #set($pageTitle = 'Add shift')
 
-<h2>Add shifts</h2>
+<h1>Add shifts</h1>
 
 <form action="/shifts/new" method="post">
-
-    <div>All Errors
-        #springBind("shift")
-        #springShowErrors()
+    <div class="form-error-summary">
+			#springBind("shift")
+      #springShowErrors()
     </div>
 
-    From #springFormInput("shift.fromDay" "class='input--two-digit'")
-    #springShowErrors("<br />")
-    #springFormSingleSelect("shift.fromMonth" ${availableMonths})
-    #springShowErrors("<br />")
+    <fieldset class="form-group-inline-container">
+			#if($status.errorMessages)
+				#springShowErrors("" "error")
+			#end
+        <div class="form-group-inline form-group-fixed-medium">
+            <legend>From<span class="hidden"> date</span></legend>
+        </div>
+        <div class="form-group-inline">
+					<label class="hidden" for="fromDay">Day</label>
+					#springFormInput("shift.fromDay" "class='input--two-digit'")
+					#springShowErrors("<br />")
+        </div>
+        <div class="form-group-inline">
+            <label class="hidden" for="fromMonth">Month</label>
+					#springFormSingleSelect("shift.fromMonth" ${availableMonths})
+        </div>
+    </fieldset>
 
-    To #springFormInput("shift.toDay" "class='input--two-digit'")
-    #springShowErrors("<br />")
-    #springFormSingleSelect("shift.toMonth" ${availableMonths})
-    #springShowErrors("<br />")
+    <fieldset class="form-group-inline-container">
+			#if($status.errorMessages)
+				#springShowErrors("" "error")
+			#end
+        <div class="form-group-inline form-group-fixed-medium">
+            <legend>From<span class="hidden"> date</span></legend>
+        </div>
+        <div class="form-group-inline">
+            <label class="hidden" for="toDay">Day</label>
+					#springFormInput("shift.toDay" "class='input--two-digit'")
+					#springShowErrors("<br />")
+        </div>
+        <div class="form-group-inline">
+            <label class="hidden" for="toMonth">Month</label>
+					#springFormSingleSelect("shift.toMonth" ${availableMonths})
+        </div>
+    </fieldset>
 
-    Shift #springFormSingleSelect("shift.type", ${availableShifts})
-    #springShowErrors("<br />")
-
-    <input class="submit-button" type="submit" value="add"/>
+    <div class="form-group-inline-container">
+			<div class="form-group-inline form-group-fixed-medium">
+    		Shift
+			</div>
+			<div class="form-group-inline">
+				#springFormSingleSelect("shift.type", ${availableShifts})
+				#springShowErrors("<br />")
+			</div>
+		</div>
+    <div class="form-submit">
+        <input class="submit-button" type="submit" value="submit"/>
+    </div>
 </form>
 
 
