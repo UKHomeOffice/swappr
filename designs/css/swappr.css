@@ -90,8 +90,8 @@ tbody td {
     border-right: 0px;
     padding: 15px 0 15px 0;
     margin: 0;
-    /* cursor: pointer; */
     font-size: 16px;
+    vertical-align: text-top;
     /* debugging border: 1px solid #f8f8f8; */
 }
 tbody tr {
@@ -132,10 +132,10 @@ label {
     font-weight: bold;
     padding-bottom: 10px;
     margin-top: 50px;
+    /*display: block;*/
 }
 input {
     font-family: Helvetica, Arial, sans-serif;
-    display: block;
     background-color: #fff;
     border: 1px solid #bfc1c3;
     border-radius: 0;
@@ -167,6 +167,16 @@ input, select {
     width: auto; 
     margin-bottom: 15px;
 }
+form.frm_profile label {
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 15px;
+    padding-bottom: 5px;
+}
+form.frm_profile input {width: 300px;}
+form.frm_profile select {width: auto;}
+
 .button {
     font-size: 16px;
     background-color: #f8f8f8;
@@ -319,6 +329,7 @@ footer p {font-size: 14px; color:#999;}
         padding-right: 10px;
     }
     a.button {
+        width: 70%;
         display: block; 
         text-align: center; 
         padding: 20px 40px 20px 40px;

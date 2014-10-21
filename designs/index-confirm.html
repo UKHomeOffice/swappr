@@ -43,16 +43,19 @@
             <div class="d2-d4 t2-t6 m1-m2 menubar">
               <a href="./" class="selected"><img src="./img/user.png" alt="Your timeline" title="Your timeline"><span class="m-hide"> You</span></a> 
               <a href="./timeline.html"><img src="./img/users.png" alt="All staff" title="All staff"><span class="m-hide"> All</span></a></div>
-            <div class="d10-d11 t10-t11 menubar menubarmsg"><a href="./messages.html"><img src="./img/envelop.png" alt="Messages" title="Messages"><span class="msg-indicator">3</span></a></div>
+            <div class="d10-d11 t10-t11 menubar menubarmsg">
+              <!-- 
+              <a href="./messages.html"><img src="./img/envelop.png" alt="Messages" title="Messages"><span class="msg-indicator">3</span></a> -->
+            </div>
 
             <div class="d-all t-all"><hr /></div>
 
         </nav>
 
-        <div class="d-all t-all"></div>
+        <div class="d-all t-all m-all"></div>
 
 
-        <div class="d2-d11 t2-t11"> 
+        <div class="d2-d11 t2-t11 m1-m2"> 
 
           <p class="notification"><img src="img/checkmark.png" alt=""> Thanks, your swap request for Friday 24 October has been posted</p>
             
@@ -61,7 +64,7 @@
               <tr>
                 <th colspan="3"><h2><span class="text-secondary">You / </span>October</h2></th>
                 <!-- Retaining this option to add shifts to see whether preference is to use this or the individual date buttons -->
-                <th class="row-add"><a href="#" class="button">Add shifts</a></th>
+                <th class="row-add"><a href="add-shifts.html" class="button">Add shifts</a></th>
               </tr>
             </thead>
             <tbody>
@@ -79,16 +82,16 @@
               <!-- Scenario: same day swap -->
               <tr>
                 <td class="row-date">14 <span class="text-secondary">Tuesday</span></td>
-                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">C1H - <a href="message-confirmed.html">Swapped</a> with Paul B</small></td>
+                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">C1H</small></td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/checkmark-small-disabled.png" alt="" title="Shift swapped" /></span></td>
-                <td class="row-request">Confirmed</td>
+                <td class="row-request">Confirmed.<br /><a href="message-confirmed-paulb.html">Swapped</a> with Paul B</td>
                 
               </tr>
               <tr>
                 <td class="row-date">15 <span class="text-secondary">Wednesday</span></td>
                 <td class="row-shift"><a href="#">Early</a> <small class="shiftcode text-secondary">C1H</small></td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/clock-small.png" alt="" title="In progress" /></span></td>
-                <td class="row-request">You've requested a swap</td>
+                <td class="row-request"><a href="#">Swap requested</a>.<br />No replies</td>
               </tr>
               <!-- Scenario: day off -->
               <tr>
@@ -124,9 +127,9 @@
               <!-- Scenario: swapped for different day, not yet confirmed -->
               <tr>
                 <td class="row-date">21 <span class="text-secondary">Tuesday</span></td>
-                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">Z1T - <a href="#">Swapped</a> with Paul B</small> </td>
+                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">Z1T</small> </td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/clock-small.png" alt="" title="In progress" /></span></td>
-                <td class="row-request">Waiting for authorisation</td>
+                <td class="row-request">Swap requested.<br /><a href="message-chain.html">Catherine M</a> has replied</td>
               </tr>
               <tr>
                 <td class="row-date">22 <span class="text-secondary">Wednesday</span></td>
@@ -143,8 +146,8 @@
               <tr class="row-confirmation">
                 <td class="row-date">24 <span class="text-secondary">Friday</span></td>
                 <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">Z1T</small></td>
-                <td class="row-controls"><a href="#" class="icon-button-disabled"><img src="./img/loop-disabled.png" alt="" title="" /></a></td>
-                <td class="row-request">You've requested a swap</td>
+                <td class="row-controls"><a href="request-swap.html" class="icon-button-disabled"><img src="./img/loop-disabled.png" alt="" title="Request swap" /></a></td>
+                <td class="row-request">Swap requested</td>
               </tr>
               <tr>
                 <td class="row-date">25 <span class="text-secondary">Saturday</span></td>
@@ -155,7 +158,7 @@
               <tr>
                 <td class="row-date">26 <span class="text-secondary">Sunday</span></td>
                 <td class="row-shift"><a href="#">Early</a> <small class="shiftcode text-secondary">S1H</small></td>
-                <td class="row-controls"><a href="request-swap.html" class="icon-button"><img src="./img/loop3.png" alt="" title="Request swap" /></a></td>
+                <td class="row-controls"><a href="#" class="icon-button"><img src="./img/loop3.png" alt="" title="Request swap" /></a></td>
                 <td class="row-request"></td>
               </tr>
               <tr>
@@ -199,7 +202,7 @@
             <thead>
               <tr>
                 <th colspan="3"><h2><span class="text-secondary">You / </span>November</h2></th>
-                <th class="row-add"><a href="request-swap.html" class="button">Add shifts</a></th>
+                <th class="row-add"><a href="add-shifts.html" class="button">Add shifts</a></th>
               </tr>
             </thead>
             <tbody>
@@ -217,12 +220,12 @@
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/loop-disabled.png" alt=""  /></span></td>
                 <td class="row-request"></td>
               </tr>
+              <!-- Scenario: multiple replies to one swap request -->
               <tr>
                 <td class="row-date">03 <span class="text-secondary">Monday</span></td>
-                
                 <td class="row-shift"><a href="#" title="Edit shift">Early</a> <small class="shiftcode text-secondary">S1H</small></td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/loop-disabled.png" alt=""  /></span></td>
-                <td class="row-request">You've requested a swap</td>
+                <td class="row-request">Swap requested.<br /><a href="#">Aman B</a>, <a href="#">Paul B</a> and <a href="#">Lil H</a> have replied</td>
               </tr>
               <!-- Scenario: missing shift, prompt to add shift -->
               <tr>
@@ -299,8 +302,8 @@
 
 
 
-        <footer class="d-all t-all">
-            <div class="d10-d11 t9-t11">
+        <footer class="d-all t-all m-all">
+            <div class="d10-d11 t9-t11 m1-m2">
                 <p>A Home Office Digital project.</p>
             </div>
         </footer>
