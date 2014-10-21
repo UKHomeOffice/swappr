@@ -17,7 +17,7 @@ $base__line-height--xlarge: 32;
 
 /* mixins */
 @mixin text( $size, $line, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
-  font-size: calc-em($size);
+  @include calc-rem($size);
   line-height: ($line/$size);
   font-family: $family;
   font-weight: $weight;

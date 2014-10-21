@@ -66,7 +66,8 @@
     }
   }
 }
-//TODO: use rem?
-@function calc-em($target, $context: $base__font-size) {
-  @return ($target / $context) * 1em;
+
+@mixin calc-rem($font-size: 16) {
+  font-size: $font-size + px;
+  font-size: ($font-size / 16) + rem;
 }
