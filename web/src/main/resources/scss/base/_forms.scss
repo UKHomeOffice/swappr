@@ -91,12 +91,15 @@ textarea {
   display: block;
 }
 
-
 .form-group {
+  margin-bottom: 15px;
+}
+
+.form-group-inline {
   display: inline-block;
 }
 
-.form-group__fixed-medium {
+.form-group--fixed-medium {
   width: 20%;
 }
 
