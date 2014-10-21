@@ -1,33 +1,61 @@
 #set($pageTitle = 'Request a swap')
+<h1>Request swap</h1>
 <form action="/swap/create" method="POST">
-    <fieldset>
-        <legend>Request swap</legend>
-        <p>Choose the date and shift type.</p>
-        #springBind("swap.validFromDate")
-        #if($status.errorMessages)
-            #springShowErrors("" "error")
-        #end
-        <label class="block-label" for="fromDay">Current<span class="hidden"> date</span></label>
-            #springFormInput("swap.fromDay" "class='input--two-digit'")
-        <label class="hidden" for="fromMonth">Month</label>
-            #springFormInput("swap.fromMonth" "class='input--two-digit'")
-        <label class="hidden" for="fromYear">Year</label>
-            #springFormInput("swap.fromYear" "class='input--four-digit'")
-        <label class="hidden" for="fromShiftType">Shift</label>
-            #springFormSingleSelect("swap.fromShiftType", ${shifts})
+    <p class="intro">Choose the date and shift type.</p>
 
-        #springBind("swap.validToDate")
-        #if($status.errorMessages)
-            #springShowErrors("", "error")
-        #end
-        <label class="block-label" for="toDay">Requested<span class="hidden"> date</span></label>
-            #springFormInput("swap.toDay" "class='input--two-digit'")
-        <label class="hidden" for="toMonth">Month</label>
-            #springFormInput("swap.toMonth" "class='input--two-digit'")
-        <label class="hidden" for="toYear">Year</label>
-            #springFormInput("swap.toYear" "class='input--four-digit'")
-        <label class="hidden" for="toShiftType">Shift</label>
-            #springFormSingleSelect("swap.toShiftType", ${shifts})
+    <fieldset>
+			#springBind("swap.validFromDate")
+			#if($status.errorMessages)
+				#springShowErrors("" "error")
+			#end
+        <div class="form-group form-group__fixed-medium">
+            <legend>Current<span class="hidden"> date</span></legend>
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="fromDay">Day</label>
+					#springFormInput("swap.fromDay" "class='input--two-digit'")
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="fromMonth">Month</label>
+					#springFormInput("swap.fromMonth" "class='input--two-digit'")
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="fromYear">Year</label>
+					#springFormInput("swap.fromYear" "class='input--four-digit'")
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="fromShiftType">Shift</label>
+					#springFormSingleSelect("swap.fromShiftType", ${shifts})
+        </div>
     </fieldset>
-    <input class="submit-button" type="submit" value="submit"/>
+
+    <fieldset>
+			#springBind("swap.validToDate")
+			#if($status.errorMessages)
+				#springShowErrors("" "error")
+			#end
+        <div class="form-group form-group__fixed-medium">
+            <legend>Requested<span class="hidden"> date</span></legend>
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="toDay">Day</label>
+					#springFormInput("swap.toDay" "class='input--two-digit'")
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="toMonth">Month</label>
+					#springFormInput("swap.toMonth" "class='input--two-digit'")
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="toYear">Year</label>
+					#springFormInput("swap.toYear" "class='input--four-digit'")
+        </div>
+        <div class="form-group">
+            <label class="hidden" for="toShiftType">Shift</label>
+					#springFormSingleSelect("swap.toShiftType", ${shifts})
+        </div>
+    </fieldset>
+		<div class="form-submit">
+        <input class="submit-button" type="submit" value="submit"/>
+		</div>
+
 </form>

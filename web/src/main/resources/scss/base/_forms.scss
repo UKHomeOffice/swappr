@@ -15,10 +15,10 @@ fieldset {
   padding: 0;
 }
 
-legend {
-  @extend h1;
+.intro {
   border-bottom: 1px solid $border__colour--light;
   float: left;
+  margin-bottom: 15px;
   padding: 15px 0;
   width: 100%;
 }
@@ -29,9 +29,6 @@ textarea {
   background-color: $white;
   border: 1px solid #bfc1c3;
   border-radius: 0;
-  float: left;
-  line-height: $base__line-height--xlarge+px;
-  margin-bottom: 15px;
 
   &:focus {
     outline: 3px solid $background__colour--theme--primary;
@@ -39,11 +36,15 @@ textarea {
 }
 
 .input--two-digit {
+  float: none;
+  display: inline-block;
   text-align: center;
   width: 2em;
 }
 
 .input--four-digit {
+  float: none;
+  display: inline-block;
   text-align: center;
   width: 3em;
 }
@@ -90,3 +91,15 @@ label {
   display: block;
 }
 
+
+.form-group {
+  display: inline-block;
+}
+
+.form-group__fixed-medium {
+  width: 20%;
+}
+
+.form-submit {
+  margin-top: 25px;
+}
