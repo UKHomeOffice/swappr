@@ -43,7 +43,9 @@
 												<span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
 											</td>
                       <td class="secondary-text table__cell--status">
-                          You've requested a swap
+												#foreach($offer in $rotaView.getOffers())
+                          You've requested a swap → $offer.swapTo.type on $display.fullDate($offer.swapTo.date)
+												#end
                       </td>
 									#else
                       <td class="table__cell--shift">
