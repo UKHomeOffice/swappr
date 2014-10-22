@@ -19,7 +19,7 @@
         </div>
         <div class="form-group-inline">
 					<label class="hidden" for="fromDay">Day</label>
-					#springFormInput("shift.fromDay" "class='input--two-digit'")
+					#springFormInput("shift.fromDay" "class='input--two-digit' maxlength='2'")
 					#springShowErrors("<br />")
         </div>
         <div class="form-group-inline">
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toDay">Day</label>
-					#springFormInput("shift.toDay" "class='input--two-digit'")
+					#springFormInput("shift.toDay" "class='input--two-digit' maxlength='2'")
 					#springShowErrors("<br />")
         </div>
         <div class="form-group-inline">
