@@ -3,7 +3,9 @@ package uk.gov.homeofficedigital.swappr.daos;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 import javax.sql.DataSource;
 
@@ -11,33 +13,18 @@ import javax.sql.DataSource;
 public class DAOs {
 
     @Bean
-    public RotaDao rotaDao() {
-        return new RotaDao();
+    public RotaDao rotaDao(NamedParameterJdbcTemplate jdbcTemplate, UserDetailsManager userService) {
+        return new RotaDao(jdbcTemplate, userService);
     }
 
     @Bean
-    public OfferDao offerDao() {
-        return new OfferDao();
+    public OfferDao offerDao(NamedParameterJdbcTemplate jdbcTemplate, RotaDao rotaDao) {
+        return new OfferDao(jdbcTemplate, rotaDao);
     }
 
     @Bean
-    public VolunteerDao volunteerDao() {
-        return new VolunteerDao();
-    }
-
-    @Bean
-    public ShiftDao shiftDao() {
-        return new ShiftDao();
-    }
-
-    @Bean
-    public HomeDao homeDao(NamedParameterJdbcTemplate jdbcTemplate) {
-        return new HomeDao(jdbcTemplate);
-    }
-
-    @Bean
-    public SwapDao swapDao(NamedParameterJdbcTemplate jdbcTemplate) {
-        return new SwapDao(jdbcTemplate);
+    public VolunteerDao volunteerDao(NamedParameterJdbcTemplate jdbcTemplate, OfferDao offerDao, RotaDao rotaDao) {
+        return new VolunteerDao(jdbcTemplate, offerDao, rotaDao);
     }
 
     @Bean

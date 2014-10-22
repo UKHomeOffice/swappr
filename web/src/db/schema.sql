@@ -24,23 +24,39 @@ create table persistent_logins (
     last_used timestamp not null
 ) engine = InnoDb;
 
-create table shift (
-  id int UNSIGNED NOT NULL AUTO_INCREMENT,
-  username varchar(50) not null,
-  shiftType varchar(50) not null,
-  shiftDate date not null,
-  primary key (id),
-  foreign key (username) references users (username)
+create table shiftType (
+  code varchar(10) not null,
+  description varchar(250) not null,
+  primary key (code)
 ) engine = InnoDb;
 
-create table swap (
+create table rota (
   id int UNSIGNED NOT NULL AUTO_INCREMENT,
-  shiftId int unsigned not null,
-  alternateShiftDate date not null,
-  alternateShiftType varchar(50) not null,
-  status varchar(50) not null,
-  relatedSwapId int unsigned,
+  shiftCode varchar(10) not null,
+  shiftDate date not null,
+  username varchar(64) not null,
   primary key (id),
-  foreign key (shiftId) references shift (id),
-  foreign key (relatedSwapId) references swap(id)
+  foreign key (shiftCode) references shiftType(code),
+  foreign key (username) references users(username)
+) engine = InnoDb;
+
+create table offer (
+  id          int UNSIGNED NOT NULL AUTO_INCREMENT,
+  rotaId      int UNSIGNED NOT NULL,
+  shiftCode   varchar(10) not null,
+  shiftDate   date not null,
+  status      varchar(50) not null,
+  primary     key (id),
+  foreign     key (rotaId) references rota(id),
+  foreign     key (shiftCode) references shiftType (code)
+) engine = InnoDb;
+
+create table volunteer (
+  id int UNSIGNED NOT NULL AUTO_INCREMENT,
+  rotaId  int UNSIGNED NOT NULL,
+  offerId int UNSIGNED NOT NULL,
+  status  varchar(50) not null,
+  primary key (id),
+  foreign key (rotaId) references rota(id),
+  foreign key (offerId) references offer(id)
 ) engine = InnoDb;

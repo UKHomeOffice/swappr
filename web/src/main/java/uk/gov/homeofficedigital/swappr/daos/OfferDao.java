@@ -1,40 +1,55 @@
 package uk.gov.homeofficedigital.swappr.daos;
 
-import uk.gov.homeofficedigital.swappr.model.Offer;
-import uk.gov.homeofficedigital.swappr.model.OfferStatus;
-import uk.gov.homeofficedigital.swappr.model.Rota;
-import uk.gov.homeofficedigital.swappr.model.Shift;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import uk.gov.homeofficedigital.swappr.model.*;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
+
+import static uk.gov.homeofficedigital.swappr.daos.DaoUtil.toMap;
 
 public class OfferDao {
+    private NamedParameterJdbcTemplate template;
+    private final RotaDao rotaDao;
 
-    private Set<Offer> offers = new ConcurrentSkipListSet<>();
-    private AtomicLong incrementingId = new AtomicLong(0);
+    public OfferDao(NamedParameterJdbcTemplate template, RotaDao rotaDao) {
+        this.template = template;
+        this.rotaDao = rotaDao;
+    }
 
     public Offer create(Rota swapFrom, Shift swapTo, OfferStatus status) {
-        Offer offer = new Offer(incrementingId.incrementAndGet(), swapFrom, swapTo, status);
-        offers.add(offer);
-        return offer;
+        long id = DaoUtil.create(template,
+                "insert into offer (rotaId, shiftDate, shiftCode, status) values (:rotaId, :shiftDate, :shiftCode, :status)",
+                toMap("rotaId", swapFrom.getId(), "shiftDate", Date.valueOf(swapTo.getDate()), "shiftCode", swapTo.getType().name(), "status", status.name()));
+        return new Offer(id, swapFrom, swapTo, status);
     }
 
     public Optional<Offer> findById(Long offerId) {
-        return offers.stream().filter(o -> o.getId().equals(offerId)).findFirst();
+        List<Offer> offers = template.query("select * from offer where id = :id", toMap("id", offerId), this::mapOffer);
+        if (offers.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(offers.get(0));
+        }
     }
 
     public Set<Offer> findByRota(Long rotaId) {
-        return offers.stream().filter(o -> o.getSwapFrom().getId().equals(rotaId)).collect(Collectors.toSet());
+        List<Offer> offers = template.query("select * from offer where rotaId = :id", toMap("id", rotaId), this::mapOffer);
+        return new HashSet<>(offers);
     }
 
     public Offer updateStatus(Offer offer, OfferStatus status) {
-        Offer updated = offer.withStatus(status);
-        offers.remove(offer);
-        offers.add(updated);
-        return updated;
+        template.update("update offer set status = :status where id = :id", toMap("status", status.name(), "id", offer.getId()));
+        return new Offer(offer.getId(), offer.getSwapFrom(), offer.getSwapTo(), status);
+    }
+
+    private Offer mapOffer(ResultSet rs, int idx) throws SQLException {
+        Rota rota = rotaDao.findById(rs.getLong("rotaId")).get();
+        return new Offer(rs.getLong("id"), rota, new Shift(rs.getDate("shiftDate").toLocalDate(), ShiftType.valueOf(rs.getString("shiftCode"))), OfferStatus.valueOf(rs.getString("status")));
     }
 }

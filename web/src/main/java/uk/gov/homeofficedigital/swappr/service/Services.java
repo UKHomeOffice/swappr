@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
-import uk.gov.homeofficedigital.swappr.daos.SwapDao;
 import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
 
 @Configuration
@@ -15,9 +14,4 @@ public class Services {
         return new RotaService(rotaDao, offerDao, volunteerDao);
     }
 
-
-    @Bean
-    public SwapService swapService(SwapDao swapDAO) {
-        return new SwapService(swapDAO);
-    }
 }

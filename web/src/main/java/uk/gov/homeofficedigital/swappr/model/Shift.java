@@ -8,18 +8,12 @@ import java.time.LocalDate;
 
 public class Shift {
 
-    private final Long id;
     private final LocalDate date;
     private final ShiftType type;
 
-    public Shift(Long id, LocalDate date, ShiftType type) {
-        this.id = id;
+    public Shift(LocalDate date, ShiftType type) {
         this.date = date;
         this.type = type;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public LocalDate getDate() {

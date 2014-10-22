@@ -10,7 +10,6 @@ import uk.gov.homeofficedigital.swappr.controllers.exceptions.RotaNotFoundExcept
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
-import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.Shift;
@@ -25,14 +24,12 @@ import java.util.LinkedHashMap;
 @RequestMapping("/swap")
 public class SwapController {
 
-    private final ShiftDao shiftDao;
     private final RotaDao rotaDao;
     private final RotaService rotaService;
     private final OfferDao offerDao;
     private final ControllerHelper controllerHelper;
 
-    public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
-        this.shiftDao = shiftDao;
+    public SwapController(RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
         this.rotaDao = rotaDao;
         this.rotaService = rotaService;
         this.offerDao = offerDao;
@@ -77,8 +74,8 @@ public class SwapController {
         }
 
         User user = controllerHelper.userFromPrincipal(principal);
-        Shift from = shiftDao.create(swap.getFromDate(), swap.getFromShiftType());
-        Shift to = shiftDao.create(swap.getToDate(), swap.getToShiftType());
+        Shift from = new Shift(swap.getFromDate(), swap.getFromShiftType());
+        Shift to = new Shift(swap.getToDate(), swap.getToShiftType());
         Rota rota = rotaDao.create(user, from);
 
         rotaService.requestSwap(rota, to);

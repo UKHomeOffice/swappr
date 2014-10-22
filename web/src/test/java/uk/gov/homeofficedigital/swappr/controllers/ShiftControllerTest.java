@@ -6,9 +6,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
-import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
 import uk.gov.homeofficedigital.swappr.model.Role;
 import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
@@ -16,21 +16,22 @@ import uk.gov.homeofficedigital.swappr.model.ShiftType;
 import java.time.*;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class ShiftControllerTest {
 
-    private ShiftDao shiftDao = mock(ShiftDao.class);
     private RotaDao rotaDao = mock(RotaDao.class);
     private User user = new User("Bob", "password", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
     private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private BindingResult bindingResult = mock(BindingResult.class);
 
-    ShiftController shiftController = new ShiftController(shiftDao, rotaDao);
+    ShiftController shiftController = new ShiftController(rotaDao, new ControllerHelper());
 
     @Before
     public void setUp() {
-        reset(shiftDao, rotaDao, bindingResult);
+        reset(rotaDao, bindingResult);
     }
 
     @Test
@@ -43,16 +44,15 @@ public class ShiftControllerTest {
         form.setToMonth(8);
 
         when(bindingResult.hasErrors()).thenReturn(false);
-        shiftController.createShift(form, bindingResult, principal);
+        RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
 
-        verify(shiftDao).create(LocalDate.of(2014, 8, 23), ShiftType.B1H);
-        verify(shiftDao).create(LocalDate.of(2014, 8, 24), ShiftType.B1H);
-        verify(shiftDao).create(LocalDate.of(2014, 8, 25), ShiftType.B1H);
-        verifyNoMoreInteractions(shiftDao);
+        String view = shiftController.createShift(form, bindingResult, principal, attrs);
 
         verify(rotaDao, times(3)).create(eq(user), any(Shift.class));
         verifyNoMoreInteractions(rotaDao);
+        assertEquals("redirect:/", view);
+        assertTrue(attrs.getFlashAttributes().containsKey("flashType"));
+        assertEquals("addShift", attrs.getFlashAttributes().get("flashType"));
     }
-
 
 }
