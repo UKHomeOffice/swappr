@@ -39,7 +39,7 @@
 							#end
             </td>
             <td class="secondary-text table__cell--status">
-							#if($offer.status.name() != 'APPROVED')
+							#if(($offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()) && ($offer.status.name() != 'APPROVED'))
                   You've offered to swap
 							#end
             </td>
