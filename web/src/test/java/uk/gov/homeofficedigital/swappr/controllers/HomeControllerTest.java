@@ -35,7 +35,7 @@ public class HomeControllerTest {
 
         LocalDate now = LocalDate.now();
         Set<RotaView> foundRotas = new HashSet<>();
-        RotaView myRota = new RotaView(new Rota(34l, user, new Shift(67l, now.plusMonths(1), ShiftType.CFH)), new HashSet<>(), new HashSet<>());
+        RotaView myRota = new RotaView(new Rota(34l, user, new Shift(now.plusMonths(1), ShiftType.CFH)), new HashSet<>(), new HashSet<>());
         foundRotas.add(myRota);
         when(rotaService.findMyRotas(user)).thenReturn(foundRotas);
 
