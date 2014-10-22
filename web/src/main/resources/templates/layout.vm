@@ -30,6 +30,7 @@
 <footer>
     #parse('footer.vm')
 </footer>
-
+<script src="/js/vendor/jquery-1.11.1.min.js"></script>
+<script src="/js/menu.js"></script>
 </body>
 </html>
