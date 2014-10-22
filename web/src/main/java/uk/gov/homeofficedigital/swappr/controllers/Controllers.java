@@ -51,6 +51,11 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return new SwapController(rotaDao, rotaService, offerDao, helper);
     }
 
+    @Bean
+    public ShiftController shiftController(RotaDao rotaDao, ControllerHelper helper) {
+        return new ShiftController(rotaDao, helper);
+    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");

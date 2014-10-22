@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
@@ -40,8 +41,16 @@ public class ShiftController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String startNewShift(Model model) {
-        model.addAttribute("shift", new ShiftForm());
+    public String startNewShift(@RequestParam(value = "shiftDate", required = false) String shiftDateString, Model model) {
+        ShiftForm shiftForm = new ShiftForm();
+        if (shiftDateString != null) {
+            LocalDate shiftDate = LocalDate.parse(shiftDateString);
+            shiftForm.setFromDay(shiftDate.getDayOfMonth());
+            shiftForm.setFromMonth(shiftDate.getMonthValue());
+            shiftForm.setToDay(shiftDate.getDayOfMonth());
+            shiftForm.setToMonth(shiftDate.getMonthValue());
+        }
+        model.addAttribute("shift", shiftForm);
         return "startShift";
     }
 

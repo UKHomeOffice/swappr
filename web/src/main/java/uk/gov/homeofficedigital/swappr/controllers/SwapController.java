@@ -47,9 +47,8 @@ public class SwapController {
     }
 
 
-    @RequestMapping(value = "/{rotaId}", method = RequestMethod.GET)
-    public String view(@PathVariable Long rotaId, Model model) {
-
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String view(@RequestParam("rotaId") Long rotaId, Model model) {
         Rota rota = rotaDao.findById(rotaId).orElseThrow(RotaNotFoundException::new);
 
         LocalDate dateToSwap = rota.getShift().getDate();

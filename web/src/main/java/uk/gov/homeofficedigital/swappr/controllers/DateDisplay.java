@@ -20,4 +20,6 @@ public class DateDisplay {
     }
 
     public String fullDate(LocalDate date) { return date.format(DateTimeFormatter.ofPattern("eeee, d MMMM"));}
+
+    public String isoDate(LocalDate date) { return date.format(DateTimeFormatter.ISO_DATE);}
 }

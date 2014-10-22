@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.ui.ExtendedModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
@@ -14,9 +15,11 @@ import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class ShiftControllerTest {
@@ -51,5 +54,17 @@ public class ShiftControllerTest {
         assertEquals("addShift", attrs.getFlashAttributes().get("flashType"));
     }
 
+    @Test
+    public void startNewShift_shouldPopulateShiftFormWithDate_givenADateIsSupplied() throws Exception {
+        ExtendedModelMap model = new ExtendedModelMap();
+
+        LocalDate now = LocalDate.now();
+        shiftController.startNewShift(now.format(DateTimeFormatter.ISO_DATE), model);
+
+        assertTrue(model.containsKey("shift"));
+        ShiftForm form = (ShiftForm) model.get("shift");
+        assertEquals(now.getDayOfMonth(), form.getFromDay().intValue());
+        assertEquals(now.getMonthValue(), form.getFromMonth().intValue());
+    }
 
 }
