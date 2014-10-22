@@ -30,7 +30,7 @@
 											$rotaView.rota.shift.type.label $rotaView.rota.shift.type - Swapped with $rotaView.approvedVolunteer.get().swapFrom.worker.username
 										</td>
 										<td class="table__cell--action">
-												<span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span>
+												<span class="action-button action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span>
 										</td>
 										<td class="secondary-text table__cell--status">
 												Confirmed
@@ -40,7 +40,7 @@
 												$rotaView.rota.shift.type.label $rotaView.rota.shift.type
                       </td>
 											<td class="table__cell--action">
-												<span class="action-button--disabled action-button--wait" title="In progress">In progress</span>
+												<span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
 											</td>
                       <td class="secondary-text table__cell--status">
                           You've requested a swap
