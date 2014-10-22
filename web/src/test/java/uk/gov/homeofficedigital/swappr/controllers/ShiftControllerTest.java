@@ -26,7 +26,7 @@ public class ShiftControllerTest {
     private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private BindingResult bindingResult = mock(BindingResult.class);
 
-    ShiftController shiftController = new ShiftController(shiftDao, rotaDao);
+    ShiftController shiftController = new ShiftController(shiftDao, rotaDao, new ControllerHelper());
 
     @Before
     public void setUp() {
