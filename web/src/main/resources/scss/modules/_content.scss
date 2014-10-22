@@ -5,8 +5,10 @@
  */
 
 main {
+  @extend %contain-floats;
   @include gutter($setFullWidth: true);
   display: inline-block;
+  padding-bottom: 50px;
 }
 
 .shift-swap {
