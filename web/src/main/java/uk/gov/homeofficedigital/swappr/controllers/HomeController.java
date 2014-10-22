@@ -1,6 +1,5 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +21,11 @@ import static java.util.stream.Collectors.groupingBy;
 public class HomeController {
 
     private final RotaService rotaService;
+    private final ControllerHelper helper;
 
-    public HomeController(RotaService rotaService) {
+    public HomeController(RotaService rotaService, ControllerHelper helper) {
         this.rotaService = rotaService;
-    }
-
-    private User userFromPrincipal(Principal principal) {
-        return (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        this.helper = helper;
     }
 
     private LinkedHashMap<Month, List<DayView>> daysByMonth(Set<RotaView> rotaViews) {
@@ -48,7 +45,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String showHomePage(Model model, Principal principal) {
 
-        User user = userFromPrincipal(principal);
+        User user = helper.userFromPrincipal(principal);
         Map<Month, List<DayView>> rotasByMonth = daysByMonth(rotaService.findMyRotas(user));
 
         model.addAttribute("rotasByMonth", rotasByMonth);
