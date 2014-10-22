@@ -66,4 +66,9 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return new HomeController(rotaService, helper);
     }
 
+    @Bean
+    public TimelineController timelineController(RotaService rotaService) {
+        return new TimelineController(rotaService);
+    }
+
 }

@@ -14,8 +14,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 
-import static java.util.stream.Collectors.groupingBy;
-
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -52,18 +50,4 @@ public class HomeController {
         return "home";
     }
 
-    private Map<Month, List<RotaView>> collectRotasByMonth(Set<RotaView> rotas) {
-        List<RotaView> rotaList = new ArrayList<>(rotas);
-        rotaList.sort((a, b) -> a.getRota().getShift().getDate().compareTo(b.getRota().getShift().getDate()));
-        return rotaList.stream().collect(groupingBy(rv -> rv.getRota().getShift().getDate().getMonth()));
-    }
-
-    @RequestMapping(value = "/timeline", method = RequestMethod.GET)
-    public String showTimeline(Model model) {
-
-        Map<Month, List<RotaView>> allRotasByMonth = collectRotasByMonth(rotaService.findAllRotas());
-        model.addAttribute("rotasByMonth", allRotasByMonth);
-
-        return "timeline";
-    }
 }

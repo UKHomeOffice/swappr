@@ -44,8 +44,7 @@ public class HomeControllerTest {
         String viewName = controller.showHomePage(model, principal);
         assertThat(viewName, equalTo("home"));
 
-        Map<String, Object> modelMap = model.asMap();
-        Map<Month, List<DayView>> rotasByMonth = (Map<Month, List<DayView>>) modelMap.get("rotasByMonth");
+        Map<Month, List<DayView>> rotasByMonth = (Map<Month, List<DayView>>) model.asMap().get("rotasByMonth");
         assertThat(rotasByMonth.entrySet(), hasSize(3));
 
         List<DayView> dayViewsThisMonth = rotasByMonth.get(now.getMonth());
