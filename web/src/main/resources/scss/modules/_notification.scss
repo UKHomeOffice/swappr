@@ -5,7 +5,7 @@
   padding-left: 38px;
   position: relative;
   &:before {
-    @extend %icon-side;
+    @extend %icon;
     left: 12px;
   }
 }
