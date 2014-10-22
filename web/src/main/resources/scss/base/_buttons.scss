@@ -49,17 +49,17 @@
 }
 
 .action-button--swap {
-  background-position: 5px -917px;
+  @extend %icon-swap;
 }
 
 .action-button--swapped {
-  background-position: 5px -854px;
+  @extend %icon-swapped;
 }
 
 .action-button--wait {
-  background-position: 5px -791px;
+  @extend %icon-wait-disabled;
 }
 
 .action-button--add {
-  background-position: 5px -982px;
+  @extend %icon-add;
 }
