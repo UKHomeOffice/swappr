@@ -1,22 +1,22 @@
-#set($pageTitle = 'User Admin')
-<h1>User Admin</h1>
+#set($pageTitle = 'User Admin - add user')
+<h1 class="hidden">User Admin</h1>
 <div>
     <form action="/admin/users/add" method="post">
         <fieldset #if($status.errors.hasErrors()){ class="erros" }#end>
             <legend>Add user</legend>
-            <label for="username">Username:</label>
+            <label class="label-inline" for="username">Username:</label>
             #springFormInput("user.username" "")
             #springShowErrors("" "error")
 
-            <label for="password">Password:</label>
+            <label class="label-inline" for="password">Password:</label>
             #springFormPasswordInput("user.password" "")
             #springShowErrors("" "error")
 
-            <label for="confirmPassword">Confirm password</label>
+            <label class="label-inline" for="confirmPassword">Confirm password</label>
             #springFormPasswordInput("user.confirmPassword" "")
             #springBind("user.matchingPassword")
             #springShowErrors("" "error")
         </fieldset>
-        <input id="submitBtn" class="submit-button" type="submit" value="Sign in"/>
+        <input id="submitBtn" class="submit-button" type="submit" value="Add"/>
     </form>
 </div>

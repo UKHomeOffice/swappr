@@ -1,70 +1,103 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
-
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import uk.gov.homeofficedigital.swappr.controllers.exceptions.OfferNotFoundException;
+import uk.gov.homeofficedigital.swappr.controllers.exceptions.RotaNotFoundException;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
-import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.service.SwapService;
+import uk.gov.homeofficedigital.swappr.daos.OfferDao;
+import uk.gov.homeofficedigital.swappr.daos.RotaDao;
+import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
+import uk.gov.homeofficedigital.swappr.model.Offer;
+import uk.gov.homeofficedigital.swappr.model.Rota;
+import uk.gov.homeofficedigital.swappr.model.Shift;
+import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.stream.Stream;
+import java.util.LinkedHashMap;
 
 @Controller
 @RequestMapping("/swap")
 public class SwapController {
 
-    private final SwapService swapService;
+    private final ShiftDao shiftDao;
+    private final RotaDao rotaDao;
+    private final RotaService rotaService;
+    private final OfferDao offerDao;
+    private final ControllerHelper controllerHelper;
 
-    public SwapController(SwapService swapService) {
-        this.swapService = swapService;
+    public SwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
+        this.shiftDao = shiftDao;
+        this.rotaDao = rotaDao;
+        this.rotaService = rotaService;
+        this.offerDao = offerDao;
+        this.controllerHelper = helper;
     }
 
-    @RequestMapping(method= RequestMethod.GET)
-    public String view(Model model) {
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
+    @ModelAttribute("availableMonths")
+    public LinkedHashMap<String, String> availableMonths() {
+        return controllerHelper.availableMonths();
+    }
+
+    @ModelAttribute("availableShifts")
+    public LinkedHashMap<String, String> availableShifts() {
+        return controllerHelper.availableShifts();
+    }
+
+
+    @RequestMapping(value = "/{rotaId}", method = RequestMethod.GET)
+    public String view(@PathVariable Long rotaId, Model model) {
+
+        Rota rota = rotaDao.findById(rotaId).orElseThrow(RotaNotFoundException::new);
+
+        LocalDate dateToSwap = rota.getShift().getDate();
 
         SwapForm form = new SwapForm();
-        form.setFromDay(tomorrow.getDayOfMonth());
-        form.setFromMonth(tomorrow.getMonthValue());
-        form.setFromYear(tomorrow.getYear());
-        form.setToDay(tomorrow.getDayOfMonth());
-        form.setToMonth(tomorrow.getMonthValue());
-        form.setToYear(tomorrow.getYear());
+        form.setFromDay(dateToSwap.getDayOfMonth());
+        form.setFromMonth(dateToSwap.getMonthValue());
+        form.setFromYear(dateToSwap.getYear());
+        form.setFromShiftType(rota.getShift().getType());
+        form.setToDay(dateToSwap.getDayOfMonth());
+        form.setToMonth(dateToSwap.getMonthValue());
+        form.setToYear(dateToSwap.getYear());
         model.addAttribute("swap", form);
 
-        model.addAttribute("shifts", Stream.of(ShiftType.values()).collect(
-                HashMap::new,
-                (map, shift) -> map.put(shift.name(), shift.name()),
-                (mapA, mapB) -> mapA.putAll(mapB)
-                ));
         return "createSwap";
     }
 
-    @RequestMapping(value="/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return "createSwap";
         }
-        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) principal;
-        User user = (User) auth.getPrincipal();
-        swapService.offerSwap(user, swap.getFromDate(), swap.getFromShiftType(), swap.getToDate(), swap.getToShiftType());
+
+        User user = controllerHelper.userFromPrincipal(principal);
+        Shift from = shiftDao.create(swap.getFromDate(), swap.getFromShiftType());
+        Shift to = shiftDao.create(swap.getToDate(), swap.getToShiftType());
+        Rota rota = rotaDao.create(user, from);
+
+        rotaService.requestSwap(rota, to);
+
         return "redirect:/";
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public String showSwap(Model model, @PathVariable Long id) {
-        model.addAttribute("swap", swapService.loadSwap(id));
-        return "showSwap";
+    @RequestMapping(value = "/{id}/volunteer", method = RequestMethod.GET)
+    public String volunteer(@RequestParam Long offerId, Principal principal) {
+
+        Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
+
+        User user = controllerHelper.userFromPrincipal(principal);
+
+        Rota myRota = rotaDao.create(user, offer.getSwapTo());
+
+        rotaService.volunteerSwap(myRota, offer);
+
+        return "redirect:/";
     }
+
 }

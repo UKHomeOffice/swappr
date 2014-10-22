@@ -1,8 +1,6 @@
 #set($pageTitle = 'Swap details')
-
-$swap.username wants to swap a $swap.fromShift shift at Heathrow, Terminal 3 on
-$display.fullDate($swap.fromDate) for $swap.toShift on $display.fullDate($swap.toDate)
-
-#if($swap.status == "OFFERED")
-    <a href="/swap/$swap.id/volunteer">Volunteer to swap</a>
-#end
+<div class="message-block">
+##    TODO: username or 'You' depending on the screen
+    <p><strong>$swap.username</strong> asked to swap a $swap.fromShift shift on $display.fullDate($swap.fromDate) for an $swap.toShift shift on $display.fullDate($swap.toDate).</p>
+</div>
+#parse('shiftSwap.vm')

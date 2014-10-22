@@ -9,15 +9,27 @@ form {
   margin-bottom : 15px;
 }
 
+fieldset {
+  border: 0;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+.intro {
+  border-bottom: 1px solid $border__colour--light;
+  float: left;
+  margin-bottom: 15px;
+  padding: 15px 0;
+  width: 100%;
+}
+
 input,
 select,
 textarea {
+  @include text($base__font-size--small);
   background-color: $white;
   border: 1px solid #bfc1c3;
   border-radius: 0;
-  float: left;
-  line-height: $base__line-height--xlarge+px;
-  margin-bottom: 15px;
 
   &:focus {
     outline: 3px solid $background__colour--theme--primary;
@@ -25,44 +37,84 @@ textarea {
 }
 
 .input--two-digit {
+  float: none;
+  display: inline-block;
   text-align: center;
   width: 2em;
 }
 
 .input--four-digit {
+  float: none;
+  display: inline-block;
   text-align: center;
   width: 3em;
 }
 
-fieldset {
-  background: $background__colour--theme--secondary;
-  border: 0;
-  float: left;
-  margin-bottom : 15px;
-}
-
-legend {
-  @extend h3;
-  float: left;
-  width: 100%;
-}
-
-label {
-  display: block;
+.label-inline {
   font-weight: bold;
-  clear: both;
-  &.block-label {
-    clear: none;
-    float: left;
-    margin-right: 15px;
-    span {
-      display: block;
-    }
-  }
+  clear: left;
+  float: left;
+  width: 20%;
 }
+
+[type=submit],
+[type=checkbox] {
+  @include gutter('left', 20%);
+}
+//fieldset {
+//  border: 0;
+//  float: left;
+//  margin-bottom : 15px;
+//}
+//
+//legend {
+//  @extend h3;
+//  float: left;
+//  width: 100%;
+//}
+//
+//label {
+//  display: block;
+//  font-weight: bold;
+//  clear: both;
+//  &.block-label {
+//    clear: none;
+//    float: left;
+//    margin-right: 15px;
+//    span {
+//      display: block;
+//    }
+//  }
+//}
 
 .error {
   color: $text__colour--error;
   display: block;
 }
 
+.form-error-summary {
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group-inline-container {
+  font-size: 0;
+}
+
+.form-group-inline {
+  @include calc-rem($base__font-size);
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.form-group-fixed-medium {
+  padding-right: 0;
+  width: 20%;
+}
+
+.form-submit {
+  margin-top: 25px;
+}

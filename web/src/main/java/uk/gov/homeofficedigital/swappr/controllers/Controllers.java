@@ -8,10 +8,10 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
-import uk.gov.homeofficedigital.swappr.controllers.forms.ExperimentalHomeController;
-import uk.gov.homeofficedigital.swappr.daos.*;
+import uk.gov.homeofficedigital.swappr.daos.OfferDao;
+import uk.gov.homeofficedigital.swappr.daos.RotaDao;
+import uk.gov.homeofficedigital.swappr.daos.ShiftDao;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
-import uk.gov.homeofficedigital.swappr.service.SwapService;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
 import uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper;
 
@@ -37,24 +37,19 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return velocityLayoutViewResolver;
     }
 
-//    @Bean
-//    public HomeController home(SwapDao dao) {
-//        return new HomeController(dao);
-//    }
-
     @Bean
     public UserAdminController userAdmin(JdbcUserDetailsManager userManager, PasswordEncoder encoder) {
         return new UserAdminController(userManager, encoder);
     }
 
-//    @Bean
-//    public SwapController swap(SwapService swapService) {
-//        return new SwapController(swapService);
-//    }
+    @Bean
+    public ControllerHelper controllerHelper() {
+        return new ControllerHelper();
+    }
 
     @Bean
-    public ExperimentalSwapController experimentalSwapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao) {
-        return new ExperimentalSwapController(shiftDao, rotaDao, rotaService, offerDao, volunteerDao);
+    public SwapController swapController(ShiftDao shiftDao, RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
+        return new SwapController(shiftDao, rotaDao, rotaService, offerDao, helper);
     }
 
     @Override
@@ -63,8 +58,13 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ExperimentalHomeController experimentalHomeController(RotaService rotaService) {
-        return new ExperimentalHomeController(rotaService);
+    public HomeController homeController(RotaService rotaService) {
+        return new HomeController(rotaService);
+    }
+
+    @Bean
+    public ShiftController shiftController(ShiftDao shiftDao, RotaDao rotaDao, ControllerHelper helper) {
+        return new ShiftController(shiftDao, rotaDao, helper);
     }
 
 }

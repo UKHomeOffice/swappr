@@ -5,7 +5,7 @@
  */
 
 .submit-button {
-  @include text($base__font-size, 40, $color: $link__colour--hover, $weight: bold);
+  @include text($base__font-size--small, 40, $color: $link__colour--hover, $weight: bold);
   background-color: $background__colour--theme--secondary;
   border: 1px solid $background__colour--theme--primary;
   -webkit-border-radius: 6px;
@@ -36,6 +36,7 @@
   -moz-border-radius: 50%;
   border-radius: 50%;
   display: block;
+  font-size: 0;
   width: 26px;
   padding: 26px 0 0 0;
   height: 0;

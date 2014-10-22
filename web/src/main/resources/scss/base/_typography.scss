@@ -6,18 +6,18 @@
 
 /* Defaults */
 $text__family-sans: sans-serif;
-$base__font-size: 16;
-$base__line-height: 22;
-$base__font-size--small: 14;
-$base__line-height--small: 19;
-$base__font-size--large: 19;
-$base__line-height--large: 24;
-$base__font-size--xlarge: 24;
-$base__line-height--xlarge: 32;
+$base__font-size: 19;
+$base__line-height: 26;
+$base__font-size--small: 16;
+$base__line-height--small: 22;
+$base__font-size--large: 24;
+$base__line-height--large: 32;
+$base__font-size--xlarge: 28;
+$base__line-height--xlarge: 36;
 
 /* mixins */
-@mixin text( $size, $line, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
-  font-size: calc-em($size);
+@mixin text( $size, $line: 1.375, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
+  @include calc-rem($size);
   line-height: ($line/$size);
   font-family: $family;
   font-weight: $weight;
