@@ -31,10 +31,8 @@
 
 .action-button {
   background: transparent url(/images/swappr.png) no-repeat top left;
+  @extend %border-radius;
   border: 1px solid $border__colour--theme;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
   display: block;
   font-size: 0;
   width: 26px;
