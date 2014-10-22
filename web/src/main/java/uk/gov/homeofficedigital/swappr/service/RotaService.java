@@ -1,6 +1,8 @@
 package uk.gov.homeofficedigital.swappr.service;
 
 import org.springframework.security.core.userdetails.User;
+import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
+import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;

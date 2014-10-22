@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import uk.gov.homeofficedigital.swappr.model.DayView;
-import uk.gov.homeofficedigital.swappr.model.RotaView;
+import uk.gov.homeofficedigital.swappr.controllers.views.DayView;
+import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.security.Principal;

@@ -1,4 +1,4 @@
-package uk.gov.homeofficedigital.swappr.model;
+package uk.gov.homeofficedigital.swappr.controllers.views;
 
 import java.time.LocalDate;
 import java.util.Optional;

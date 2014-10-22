@@ -6,6 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import uk.gov.homeofficedigital.swappr.controllers.views.DayView;
+import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.model.*;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 

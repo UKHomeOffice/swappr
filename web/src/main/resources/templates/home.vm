@@ -1,4 +1,4 @@
-#* @vtlvariable name="rotasByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.model.DayView>>" *#
+#* @vtlvariable name="rotasByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.controllers.views.DayView>>" *#
 #set($pageTitle = 'My swaps')
 #set($tab = 'home')
 
