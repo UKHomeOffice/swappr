@@ -1,4 +1,9 @@
-package uk.gov.homeofficedigital.swappr.model;
+package uk.gov.homeofficedigital.swappr.controllers.views;
+
+import uk.gov.homeofficedigital.swappr.model.Offer;
+import uk.gov.homeofficedigital.swappr.model.Rota;
+import uk.gov.homeofficedigital.swappr.model.Volunteer;
+import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
 
 import java.util.Optional;
 import java.util.Set;

@@ -1,0 +1,31 @@
+%icon {
+  background-image: url(/images/swappr.png);
+  background-repeat: no-repeat;
+  content: "";
+  display: block;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+}
+
+%icon-wait {
+  background-position: 0 -66px;
+}
+
+%icon-wait-disabled {
+  background-position: 0 -796px;
+}
+
+%icon-swapped {
+  background-position: 0 -859px;
+}
+
+%icon-swap {
+  background-position: 0 -922px;
+}
+
+%icon-add {
+  background-position: 0 -987px;
+}

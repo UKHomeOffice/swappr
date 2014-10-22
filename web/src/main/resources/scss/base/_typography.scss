@@ -10,13 +10,15 @@ $base__font-size: 19;
 $base__line-height: 26;
 $base__font-size--small: 16;
 $base__line-height--small: 22;
+$base__font-size--xsmall: 14;
+$base__line-height--xsmall: 18;
 $base__font-size--large: 24;
 $base__line-height--large: 32;
 $base__font-size--xlarge: 28;
 $base__line-height--xlarge: 36;
 
 /* mixins */
-@mixin text( $size, $line: 1.375, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
+@mixin text( $size, $line: $base__line-height, $family: $text__family-sans, $color: $text__colour--primary, $weight: normal ) {
   @include calc-rem($size);
   line-height: ($line/$size);
   font-family: $family;

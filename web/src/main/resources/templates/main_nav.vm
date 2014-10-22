@@ -7,8 +7,5 @@
         <li class="menubar__item">
             <a href="/timeline" class="sprite-users#if($tab == 'timeline') selected#end"><span class="m-hide">Timeline</span></a>
         </li>
-        <li class="menubar__item menubar__item--right">
-            <a href="./messages.html" class="sprite-envelop"><span class="msg-indicator">3</span></a>
-        </li>
     </ul>
 </nav>

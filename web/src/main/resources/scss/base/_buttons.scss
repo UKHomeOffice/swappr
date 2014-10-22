@@ -23,43 +23,51 @@
 }
 
 .submit-button--right-lowered {
-  @include media(tablet){
+  @include media(tablet) {
     float: right;
     margin-bottom: -40px;
   }
 }
 
 .action-button {
-  background: transparent url(/images/swappr.png) no-repeat top left;
+  @extend %border-radius;
   border: 1px solid $border__colour--theme;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
   display: block;
+  position: relative;
   font-size: 0;
+  height: 26px;
   width: 26px;
-  padding: 26px 0 0 0;
-  height: 0;
-  overflow: hidden;
+  &:before {
+    @extend %icon;
+    left: 50%;
+    margin-left: -8px;
+  }
 }
 
 .action-button--disabled {
-  @extend .action-button;
   border: 1px solid $border__colour--dark;
 }
 
 .action-button--swap {
-  background-position: 5px -917px;
+  &:before {
+    @extend %icon-swap;
+  }
 }
 
 .action-button--swapped {
-  background-position: 5px -854px;
+  &:before {
+    @extend %icon-swapped;
+  }
 }
 
 .action-button--wait {
-  background-position: 5px -791px;
+  &:before {
+    @extend %icon-wait-disabled;
+  }
 }
 
 .action-button--add {
-  background-position: 5px -982px;
+  &:before {
+    @extend %icon-add;
+  }
 }

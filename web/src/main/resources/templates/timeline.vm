@@ -1,10 +1,9 @@
-#* @vtlvariable name="rotasByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.model.RotaView>>" *#
+#* @vtlvariable name="rotasByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.controllers.views.RotaView>>" *#
 #set($pageTitle = 'Timeline')
 #set($tab = 'timeline')
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
 	#set($rotaViews = $rotasByMonth.get($rotaMonth))
-<a href="/swap" class="submit-button submit-button--right-lowered">create swap</a>
 
 <table>
     <caption class="h1"><span class="secondary-text">All / </span>$display.month($rotaMonth)</caption>
@@ -32,15 +31,15 @@
 
             <td class="table__cell--action">
 							#if($offer.status.name() == 'APPROVED')
-                  <span class="action-button--disabled action-button--swapped"
+                  <span class="action-button action-button--disabled action-button--swapped"
                         title="Shift swapped">Shift swapped</span>
 							#else
-                  <span class="action-button--disabled action-button--wait"
+                  <span class="action-button action-button--disabled action-button--wait"
                         title="In progress">In progress: $offer</span>
 							#end
             </td>
             <td class="secondary-text table__cell--status">
-							#if($offer.status.name() != 'APPROVED')
+							#if(($offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()) && ($offer.status.name() != 'APPROVED'))
                   You've offered to swap
 							#end
             </td>

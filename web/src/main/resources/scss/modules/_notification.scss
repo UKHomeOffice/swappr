@@ -1,0 +1,15 @@
+.notification {
+  background-color: #fefce7;
+  border: 1px solid #f8e71c;
+  padding: 6px;
+  padding-left: 38px;
+  position: relative;
+  &:before {
+    @extend %icon;
+    left: 12px;
+  }
+}
+
+.notification--awaiting:before {
+  @extend %icon-wait;
+}

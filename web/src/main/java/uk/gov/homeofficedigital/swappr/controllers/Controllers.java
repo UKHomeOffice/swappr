@@ -57,8 +57,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public HomeController homeController(RotaService rotaService) {
-        return new HomeController(rotaService);
+    public HomeController homeController(RotaService rotaService, ControllerHelper helper) {
+        return new HomeController(rotaService, helper);
     }
 
 }
