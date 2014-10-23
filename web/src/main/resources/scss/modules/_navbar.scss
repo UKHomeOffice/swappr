@@ -24,7 +24,7 @@
     }
 
     a {
-      @include text($base__font-size--large, $base__line-height--large, $color: $text__colour--theme);
+      @include text($base__font-size, "", $color: $text__colour--theme);
       display: block;
       min-height: $base__line-height--large+px;
       padding: 10px 10px 8px 52px;
