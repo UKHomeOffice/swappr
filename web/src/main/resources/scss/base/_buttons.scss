@@ -61,7 +61,7 @@
 
 .action-button--wait {
   &:before {
-    @extend %icon-wait-disabled;
+    @extend %icon-wait;
   }
 }
 
