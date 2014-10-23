@@ -1,6 +1,0 @@
-#set($pageTitle = 'Swap details')
-<div class="message-block">
-##    TODO: username or 'You' depending on the screen
-    <p><strong>$swap.username</strong> asked to swap a $swap.fromShift shift on $display.fullDate($swap.fromDate) for an $swap.toShift shift on $display.fullDate($swap.toDate).</p>
-</div>
-#parse('shiftSwap.vm')
