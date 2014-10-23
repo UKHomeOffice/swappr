@@ -5,7 +5,7 @@
             <a href="/" class="sprite-user#if($tab == 'home') selected#end"><span class="m-hide">You</span></a>
         </li>
         <li class="menubar__item">
-            <a href="/timeline" class="sprite-users#if($tab == 'timeline') selected#end"><span class="m-hide">Timeline</span></a>
+            <a href="/timeline" class="sprite-users#if($tab == 'timeline') selected#end"><span class="m-hide">All</span></a>
         </li>
     </ul>
 </nav>
