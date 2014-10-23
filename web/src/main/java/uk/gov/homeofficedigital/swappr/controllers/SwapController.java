@@ -101,7 +101,7 @@ public class SwapController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String showSwap(@RequestParam Long offerId, Model model) {
+    public String showSwap(@PathVariable("id") Long offerId, Model model) {
         OfferView offer = rotaService.getOffer(offerId).orElseThrow(() -> new RuntimeException("No offer for given id"));
 
         model.addAttribute("offer", offer);
