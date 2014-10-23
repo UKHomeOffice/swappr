@@ -6,11 +6,9 @@
 
 .submit-button {
   @include text($base__font-size--small, 40, $color: $link__colour--hover, $weight: bold);
+  @include border-radius(6px);
   background-color: $background__colour--theme--secondary;
   border: 1px solid $background__colour--theme--primary;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
   clear: both;
   cursor: pointer;
   display: inline-block;
@@ -22,6 +20,7 @@
   }
 }
 
+
 .submit-button--right-lowered {
   @include media(tablet) {
     float: right;
@@ -30,7 +29,7 @@
 }
 
 .action-button {
-  @extend %border-radius;
+  @include border-radius(50%);
   border: 1px solid $border__colour--theme;
   display: block;
   position: relative;
