@@ -52,7 +52,7 @@ header {
 
   .user-settings__trigger {
     @extend %button-reset;
-    padding-right: 27px;
+    padding-right: 32px;
     position: relative;
     &.is-active + .user-settings__list {
       display: block;
