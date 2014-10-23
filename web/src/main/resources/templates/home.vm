@@ -48,7 +48,7 @@
 											</td>
                       <td class="secondary-text table__cell--status">
 												#foreach($offer in $rotaView.getOffers())
-                          You've requested a swap → $offer.swapTo.type on $display.fullDate($offer.swapTo.date)
+                        <a href="/swap/$offer.id">You've requested a swap</a> for $offer.swapTo.type on $display.fullDate($offer.swapTo.date)
 												#end
                       </td>
 									#else
