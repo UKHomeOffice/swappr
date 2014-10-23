@@ -34,8 +34,8 @@ public class RotaDao {
     }
 
     public Rota findOrCreate(User worker, Shift shift) {
-        List<Long> id = template.query("select id from rota where username = :user and shiftDate = :shiftDate and shiftType = :shiftType",
-                toMap("user", worker.getUsername(), "shiftDate", Date.valueOf(shift.getDate()), "shiftType", shift.getType().name()), (rs, idx) -> rs.getLong("id"));
+        List<Long> id = template.query("select id from rota where username = :user and shiftDate = :shiftDate and shiftCode = :shiftCode",
+                toMap("user", worker.getUsername(), "shiftDate", Date.valueOf(shift.getDate()), "shiftCode", shift.getType().name()), (rs, idx) -> rs.getLong("id"));
         if (!id.isEmpty()) {
             return new Rota(id.get(0), worker, shift);
         } else {

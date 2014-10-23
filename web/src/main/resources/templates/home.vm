@@ -5,6 +5,12 @@
 #if ($flashType == 'addShift')
     <span>Shift added</span>
 #end
+#if ($flashType == 'createSwap')
+<span>New swap created</span>
+#end
+#if ($flashType == 'volunteerSwap')
+<span>Volunteered to swap</span>
+#end
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
     #set($rotaViews = $rotasByMonth.get($rotaMonth))

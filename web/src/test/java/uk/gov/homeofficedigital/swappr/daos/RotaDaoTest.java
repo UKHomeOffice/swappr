@@ -71,4 +71,16 @@ public class RotaDaoTest extends SpringIntegrationTest {
         assertTrue(actual.containsAll(billsRota));
         assertTrue(actual.containsAll(bensRota));
     }
+
+    @Test
+    public void findOrCreate_shouldCreateRota_givenRotaDoesNotExist() throws Exception {
+        LocalDate now = LocalDate.now();
+        User user = new User("Bill", "password", Collections.emptyList());
+        Shift expectedShift = new Shift(now, ShiftType.C1H);
+        Rota rota = rotaDao.findOrCreate(user, expectedShift);
+
+        assertNotNull(rota.getId());
+        Rota reload = rotaDao.findOrCreate(user, expectedShift);
+        assertEquals(rota.getId(), reload.getId());
+    }
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.gov.homeofficedigital.swappr.controllers.exceptions.OfferNotFoundException;
 import uk.gov.homeofficedigital.swappr.controllers.exceptions.RotaNotFoundException;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
@@ -20,7 +21,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/swap")
@@ -69,7 +69,7 @@ public class SwapController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, Principal principal) {
+    public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, Principal principal, RedirectAttributes attrs) {
         if (result.hasErrors()) {
             return "createSwap";
         }
@@ -77,15 +77,16 @@ public class SwapController {
         User user = controllerHelper.userFromPrincipal(principal);
         Shift from = new Shift(swap.getFromDate(), swap.getFromShiftType());
         Shift to = new Shift(swap.getToDate(), swap.getToShiftType());
-        Rota rota = rotaDao.create(user, from);
+        Rota rota = rotaDao.findOrCreate(user, from);
 
         rotaService.requestSwap(rota, to);
 
+        attrs.addFlashAttribute("flashType", "createSwap");
         return "redirect:/";
     }
 
     @RequestMapping(value = "/{id}/volunteer", method = RequestMethod.POST)
-    public String volunteer(@PathVariable("id") Long offerId, Principal principal) {
+    public String volunteer(@PathVariable("id") Long offerId, Principal principal, RedirectAttributes attrs) {
 
         Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
 
@@ -95,6 +96,7 @@ public class SwapController {
 
         rotaService.volunteerSwap(myRota, offer);
 
+        attrs.addFlashAttribute("flashType", "volunteerSwap");
         return "redirect:/";
     }
 
