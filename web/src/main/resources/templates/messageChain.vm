@@ -1,0 +1,47 @@
+<h1>Wednesday, 15th October</h1>
+
+<ol class="events">
+    <li class="event event--offer-you">
+        <time class="event__date" datetime="2014-10-03">Posted Friday 03 October</time>
+        <strong>You</strong> asked to swap a Z1T shift on Wednesday, 15 October for an S1H shift on Thursday, 16
+        October.
+    </li>
+    <li class="event event--offer-them">
+        <time class="event__date" datetime="2014-10-03">Replied Monday 06 October</time>
+        <strong>Catherine M</strong> is offering to swap
+        <div class="event__swap">
+            <div class="event__rota event__rota-you">
+                <div class="event__rota-person">You</div>
+                <div class="event__rota-shift">Z1T</div>
+                <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+            </div>
+            <div class="event__rota event__rota-them">
+                <div class="event__rota-person">You</div>
+                <div class="event__rota-shift">Z1T</div>
+                <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+            </div>
+        </div>
+        <div class="event__actions">
+            <form action="">
+								<div class="event__action"><button class="submit-button" type="submit">Accept offer</button></div>
+                <div class="event__action"><button class="submit-button" type="submit">No thanks</button></div>
+            </form>
+        </div>
+    </li>
+    <li class="event event--offer-you">
+        <time class="event__date" datetime="2014-10-03">Replied Monday 06 October</time>
+        <strong>Swap agreed.</strong> Waiting for HR to authorise.
+        <div class="event__swap event__swap-agreed">
+            <div class="event__rota event__rota-you">
+                <div class="event__rota-person">You</div>
+                <div class="event__rota-shift">Z1T</div>
+                <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+            </div>
+            <div class="event__rota event__rota-them">
+                <div class="event__rota-person">You</div>
+                <div class="event__rota-shift">Z1T</div>
+                <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+            </div>
+        </div>
+    </li>
+</ol>

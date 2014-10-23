@@ -27,7 +27,7 @@
             <td class="table__cell--date"><span class="h3">$rotaView.rota.shift.date.dayOfMonth</span> <span
                     class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
             <td class="table__cell--shift"><a href="/swap/$offer.id">$offer.swapFrom.worker.username</a> wants to
-                swap $offer.swapFrom.shift.type → $offer.swapTo.type on $display.fullDate($offer.swapTo.date)</td>
+                swap $offer.swapFrom.shift.type for $offer.swapTo.type on $display.fullDate($offer.swapTo.date)</td>
 
             <td class="table__cell--action">
 							#if($offer.status.name() == 'APPROVED')

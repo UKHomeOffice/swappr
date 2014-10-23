@@ -23,6 +23,8 @@
 					#springShowErrors("" "error")
         </div>
         </div>
-        <input id="submitBtn" class="submit-button" type="submit" value="Add"/>
+			<div class="form-submit">
+					<input class="submit-button" type="submit" value="Add"/>
+			</div>
     </form>
 </div>

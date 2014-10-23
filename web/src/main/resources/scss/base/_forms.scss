@@ -57,10 +57,10 @@ textarea {
   width: 20%;
 }
 
-[type=submit],
-[type=checkbox] {
+.form-submit {
   @include gutter('left', 20%);
 }
+
 //fieldset {
 //  border: 0;
 //  float: left;
