@@ -23,7 +23,7 @@
             #foreach($dayView in $rotaViews)
 
                 <tr>
-                  <td class="table__cell--date"><span class="h3">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+                  <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
 							#if($dayView.rotaView.isPresent())
 								#set($rotaView = $dayView.rotaView.get())
 
