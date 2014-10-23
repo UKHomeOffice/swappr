@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.daos;
 
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import uk.gov.homeofficedigital.swappr.model.*;
 
@@ -38,8 +39,8 @@ public class OfferDao {
         }
     }
 
-    public Set<Offer> findByRota(Long rotaId) {
-        List<Offer> offers = template.query("select * from offer where rotaId = :id", toMap("id", rotaId), this::mapOffer);
+    public Set<Offer> findByRota(Rota rota) {
+        List<Offer> offers = template.query("select * from offer where rotaId = :id", toMap("id", rota.getId()), mapOfferFor(rota));
         return new HashSet<>(offers);
     }
 
@@ -51,5 +52,9 @@ public class OfferDao {
     private Offer mapOffer(ResultSet rs, int idx) throws SQLException {
         Rota rota = rotaDao.findById(rs.getLong("rotaId")).get();
         return new Offer(rs.getLong("id"), rota, new Shift(rs.getDate("shiftDate").toLocalDate(), ShiftType.valueOf(rs.getString("shiftCode"))), OfferStatus.valueOf(rs.getString("status")));
+    }
+
+    private RowMapper<Offer> mapOfferFor(Rota rota) {
+        return (rs, idx) -> new Offer(rs.getLong("id"), rota, new Shift(rs.getDate("shiftDate").toLocalDate(), ShiftType.valueOf(rs.getString("shiftCode"))), OfferStatus.valueOf(rs.getString("status")));
     }
 }

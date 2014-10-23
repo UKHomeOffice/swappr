@@ -35,7 +35,7 @@ public class RotaService {
     public void acceptVolunteer(Volunteer volunteer) {
         volunteerDao.updateStatus(volunteer, VolunteerStatus.REQUESTED);
         offerDao.updateStatus(volunteer.getSwapTo(), OfferStatus.REQUESTED);
-        volunteerDao.findByOffer(volunteer.getSwapTo().getId()).stream().filter(v -> !v.getId().equals(volunteer.getId())).forEach((r) -> volunteerDao.updateStatus(r, VolunteerStatus.REJECTED));
+        volunteerDao.findByOffer(volunteer.getSwapTo()).stream().filter(v -> !v.getId().equals(volunteer.getId())).forEach((r) -> volunteerDao.updateStatus(r, VolunteerStatus.REJECTED));
     }
 
     public void approveSwap(Volunteer volunteer) {
@@ -58,12 +58,12 @@ public class RotaService {
 
     private Set<RotaView> mapToRotaView(Set<Rota> rotas) {
         return rotas.stream()
-                .map(r -> new RotaView(r, offerDao.findByRota(r.getId()), volunteerDao.findByRota(r.getId())))
+                .map(r -> new RotaView(r, offerDao.findByRota(r), volunteerDao.findByRota(r)))
                 .collect(Collectors.toSet());
     }
 
     public Optional<OfferView> getOffer(Long offerId) {
-        return offerDao.findById(offerId).map(o -> new OfferView(o, volunteerDao.findByOffer(o.getId())));
+        return offerDao.findById(offerId).map(o -> new OfferView(o, volunteerDao.findByOffer(o)));
     }
 
     public Rota addToRota(User worker, Shift shift) {

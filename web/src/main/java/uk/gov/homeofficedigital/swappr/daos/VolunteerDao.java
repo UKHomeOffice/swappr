@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.daos;
 
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Rota;
@@ -47,12 +48,12 @@ public class VolunteerDao {
         }
     }
 
-    public Set<Volunteer> findByOffer(Long offerId) {
-        return new HashSet<>(template.query("select * from volunteer where offerId = :id", toMap("id", offerId), this::mapVolunteer));
+    public Set<Volunteer> findByOffer(Offer offer) {
+        return new HashSet<>(template.query("select * from volunteer where offerId = :id", toMap("id", offer.getId()), mapVolunteerFor(offer)));
     }
 
-    public Set<Volunteer> findByRota(Long rotaId) {
-        return new HashSet<>(template.query("select * from volunteer where rotaId = :id", toMap("id", rotaId), this::mapVolunteer));
+    public Set<Volunteer> findByRota(Rota rota) {
+        return new HashSet<>(template.query("select * from volunteer where rotaId = :id", toMap("id", rota.getId()), mapVolunteerFor(rota)));
     }
 
     public Volunteer updateStatus(Volunteer volunteer, VolunteerStatus requested) {
@@ -65,4 +66,19 @@ public class VolunteerDao {
         Offer offer = offerDao.findById(rs.getLong("offerId")).orElseThrow(() -> new RuntimeException("foreign key constraint broken"));
         return new Volunteer(rs.getLong("id"), rota, offer, VolunteerStatus.valueOf(rs.getString("status")));
     }
+
+    private RowMapper<Volunteer> mapVolunteerFor(Rota rota) {
+        return (rs, idx) -> {
+            Offer offer = offerDao.findById(rs.getLong("offerId")).orElseThrow(() -> new RuntimeException("foreign key constraint broken"));
+            return new Volunteer(rs.getLong("id"), rota, offer, VolunteerStatus.valueOf(rs.getString("status")));
+        };
+    }
+
+    private RowMapper<Volunteer> mapVolunteerFor(Offer offer) {
+        return (rs, idx) -> {
+            Rota rota = rotaDao.findById(rs.getLong("rotaId")).orElseThrow(() -> new RuntimeException("foreign key constraint broken"));
+            return new Volunteer(rs.getLong("id"), rota, offer, VolunteerStatus.valueOf(rs.getString("status")));
+        };
+    }
+
 }

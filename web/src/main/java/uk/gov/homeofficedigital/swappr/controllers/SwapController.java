@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import uk.gov.homeofficedigital.swappr.controllers.exceptions.OfferNotFoundException;
 import uk.gov.homeofficedigital.swappr.controllers.exceptions.RotaNotFoundException;
 import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
+import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.model.Offer;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/swap")
@@ -82,14 +84,14 @@ public class SwapController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/{id}/volunteer", method = RequestMethod.GET)
-    public String volunteer(@RequestParam Long offerId, Principal principal) {
+    @RequestMapping(value = "/{id}/volunteer", method = RequestMethod.POST)
+    public String volunteer(@PathVariable("id") Long offerId, Principal principal) {
 
         Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
 
         User user = controllerHelper.userFromPrincipal(principal);
 
-        Rota myRota = rotaDao.create(user, offer.getSwapTo());
+        Rota myRota = rotaDao.findOrCreate(user, offer.getSwapTo());
 
         rotaService.volunteerSwap(myRota, offer);
 
@@ -98,9 +100,9 @@ public class SwapController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showSwap(@RequestParam Long offerId, Model model) {
-        Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
+        OfferView offer = rotaService.getOffer(offerId).orElseThrow(() -> new RuntimeException("No offer for given id"));
 
-        model.addAttribute("swap", offer);
-        return "showSwap";
+        model.addAttribute("offer", offer);
+        return "swapView";
     }
 }

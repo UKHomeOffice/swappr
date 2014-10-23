@@ -33,6 +33,16 @@ public class RotaDao {
         return new Rota(id, worker, shift);
     }
 
+    public Rota findOrCreate(User worker, Shift shift) {
+        List<Long> id = template.query("select id from rota where username = :user and shiftDate = :shiftDate and shiftType = :shiftType",
+                toMap("user", worker.getUsername(), "shiftDate", Date.valueOf(shift.getDate()), "shiftType", shift.getType().name()), (rs, idx) -> rs.getLong("id"));
+        if (!id.isEmpty()) {
+            return new Rota(id.get(0), worker, shift);
+        } else {
+            return create(worker, shift);
+        }
+    }
+
     public Optional<Rota> findById(Long rotaId) {
         List<Rota> rotas = template.query("select * from rota where id = :id", toMap("id", rotaId), this::mapRota);
         if (rotas.isEmpty()) {

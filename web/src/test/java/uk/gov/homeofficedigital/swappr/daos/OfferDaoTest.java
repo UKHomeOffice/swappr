@@ -53,7 +53,7 @@ public class OfferDaoTest extends SpringIntegrationTest {
         Offer offerToday = offerDao.create(rotaToday, swapTodayFor, OfferStatus.CREATED);
         Offer offerTomorrow = offerDao.create(rotaTomorrow, swapTomorrowFor, OfferStatus.CREATED);
 
-        Set<Offer> actual = offerDao.findByRota(rotaToday.getId());
+        Set<Offer> actual = offerDao.findByRota(rotaToday);
 
         assertEquals(1, actual.size());
         assertEquals(offerToday, actual.iterator().next());

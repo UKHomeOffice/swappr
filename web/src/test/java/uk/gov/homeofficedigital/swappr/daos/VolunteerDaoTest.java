@@ -52,12 +52,12 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
         Offer offer = offerDao.create(offerRota, new Shift(now, ShiftType.BFH), OfferStatus.CREATED);
         Volunteer expected = volunteerDao.create(from, offer, VolunteerStatus.CREATED);
 
-        Set<Volunteer> actual = volunteerDao.findByRota(expected.getSwapFrom().getId());
+        Set<Volunteer> actual = volunteerDao.findByRota(expected.getSwapFrom());
 
         assertEquals(1, actual.size());
         assertEquals(expected, actual.iterator().next());
 
-        actual = volunteerDao.findByRota(offerRota.getId());
+        actual = volunteerDao.findByRota(offerRota);
 
         assertEquals(0, actual.size());
     }
@@ -74,12 +74,12 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
         Volunteer expected = volunteerDao.create(from, offer, VolunteerStatus.CREATED);
         Volunteer otherVolunteer = volunteerDao.create(from, otherOffer, VolunteerStatus.CREATED);
 
-        Set<Volunteer> actual = volunteerDao.findByOffer(offer.getId());
+        Set<Volunteer> actual = volunteerDao.findByOffer(offer);
 
         assertEquals(1, actual.size());
         assertEquals(expected, actual.iterator().next());
 
-        actual = volunteerDao.findByOffer(otherOffer.getId());
+        actual = volunteerDao.findByOffer(otherOffer);
 
         assertEquals(otherVolunteer, actual.iterator().next());
     }
