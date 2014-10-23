@@ -96,4 +96,11 @@ public class SwapController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String showSwap(@RequestParam Long offerId, Model model) {
+        Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
+
+        model.addAttribute("swap", offer);
+        return "showSwap";
+    }
 }
