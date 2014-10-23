@@ -39,11 +39,16 @@
 							#end
             </td>
             <td class="secondary-text table__cell--status">
-							#if(($offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()) && ($offer.status.name() != 'APPROVED'))
-                  You've offered to swap
+							#if ($offer.status.name() != 'APPROVED')
+								#if($offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
+                    You've offered to swap
+								#else
+                	<form action="/swap/$offer.id/volunteer" method="post">
+                    <button class="submit-button" type="submit">Volunteer</button>
+									</form>
+								#end
 							#end
             </td>
-
         </tr>
 				#end
 			#end
