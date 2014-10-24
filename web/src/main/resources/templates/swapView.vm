@@ -13,24 +13,6 @@
 <ol class="events">
 
 	#if ($confirmed)
-      <li class="event event--confirmed">
-          <strong>Swap agreed.</strong> Waiting for HR to authorise.
-          <div class="event__swap event__swap-agreed">
-              <div class="event__rota event__rota-you">
-                  <div class="event__rota-person">You</div>
-                  <div class="event__rota-shift">Z1T</div>
-                  <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
-              </div>
-              <div class="event__rota event__rota-them">
-                  <div class="event__rota-person">You</div>
-                  <div class="event__rota-shift">Z1T</div>
-                  <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
-              </div>
-          </div>
-      </li>
-	#end
-
-	#if ($confirmed)
 		#set($volunteerText = "is volunteering")
 	#else
 		#set($volunteerText = "volunteered")
@@ -52,6 +34,25 @@
 		#end
 
 		#set($otherRota = $volunteer.swapTo.swapFrom)
+
+
+		#if (!$confirmed)
+        <li class="event event--confirmed">
+            <strong>Swap agreed.</strong> Waiting for HR to authorise.
+            <div class="event__swap event__swap-agreed">
+                <div class="event__rota event__rota-you">
+                    <div class="event__rota-person">You</div>
+                    <div class="event__rota-shift">Z1T</div>
+                    <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+                </div>
+                <div class="event__rota event__rota-them">
+                    <div class="event__rota-person">You</div>
+                    <div class="event__rota-shift">Z1T</div>
+                    <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+                </div>
+            </div>
+        </li>
+		#end
       <li class="event event--$volunteerClass">
           <strong>$volunteerName</strong> $volunteerText to swap
           <div class="event__swap">
@@ -84,7 +85,8 @@
 	#end
 
     <li class="event event--offer event--$offererClass">
-			$offerer offered to swap $offer.offer.swapFrom.shift.type.label $offer.offer.swapFrom.shift.type on $offer.offer.swapFrom.shift.date
+			$offerer offered to swap $offer.offer.swapFrom.shift.type.label $offer.offer.swapFrom.shift.type
+        on $offer.offer.swapFrom.shift.date
         for $offer.offer.swapTo.type.label $offer.offer.swapTo.type on $offer.offer.swapTo.date
     </li>
 
