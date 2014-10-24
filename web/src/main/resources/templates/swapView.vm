@@ -5,7 +5,7 @@
 	#set($volunteerText = "volunteered")
 #end
 
-#set($approvedByHR = true)
+#set($approvedByHR = ($offer.status.name() == 'APPROVED'))
 #if ($approvedByHR)
 	#set($confirmedClass = "approved")
 #else
