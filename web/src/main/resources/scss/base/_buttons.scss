@@ -20,6 +20,10 @@
   }
 }
 
+.submit-button-secondary {
+  @extend %button-reset;
+  @include text($base__font-size--small, 40, $color: $link__colour--hover, $weight: bold);
+}
 
 .submit-button--right-lowered {
   @include media(tablet) {

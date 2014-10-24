@@ -21,8 +21,10 @@
         </div>
         <div class="event__actions">
             <form action="">
-								<div class="event__action"><button class="submit-button" type="submit">Accept offer</button></div>
-                <div class="event__action"><button class="submit-button" type="submit">No thanks</button></div>
+                <div class="event__action"><button class="submit-button" type="submit">Accept offer</button></div>
+            </form>
+            <form action="">
+                <div class="event__action"><button class="submit-button-secondary" type="submit">No thanks</button></div>
             </form>
         </div>
     </li>
