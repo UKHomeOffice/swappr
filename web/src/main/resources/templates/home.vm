@@ -11,6 +11,9 @@
 #if ($flashType == 'volunteerSwap')
 <span>Volunteered to swap</span>
 #end
+#if ($flashType == 'acceptSwap')
+<span>Swap accepted</span>
+#end
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
     #set($rotaViews = $rotasByMonth.get($rotaMonth))

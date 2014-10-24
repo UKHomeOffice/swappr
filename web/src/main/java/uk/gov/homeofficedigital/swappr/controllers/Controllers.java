@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
+import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
 import uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper;
@@ -47,8 +48,8 @@ public class Controllers extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public SwapController swapController(RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
-        return new SwapController(rotaDao, rotaService, offerDao, helper);
+    public SwapController swapController(RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao, ControllerHelper helper) {
+        return new SwapController(rotaDao, rotaService, offerDao, volunteerDao, helper);
     }
 
     @Bean

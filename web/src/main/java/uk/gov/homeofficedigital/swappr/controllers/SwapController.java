@@ -12,9 +12,11 @@ import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
+import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.Shift;
+import uk.gov.homeofficedigital.swappr.model.Volunteer;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import javax.validation.Valid;
@@ -29,12 +31,14 @@ public class SwapController {
     private final RotaDao rotaDao;
     private final RotaService rotaService;
     private final OfferDao offerDao;
+    private final VolunteerDao volunteerDao;
     private final ControllerHelper controllerHelper;
 
-    public SwapController(RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, ControllerHelper helper) {
+    public SwapController(RotaDao rotaDao, RotaService rotaService, OfferDao offerDao, VolunteerDao volunteerDao, ControllerHelper helper) {
         this.rotaDao = rotaDao;
         this.rotaService = rotaService;
         this.offerDao = offerDao;
+        this.volunteerDao = volunteerDao;
         this.controllerHelper = helper;
     }
 
@@ -97,6 +101,14 @@ public class SwapController {
         rotaService.volunteerSwap(myRota, offer);
 
         attrs.addFlashAttribute("flashType", "volunteerSwap");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{id}/volunteer/{volunteerId}/accept", method = RequestMethod.POST)
+    public String acceptVolunteer(@PathVariable("id") Long offerId, @PathVariable("volunteerId") Long volunteerId, RedirectAttributes attrs) {
+        Volunteer volunteer = volunteerDao.findById(volunteerId).orElseThrow(() -> new RuntimeException("Invalid volunteer"));
+        rotaService.acceptVolunteer(volunteer);
+        attrs.addFlashAttribute("flashType", "acceptSwap");
         return "redirect:/";
     }
 
