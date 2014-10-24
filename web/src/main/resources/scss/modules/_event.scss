@@ -59,10 +59,12 @@
     top: 50%;
     left: 50%;
   }
-  &.event__swap-agreed:before {
+  &.event__swap-accepted:before {
+    @extend %icon;
+    @extend %icon-wait-disabled;
+  }
+  &.event__swap-approved:before {
     content: "✔";
-    font-family: "Times", "Times New Roman", serif;
-    text-rendering: optimizelegibility;
   }
 }
 
@@ -79,7 +81,7 @@
   &:last-child {
     margin-left: 30px;
   }
-  .event__swap-agreed & {
+  .event__swap-confirmed & {
     background-color: $background__colour--swap;
   }
 }
