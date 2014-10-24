@@ -1,6 +1,19 @@
-#set($confirmed = $rotaView.approvedVolunteer.isPresent())
+#set($accepted = $rotaView.approvedVolunteer.isPresent())
+#if ($accepted)
+	#set($volunteerText = "is volunteering")
+#else
+	#set($volunteerText = "volunteered")
+#end
+
+#set($approvedByHR = true)
+#if ($approvedByHR)
+	#set($confirmedClass = "approved")
+#else
+	#set($confirmedClass = "accepted")
+#end
 
 #set($offererIsYou = ($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()))
+
 #if($offererIsYou)
 	#set($offerer = "You")
 	#set($offererClass = "you")
@@ -11,12 +24,6 @@
 
 <h1>$display.fullDate($offer.offer.swapFrom.shift.date)</h1>
 <ol class="events">
-
-	#if ($confirmed)
-		#set($volunteerText = "is volunteering")
-	#else
-		#set($volunteerText = "volunteered")
-	#end
 
 	#foreach($volunteer in $offer.volunteers)
 		#set($volunteerIsYou = ($volunteer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()))
@@ -33,24 +40,35 @@
 			#set($volunteerClass = "them")
 		#end
 
-		#set($otherRota = $volunteer.swapTo.swapFrom)
-
-
-		#if (!$confirmed)
-        <li class="event event--confirmed">
+		#if (!$accepted)
+        <li class="event">
             <strong>Swap agreed.</strong> Waiting for HR to authorise.
-            <div class="event__swap event__swap-agreed">
+            <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
                 <div class="event__rota event__rota-you">
                     <div class="event__rota-person">You</div>
-                    <div class="event__rota-shift">Z1T</div>
-                    <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+                    <div class="event__rota-shift">$yourRota.shift.type</div>
+                    <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
                 </div>
                 <div class="event__rota event__rota-them">
-                    <div class="event__rota-person">You</div>
-                    <div class="event__rota-shift">Z1T</div>
-                    <time class="event__rota-date" datetime="2014-10-15">Wed, 15 Oct</time>
+                    <div class="event__rota-person">$theirRota.worker.username</div>
+                    <div class="event__rota-shift">$theirRota.shift.type</div>
+                    <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
                 </div>
             </div>
+					#if (!$approvedByHR)
+              <div class="event__actions">
+                  <form action="">
+                      <div class="event__action">
+                          <button class="submit-button" type="submit">Approved by HR</button>
+                      </div>
+                  </form>
+                  <form action="">
+                      <div class="event__action">
+                          <button class="submit-button-secondary" type="submit">Rejected by HR</button>
+                      </div>
+                  </form>
+              </div>
+					#end
         </li>
 		#end
       <li class="event event--$volunteerClass">
