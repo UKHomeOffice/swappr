@@ -20,10 +20,6 @@ tbody {
 
 tr {
   border-bottom: 1px solid $border__colour--dark;
-
-  &:hover {
-    background-color: $background__colour--theme--hover;
-  }
 }
 
 th,
