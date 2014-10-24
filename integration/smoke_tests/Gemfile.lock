@@ -30,9 +30,6 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
-    pry-remote (0.1.8)
-      pry (~> 0.9)
-      slop (~> 3.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -66,7 +63,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   poltergeist
+  pry
   pry-nav
-  pry-remote
   rspec
   selenium-webdriver

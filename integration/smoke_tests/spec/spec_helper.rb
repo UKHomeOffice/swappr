@@ -1,8 +1,7 @@
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require 'pry'
 
-Capybara.default_driver = :selenium
+Capybara.default_driver = :poltergeist
 
-RSpec.configure do |config|
-  HOST = ENV['HOST'] || 'http://localhost:8080'
-end
+HOST = ENV['HOST'] || 'http://localhost:8080'
