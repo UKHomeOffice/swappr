@@ -20,15 +20,18 @@
   }
 }
 
-.event--offer-you {
+.event--offer {
   background-color: $background__colour--theme--secondary;
   border-top: 3px solid $border__colour--theme;
+}
+
+.event--you {
   &:before {
     content: "→";
   }
 }
 
-.event--offer-them {
+.event--them {
   &:before {
     content: "←";
   }
