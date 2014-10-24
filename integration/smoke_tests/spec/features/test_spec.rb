@@ -1,11 +1,12 @@
 require 'spec_helper'
+require 'step_definitions/common_steps'
 
 describe "the signin process", :type => :feature do
   before :each do
+    login_user
   end
 
   it "signs me in" do
-    visit 'http://localhost:8080/swap/1'
-    expect(page).to have_selector('#username')
+    expect(page).to have_selector('.sprite-user')
   end
 end
