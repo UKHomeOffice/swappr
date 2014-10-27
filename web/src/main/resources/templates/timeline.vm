@@ -23,9 +23,14 @@
 			#end
 			#foreach($rotaView in $rotaViews)
 				#foreach($offer in $rotaView.getOffers())
-        <tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
-            <td class="table__cell--date"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
-                    class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
+					#if ($rotaView.rota.shift.date == $lastDate)
+						#set($hiddenClass = " hidden")
+					#else
+						#set($hiddenClass = "")
+					#end
+        	<tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
+            <td class="table__cell--date"><span class="$hiddenClass"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
+                    class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></td>
             <td class="table__cell--shift"><a href="/swap/$offer.id">$offer.swapFrom.worker.username</a> wants to
                 swap $offer.swapFrom.shift.type for $offer.swapTo.type on $display.fullDate($offer.swapTo.date)</td>
 
@@ -50,6 +55,8 @@
 							#end
             </td>
         </tr>
+
+					#set($lastDate = $rotaView.rota.shift.date)
 				#end
 			#end
     </tbody>
