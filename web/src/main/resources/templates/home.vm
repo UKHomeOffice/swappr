@@ -3,16 +3,16 @@
 #set($tab = 'home')
 
 #if ($flashType == 'addShift')
-    <span>Shift added</span>
+    <div class="notification notification--awaiting">Shift added</div>
 #end
 #if ($flashType == 'createSwap')
-<span>New swap created</span>
+<div class="notification notification--awaiting">New swap created</div>
 #end
 #if ($flashType == 'volunteerSwap')
-<span>Volunteered to swap</span>
+<div class="notification notification--awaiting">Volunteered to swap</div>
 #end
 #if ($flashType == 'acceptSwap')
-<span>Swap accepted</span>
+<div class="notification notification--awaiting">Swap accepted</div>
 #end
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
