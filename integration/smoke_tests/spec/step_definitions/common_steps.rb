@@ -23,7 +23,7 @@ def add_shift(day_index, shift_type)
   days = page.all('.t-day')
   days[day_index].find('.t-add-shift').click
   select(shift_type, :from => 'Shift')
-  click_on('Submit')
+  click_on('Add')
 end
 
 def offer_shift(day_index, shift_type_from, shift_type_to)
@@ -31,7 +31,7 @@ def offer_shift(day_index, shift_type_from, shift_type_to)
   days = page.all('.t-day')
   days[day_index].find('.t-swap-shift').click
   select(shift_type_to, :from => 'toShiftType')
-  click_on('Create')
+  click_on('Request swap')
 end
 
 def find_day_row_by_date(date)

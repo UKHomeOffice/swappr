@@ -57,6 +57,6 @@
         </div>
     </fieldset>
     <div class="form-submit">
-        <input class="submit-button" type="submit" value="Create"/>
+        <input class="submit-button" type="submit" value="Request swap"/>
     </div>
 </form>
