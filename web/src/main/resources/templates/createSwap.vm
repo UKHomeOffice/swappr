@@ -26,7 +26,7 @@
 					#springFormInput("swap.fromYear" "class='input--four-digit' maxlength='4'")
         </div>
         <div class="form-group-inline">
-            <label class="hidden" for="fromShiftType">Shift</label>
+            <label class="hidden" for="fromShiftType">Type of shift to change from</label>
 					#springFormSingleSelect("swap.fromShiftType", ${availableShifts})
         </div>
     </fieldset>
@@ -52,7 +52,7 @@
 					#springFormInput("swap.toYear" "class='input--four-digit' maxlength='4'")
         </div>
         <div class="form-group-inline">
-            <label class="hidden" for="toShiftType">Shift</label>
+            <label class="hidden" for="toShiftType">Type of shift to change to</label>
 					#springFormSingleSelect("swap.toShiftType", ${availableShifts})
         </div>
     </fieldset>
