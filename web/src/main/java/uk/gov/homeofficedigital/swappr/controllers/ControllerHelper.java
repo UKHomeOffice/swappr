@@ -20,7 +20,7 @@ class ControllerHelper {
         Month thisMonth = LocalDate.now().getMonth();
 
         LinkedHashMap<String, String> months = new LinkedHashMap<>();
-        months.put("", "");
+        months.put("", "Select month");
         months.put(String.valueOf(thisMonth.getValue()), dateDisplay.month(thisMonth));
         months.put(String.valueOf(thisMonth.plus(1).getValue()), dateDisplay.month(thisMonth.plus(1)));
         months.put(String.valueOf(thisMonth.plus(2).getValue()), dateDisplay.month(thisMonth.plus(2)));
@@ -31,7 +31,7 @@ class ControllerHelper {
     LinkedHashMap<String, String> availableShifts() {
 
         LinkedHashMap<String, String> shifts = new LinkedHashMap<>();
-        shifts.put("", "");
+        shifts.put("", "Select shift");
 
         for (ShiftType shiftType : ShiftType.values()) {
             shifts.put(shiftType.name(), shiftType.name() + " - " + shiftType.getLabel().name());
