@@ -93,10 +93,10 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
         Offer offer = offerDao.create(offerRota, new Shift(now, ShiftType.BFH), OfferStatus.CREATED);
         Volunteer expected = volunteerDao.create(from, offer, VolunteerStatus.CREATED);
-        volunteerDao.updateStatus(expected, VolunteerStatus.REQUESTED);
+        volunteerDao.updateStatus(expected, VolunteerStatus.ACCEPTED);
 
         Optional<Volunteer> actual = volunteerDao.findById(expected.getId());
 
-        assertEquals(VolunteerStatus.REQUESTED, actual.get().getStatus());
+        assertEquals(VolunteerStatus.ACCEPTED, actual.get().getStatus());
     }
 }

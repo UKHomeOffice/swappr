@@ -1,4 +1,4 @@
-#set($accepted = $rotaView.approvedVolunteer.isPresent())
+#set($accepted = $offer.offer.status.name() == 'ACCEPTED')
 #if ($accepted)
 	#set($volunteerText = "is volunteering")
 #else
@@ -40,7 +40,7 @@
 			#set($volunteerClass = "them")
 		#end
 
-		#if (!$accepted)
+		#if ($accepted)
         <li class="event">
             <strong>Swap agreed.</strong> Waiting for HR to authorise.
             <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
@@ -85,14 +85,14 @@
                   <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
               </div>
           </div>
-				#if (!$volunteerIsYou)
+				#if (!$volunteerIsYou && $volunteer.status.name() == 'REQUESTED')
             <div class="event__actions">
-                <form action="">
+                <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">
                     <div class="event__action">
                         <button class="submit-button" type="submit">Accept offer</button>
                     </div>
                 </form>
-                <form action="">
+                <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/reject" method="POST">
                     <div class="event__action">
                         <button class="submit-button-secondary" type="submit">No thanks</button>
                     </div>

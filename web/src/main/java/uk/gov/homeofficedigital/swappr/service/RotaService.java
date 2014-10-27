@@ -33,8 +33,8 @@ public class RotaService {
     }
 
     public void acceptVolunteer(Volunteer volunteer) {
-        volunteerDao.updateStatus(volunteer, VolunteerStatus.REQUESTED);
-        offerDao.updateStatus(volunteer.getSwapTo(), OfferStatus.REQUESTED);
+        volunteerDao.updateStatus(volunteer, VolunteerStatus.ACCEPTED);
+        offerDao.updateStatus(volunteer.getSwapTo(), OfferStatus.ACCEPTED);
         volunteerDao.findByOffer(volunteer.getSwapTo()).stream().filter(v -> !v.getId().equals(volunteer.getId())).forEach((r) -> volunteerDao.updateStatus(r, VolunteerStatus.REJECTED));
     }
 

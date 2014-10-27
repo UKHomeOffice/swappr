@@ -1,5 +1,5 @@
 package uk.gov.homeofficedigital.swappr.model;
 
 public enum VolunteerStatus {
-    CREATED, REQUESTED, REJECTED, APPROVED, DENIED
+    CREATED, ACCEPTED, REJECTED, APPROVED, DENIED
 }
