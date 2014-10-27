@@ -16,7 +16,7 @@ end
 
 def logout
   find('.t-user-settings').click
-  click_link('Logout')
+  click_link('Sign out')
 end
 
 def add_shift(day_index, shift_type)

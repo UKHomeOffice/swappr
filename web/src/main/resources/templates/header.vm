@@ -8,7 +8,7 @@
 						#if($sec.isAdmin())
                 <li><a class="user-settings__list-link" href="/admin/users">Admin</a></li>
 						#end
-              <li><a class="user-settings__list-link" href="/logout">Logout</a></li>
+              <li><a class="user-settings__list-link" href="/logout">Sign out</a></li>
           </ul>
       </div>
 	#end
