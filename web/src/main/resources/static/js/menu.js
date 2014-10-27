@@ -5,7 +5,7 @@
 
     function toggleClass() {
         var pattern = /(?:^|\s)is-active(?!\S)/g,
-            isActive = regex.test(el.className);
+            isActive = pattern.test(el.className);
 
         if (isActive) {
             el.className = el.className.replace(pattern, '');
