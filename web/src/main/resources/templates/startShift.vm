@@ -47,9 +47,9 @@
     </fieldset>
 
     <div class="form-group-inline-container">
-			<div class="form-group-inline form-group-fixed-medium">
+			<label class="form-group-inline form-group-fixed-medium" for="type">
     		Shift
-			</div>
+			</label>
 			<div class="form-group-inline">
 				#springFormSingleSelect("shift.type", ${availableShifts})
 				#springShowErrors("<br />")

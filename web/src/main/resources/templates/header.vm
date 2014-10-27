@@ -3,7 +3,7 @@
 
 	#if($sec.loggedInUser().isPresent())
       <div class="user-settings">
-          <button type="button" class="user-settings__trigger js-menu">${sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span></button>
+          <button type="button" class="t-user-settings user-settings__trigger js-menu">${sec.loggedInUser().get().getUsername()}<span class="hidden"> Settings</span></button>
           <ul id="menu" class="user-settings__list">
 						#if($sec.isAdmin())
                 <li><a class="user-settings__list-link" href="/admin/users">Admin</a></li>

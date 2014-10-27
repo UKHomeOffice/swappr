@@ -31,7 +31,7 @@
         <tbody>
             #foreach($dayView in $rotaViews)
 
-                <tr>
+                <tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
                   <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
 							#if($dayView.rotaView.isPresent())
 								#set($rotaView = $dayView.rotaView.get())
@@ -58,7 +58,7 @@
                       <td class="secondary-text table__cell--status">
 													##TODO - if someone has volunteered to accept offer, show details
 												#foreach($offer in $rotaView.getOffers())
-                        	<a href="/swap/$offer.id">You've requested a swap</a> for $offer.swapTo.type on $display.fullDate($offer.swapTo.date)
+                        	<a href="/swap/$offer.id">You've requested a swap</a> for <span class="t-offer-shift-type">$offer.swapTo.type</span> on $display.fullDate($offer.swapTo.date)
 												#end
                       </td>
 									#elseif (!$rotaView.volunteers.isEmpty())
@@ -81,14 +81,14 @@
 												$rotaView.rota.shift.type.label $rotaView.rota.shift.type
                       </td>
                       <td class="table__cell--action">
-                          <a href="/swap/new?rotaId=$rotaView.rota.id" class="action-button action-button--swap" title="Request swap">Request swap</a>
+                          <a href="/swap/new?rotaId=$rotaView.rota.id" class="t-swap-shift action-button action-button--swap" title="Request swap">Request swap</a>
                       </td>
                       <td class="secondary-text table__cell--status"></td>
 									#end
 
 							#else
                   <td class="table__cell--shift"></td>
-                  <td class="table__cell--action"><a href="/shifts/new?shiftDate=$display.isoDate($dayView.day)" class="action-button action-button--add" title="Add shift">Add shift</a></td>
+                  <td class="table__cell--action"><a href="/shifts/new?shiftDate=$display.isoDate($dayView.day)" class="t-add-shift action-button action-button--add" title="Add shift">Add shift</a></td>
                   <td class="secondary-text table__cell--status"></td>
 							#end
 

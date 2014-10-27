@@ -23,7 +23,7 @@
 			#end
 			#foreach($rotaView in $rotaViews)
 				#foreach($offer in $rotaView.getOffers())
-        <tr>
+        <tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
             <td class="table__cell--date"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
                     class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></td>
             <td class="table__cell--shift"><a href="/swap/$offer.id">$offer.swapFrom.worker.username</a> wants to
@@ -44,7 +44,7 @@
                     You've offered to swap
 								#else
                 	<form action="/swap/$offer.id/volunteer" method="post">
-                    <button class="submit-button" type="submit">Volunteer</button>
+                    <button class="t-button-volunteer submit-button" type="submit">Volunteer</button>
 									</form>
 								#end
 							#end
