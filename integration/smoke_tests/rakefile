@@ -1,0 +1,11 @@
+require 'rake'
+require 'rspec/core/rake_task'
+
+task :smoke_test do
+  `mysql -u root < ../../web/src/db/schema.sql`
+  `mysql -u root < ../../web/src/db/seed.sql`
+  `mysql -u root < db/seed_for_test.sql`
+  RSpec::Core::RakeTask.new(:spec)
+  Rake::Task["spec"].execute
+end
+
