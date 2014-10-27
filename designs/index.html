@@ -56,7 +56,6 @@
 
 
         <div class="d2-d11 t2-t11 m1-m2"> 
-
             
           <table>
             <thead>
@@ -70,7 +69,7 @@
               <tr>
                 <td class="row-date">13 <span class="text-secondary">Monday</span> </td>
                 <!-- Scenario: a shift that's beyond the time limit for swapping -->
-                <td class="row-shift"><a href="#">Early</a> <small class="shiftcode text-secondary">C1H</small> </td>
+                <td class="row-shift">Early <small class="shiftcode text-secondary">C1H</small> </td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/loop-disabled.png" alt="" title="You can't swap this shift"  /></span></td>
                 <td class="row-request"></td>
                 
@@ -81,27 +80,28 @@
               <!-- Scenario: same day swap -->
               <tr>
                 <td class="row-date">14 <span class="text-secondary">Tuesday</span></td>
-                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">C1H</small></td>
+                <!-- Assuming Early/Mid/Late links will be hyperlinked to edit shift in later releases -->
+                <td class="row-shift">Mid <small class="shiftcode text-secondary">C1H</small></td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/checkmark-small-disabled.png" alt="" title="Shift swapped" /></span></td>
                 <td class="row-request">Confirmed.<br /><a href="message-confirmed-paulb.html">Swapped</a> with Paul B</td>
                 
               </tr>
-              <tr>
+              <tr class="row-confirmation">
                 <td class="row-date">15 <span class="text-secondary">Wednesday</span></td>
-                <td class="row-shift"><a href="#">Early</a> <small class="shiftcode text-secondary">C1H</small></td>
+                <td class="row-shift">Early <small class="shiftcode text-secondary">C1H</small></td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/clock-small.png" alt="" title="In progress" /></span></td>
                 <td class="row-request"><a href="#">Swap requested</a>.<br />No replies</td>
               </tr>
               <!-- Scenario: day off -->
               <tr>
                 <td class="row-date">16 <span class="text-secondary">Thursday</span></td>
-                <td class="row-shift"><a href="#">Off</a> <small class="shiftcode text-secondary">SRD</small> </td>
+                <td class="row-shift">Off <small class="shiftcode text-secondary">NWD</small> </td>
                 <td class="row-controls"><span class="icon-button-disabled"><img src="./img/loop-disabled.png" alt="" title="Shift swapped" /></span></td>
                 <td class="row-request"></td>
               </tr>
               <tr>
                 <td class="row-date">17 <span class="text-secondary">Friday</span></td>
-                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">S1H</small></td>
+                <td class="row-shift">Mid <small class="shiftcode text-secondary">S1H</small></td>
                 <td class="row-controls"><a href="#" class="icon-button"><img src="./img/loop3.png" alt="" title="Request swap" /></a></td>
                 <td class="row-request"></td>
               </tr>
@@ -113,7 +113,7 @@
               </tr>
               <tr>
                 <td class="row-date">19 <span class="text-secondary">Sunday</span></td>
-                <td class="row-shift"><a href="#">Mid</a> <small class="shiftcode text-secondary">Z1T</small></td>
+                <td class="row-shift">Mid <small class="shiftcode text-secondary">Z1T</small></td>
                 <td class="row-controls"><a href="#" class="icon-button"><img src="./img/loop3.png" alt="" title="Request swap" /></a></td>
                 <td class="row-request"></td>
               </tr>

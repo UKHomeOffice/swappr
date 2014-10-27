@@ -39,7 +39,9 @@ header p img {
 	font-weight: 400;
 }
 .text-secondary{
-  color: #9B9B9B;
+  /*color: #9B9B9B;*/
+  /*color: #6d6d6d;*/
+  color: #767676;
   font-weight: 400;
 }
 .msg-indicator {
@@ -282,6 +284,15 @@ blockquote {
     margin-left: 10px;
 }
 
+.makeoffer {
+    background-color: rgba(147,37,178,0.1);
+}
+.makeoffer td:hover {
+    background-color: transparent;
+}
+
+#reveal_makeoffer {display: none;}
+
 footer {
 	background-color: #f8f8f8;
 	height: 40px;
@@ -293,16 +304,27 @@ footer {
 }
 footer p {font-size: 14px; color:#999;}
 
+ul.calendar-list {width: 100%;}
+ul.calendar-list li {display: inline; font-size: 16px; border: 1px solid #f8f8f8;}
+
 /* m-screen media queries */
 @media only screen and (min-width:320px) and (max-width:768px) {
 
-    table, thead, tbody, th, td, tr {display: block;}
-    tbody td {padding: 5px 0;}
-    .row-date {
-        width: 100%; 
-        font-weight: bold;
+    table, thead, tbody, th, tr {display: block;}
+    table {width: 100%;}
+    th {width:100%;}
+    tbody td, th {
+        padding: 5px 0;
+        border: 1px solid #f8f8f8; 
     }
-    .row-shift {width: 100%;}
+    .row-date {
+        display: block;
+        font-weight: bold;
+        padding: 0;
+        margin: 0;
+    }
+    .row-shift {width: 100%; font-size: 24px;}
+    .row-shift small {font-size: 14px;}
     .row-request {
         width: 100%;
         color: #9B9B9B;
