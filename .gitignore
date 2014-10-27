@@ -30,3 +30,6 @@ build/
 
 .sass-cache
 .jruby
+
+integration/smoke_tests/vendor
+integration/smoke_tests/.bundle
