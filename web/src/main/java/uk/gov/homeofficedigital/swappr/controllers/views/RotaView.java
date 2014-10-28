@@ -30,8 +30,8 @@ public class RotaView {
         return offers;
     }
 
-    public Optional<Volunteer> getApprovedVolunteer() {
-        return volunteers.stream().filter(v -> v.getStatus().equals(VolunteerStatus.APPROVED)).findFirst();
+    public Optional<Volunteer> getAcceptedVolunteer() {
+        return volunteers.stream().filter(v -> v.getStatus().equals(VolunteerStatus.ACCEPTED)).findFirst();
     }
 
     public Set<Volunteer> getVolunteers() {

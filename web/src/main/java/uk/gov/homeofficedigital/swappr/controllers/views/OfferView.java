@@ -2,6 +2,7 @@ package uk.gov.homeofficedigital.swappr.controllers.views;
 
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Volunteer;
+import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
 
 import java.util.Set;
 
@@ -25,5 +26,9 @@ public class OfferView {
 
     public Set<Volunteer> getVolunteers() {
         return volunteers;
+    }
+
+    public String getAcceptedVolunteer() {
+        return volunteers.stream().filter(v -> v.getStatus() == VolunteerStatus.ACCEPTED).findFirst().map(v -> v.getSwapFrom().getWorker().getUsername()).orElse(null);
     }
 }

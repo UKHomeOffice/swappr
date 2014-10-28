@@ -11,11 +11,11 @@ import static com.natpryce.makeiteasy.MakeItEasy.make;
 import static com.natpryce.makeiteasy.Property.newProperty;
 
 public class OfferMaker {
-    private static AtomicLong idSeq = new AtomicLong(2000);
-    private static Property<Offer, Long> id = newProperty();
-    private static Property<Offer, Rota> rota = newProperty();
-    private static Property<Offer, Shift> shift = newProperty();
-    private static Property<Offer, OfferStatus> status = newProperty();
+    public static AtomicLong idSeq = new AtomicLong(2000);
+    public static Property<Offer, Long> id = newProperty();
+    public static Property<Offer, Rota> rota = newProperty();
+    public static Property<Offer, Shift> shift = newProperty();
+    public static Property<Offer, OfferStatus> status = newProperty();
 
     public static Instantiator<Offer> Offer = (lookup) ->
             new Offer(lookup.valueOf(id, idSeq.getAndIncrement()),
