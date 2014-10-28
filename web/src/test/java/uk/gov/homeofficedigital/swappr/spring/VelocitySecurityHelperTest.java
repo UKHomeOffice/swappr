@@ -13,13 +13,14 @@ import uk.gov.homeofficedigital.swappr.model.Role;
 import java.util.Arrays;
 import java.util.Optional;
 
+import static com.natpryce.makeiteasy.MakeItEasy.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+import static uk.gov.homeofficedigital.swappr.model.UserMaker.*;
 
 public class VelocitySecurityHelperTest extends SpringIntegrationTest {
 
-    VelocitySecurityHelper sec = new VelocitySecurityHelper();
+    private VelocitySecurityHelper sec = new VelocitySecurityHelper();
 
     @Test
     public void loggedInUserShouldReturnEmptyWhenNotLoggedIn() {
@@ -32,7 +33,7 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
     @Test
     public void loggedInUserShouldReturnUserWhenLoggedIn() {
 
-        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
+        User user = make(a(User, with(authorities, userAuthority)));
         login(user);
 
         assertThat(sec.loggedInUser().get(), equalTo(user));
@@ -40,7 +41,7 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
 
     @Test
     public void hasAuthorityShouldTestForAuthorityName() {
-        User user = new User("uname", "pword", Arrays.asList(new SimpleGrantedAuthority(Role.ADMIN.name())));
+        User user = make(a(User, with(authorities, adminAuthority)));
         login(user);
 
         assertThat(sec.hasAuthority(Role.ADMIN), equalTo(true));
