@@ -13,12 +13,11 @@ import java.util.Optional;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class SwapControllerTest {
+
     private RotaDao rotaDao = mock(RotaDao.class);
     private RotaService rotaService = mock(RotaService.class);
     private OfferDao offerDao = mock(OfferDao.class);

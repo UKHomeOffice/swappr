@@ -2,19 +2,18 @@ package uk.gov.homeofficedigital.swappr.daos;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
 import uk.gov.homeofficedigital.swappr.model.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class VolunteerDaoTest  extends SpringIntegrationTest {
+public class VolunteerDaoTest extends SpringIntegrationTest {
 
     @Autowired
     private VolunteerDao volunteerDao;
