@@ -23,9 +23,9 @@ import static org.mockito.Mockito.*;
 
 public class RotaServiceTest {
 
-    RotaDao rotaDao = mock(RotaDao.class);
-    OfferDao offerDao = mock(OfferDao.class);
-    VolunteerDao volunteerDao = mock(VolunteerDao.class);
+    private RotaDao rotaDao = mock(RotaDao.class);
+    private OfferDao offerDao = mock(OfferDao.class);
+    private VolunteerDao volunteerDao = mock(VolunteerDao.class);
     private RotaService service = new RotaService(rotaDao, offerDao, volunteerDao);
 
     @Before
