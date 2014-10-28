@@ -29,6 +29,8 @@ feature "Logging in" do
     find('.t-nav-timeline').click
     day = find_day_row_by_date(date)
     day.find('.t-button-volunteer').click
+    day = find_day_row_by_date(date)
+    expect(day.find('.t-status')).to have_content("You've volunteered to swap")
   end
 
 end
