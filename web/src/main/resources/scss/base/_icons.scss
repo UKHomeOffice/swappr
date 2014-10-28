@@ -1,10 +1,14 @@
-%icon {
+%icon-sprite {
   background-image: url(/images/swappr.png);
   background-repeat: no-repeat;
   content: "";
   display: block;
   height: 16px;
   width: 16px;
+}
+
+%icon {
+  @extend %icon-sprite;
   position: absolute;
   top: 50%;
   margin-top: -8px;
@@ -26,12 +30,7 @@
   height: 16px;
   width: 16px;
   &:before {
-    content: "";
-    display: block;
-    height: 16px;
-    width: 16px;
-    background-image: url(/images/swappr.png);
-    background-repeat: no-repeat;
+    @extend %icon-sprite;
     @extend %icon-arrow-right;
   }
 }
