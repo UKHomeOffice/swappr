@@ -85,4 +85,38 @@ public class RotaServiceTest {
 
         verify(volunteerDao).updateStatus(volunteer, VolunteerStatus.REJECTED);
     }
+
+    @Test
+    public void approveSwapShouldUpdateTheVolunteerStatusToApproved() {
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
+        service.approveSwap(volunteer);
+
+        verify(volunteerDao).updateStatus(volunteer, VolunteerStatus.APPROVED);
+    }
+
+    @Test
+    public void approveSwapShouldUpdateTheOfferStatusToApproved() {
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
+        service.approveSwap(volunteer);
+
+        verify(offerDao).updateStatus(volunteer.getSwapTo(), OfferStatus.APPROVED);
+    }
+
+    @Test
+    public void denySwapShouldUpdateTheVolunteerStatusToDenied() {
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
+        service.denySwap(volunteer);
+
+        verify(volunteerDao).updateStatus(volunteer, VolunteerStatus.DENIED);
+    }
+
+    @Test
+    public void denySwapShouldUpdateTheOfferStatusToDenied() {
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
+        service.denySwap(volunteer);
+
+        verify(offerDao).updateStatus(volunteer.getSwapTo(), OfferStatus.DENIED);
+    }
+
+
 }
