@@ -63,7 +63,7 @@
     </td>
     <td class="secondary-text table__cell--status">
         #foreach($offer in $dayView.rota.getOffers())
-            <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
+            <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
         #end
     </td>
 </tr>
@@ -80,7 +80,7 @@
     </td>
     <td class="secondary-text table__cell--status">
         #foreach($offer in $dayView.rota.offers)
-            <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
+            <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
             Volunteers:
             #foreach($volunteer in $offer.volunteers)
                 $volunteer.swapFrom.worker.username
@@ -102,7 +102,7 @@
     <td class="secondary-text table__cell--status">
         #foreach($offer in $dayView.rota.offers)
             <a href="/swap/$offer.id">Your swap</a>
-            with $offer.acceptedVolunteer <span class="icon">for</span>
+            with $offer.acceptedVolunteer <span class="icon-arrow-right">for</span>
             <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date) is awaiting approval
         #end
     </td>
@@ -121,7 +121,7 @@
     <td class="secondary-text table__cell--status">
         #foreach($offer in $dayView.rota.offers)
             <a href="/swap/$offer.id">Your swap</a>
-            with $dayView.rota.acceptedVolunteer <span class="icon">for</span>
+            with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
             <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date) has been approved
         #end
     </td>
@@ -140,7 +140,7 @@
     <td class="secondary-text table__cell--status">
         #foreach($offer in $dayView.rota.offers)
             <a href="/swap/$offer.id">Your swap</a>
-            with $dayView.rota.acceptedVolunteer <span class="icon">for</span>
+            with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
             <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span> on $display.fullDate($dayView.rota.offer.offer.swapTo.date) has been denied
         #end
     </td>
