@@ -10,12 +10,9 @@ import uk.gov.homeofficedigital.swappr.model.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
-
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 public class RotaServiceTest {
@@ -36,7 +33,7 @@ public class RotaServiceTest {
         Shift shift = new Shift(LocalDate.now(), ShiftType.B1H);
         service.requestSwap(rota, shift);
 
-        verify(offerDao).create(eq(rota), eq(shift), eq(OfferStatus.CREATED));
+        verify(offerDao).create(rota, shift, OfferStatus.CREATED);
     }
 
     @Test
@@ -45,7 +42,7 @@ public class RotaServiceTest {
         Offer offer = make(a(OfferMaker.Offer));
         service.volunteerSwap(rota, offer);
 
-        verify(volunteerDao).create(eq(rota), eq(offer), eq(VolunteerStatus.CREATED));
+        verify(volunteerDao).create(rota, offer, VolunteerStatus.CREATED);
     }
 
     @Test
@@ -53,7 +50,7 @@ public class RotaServiceTest {
         Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
         service.acceptVolunteer(volunteer);
 
-        verify(volunteerDao).updateStatus(eq(volunteer), eq(VolunteerStatus.ACCEPTED));
+        verify(volunteerDao).updateStatus(volunteer, VolunteerStatus.ACCEPTED);
     }
 
     @Test
@@ -61,7 +58,7 @@ public class RotaServiceTest {
         Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
         service.acceptVolunteer(volunteer);
 
-        verify(offerDao).updateStatus(eq(volunteer.getSwapTo()), eq(OfferStatus.ACCEPTED));
+        verify(offerDao).updateStatus(volunteer.getSwapTo(), OfferStatus.ACCEPTED);
     }
 
     @Test
@@ -75,7 +72,8 @@ public class RotaServiceTest {
 
         service.acceptVolunteer(volunteer);
 
-        verify(volunteerDao).updateStatus(eq(volunteer2), eq(VolunteerStatus.REJECTED));
-        verify(volunteerDao).updateStatus(eq(volunteer3), eq(VolunteerStatus.REJECTED));
+        verify(volunteerDao).updateStatus(volunteer2, VolunteerStatus.REJECTED);
+        verify(volunteerDao).updateStatus(volunteer3, VolunteerStatus.REJECTED);
+        verify(volunteerDao, never()).updateStatus(volunteer, VolunteerStatus.REJECTED);
     }
 }
