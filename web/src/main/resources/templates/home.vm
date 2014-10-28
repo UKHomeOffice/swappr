@@ -71,7 +71,7 @@
                       <td class="t-status secondary-text table__cell--status">
 												#foreach($volunteer in $rotaView.volunteers)
 													#set($otherRota = $volunteer.swapTo.swapFrom)
-                            You've volunteered to swap $rotaView.rota.shift.type.label $rotaView.rota.shift.type <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $otherRota.shift.date
+                        <a href="/swap/$volunteer.swapTo.id">You've volunteered to swap</a> $rotaView.rota.shift.type.label $rotaView.rota.shift.type <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $otherRota.shift.date
 												#end
 
                       </td>
