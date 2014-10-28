@@ -31,26 +31,23 @@
         	<tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
             <td class="table__cell--date"><span class="$hiddenClass"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
                     class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></td>
-            <td class="table__cell--shift"><a href="/swap/$offer.id">$offer.swapFrom.worker.username</a> wants to
-                swap $offer.swapFrom.shift.type <span class="icon-arrow-right">for</span> $offer.swapTo.type on $display.fullDate($offer.swapTo.date)</td>
+            <td class="table__cell--shift"><strong>$offer.swapFrom.worker.username</strong> wants to
+                swap $offer.swapFrom.shift.type.label <span class="table__shift-type">$offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.swapTo.type.label <span class="table__shift-type">$offer.swapTo.type</span> on $display.fullDate($offer.swapTo.date)</td>
 
             <td class="table__cell--action">
 							#if($offer.status.name() == 'APPROVED')
                   <span class="action-button action-button--disabled action-button--swapped"
                         title="Shift swapped">Shift swapped</span>
 							#else
-                  <span class="action-button action-button--disabled action-button--wait"
-                        title="In progress">In progress: $offer</span>
+                  <form action="/swap/$offer.id/volunteer" method="post">
+                      <button class="t-button-volunteer action-button action-button--swap" type="submit" title="Volunteer to swap">Volunteer</button>
+                  </form>
 							#end
             </td>
             <td class="secondary-text table__cell--status">
 							#if ($offer.status.name() != 'APPROVED')
 								#if($offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
-                    You've offered to swap
-								#else
-                	<form action="/swap/$offer.id/volunteer" method="post">
-                    <button class="t-button-volunteer submit-button" type="submit">Volunteer</button>
-									</form>
+                	You've <a href="/swap/$offer.id">offered to swap</a>
 								#end
 							#end
             </td>

@@ -33,6 +33,7 @@
 }
 
 .action-button {
+  @extend %button-reset;
   @include border-radius(50%);
   @extend %icon-text-replace;
   border: 1px solid $border__colour--theme;
