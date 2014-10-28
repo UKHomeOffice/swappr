@@ -40,6 +40,9 @@
   display: block;
   height: 26px;
   width: 26px;
+  &:hover {
+    border-color: $background__colour--theme--hover;
+  }
 }
 
 .action-button--disabled {
