@@ -5,11 +5,13 @@
 <form action="/swap/create" method="POST">
     <p class="intro">Choose the date and shift type.</p>
 
+	#springBind("swap.validFromDate")
+	#if ($status.errorMessages.size() > 0)
+      <div class="form__error-summary">
+				#springShowErrors("" "form__error")
+      </div>
+	#end
     <fieldset class="form-group-inline-container">
-			#springBind("swap.validFromDate")
-			#if($status.errorMessages)
-				#springShowErrors("" "error")
-			#end
         <div class="form-group-inline form-group-fixed-medium">
             <legend>Current<span class="hidden"> date</span></legend>
         </div>
@@ -29,13 +31,15 @@
             <label class="hidden" for="fromShiftType">Type of shift to change from</label>
 					#springFormSingleSelect("swap.fromShiftType", ${availableShifts})
         </div>
+				#if ($status.errorMessages.size() > 0)
+						<div class="form-right-column">
+							#springShowErrors("" "form__error")
+						</div>
+				#end
     </fieldset>
 
     <fieldset class="form-group-inline-container">
 			#springBind("swap.validToDate")
-			#if($status.errorMessages)
-				#springShowErrors("" "error")
-			#end
         <div class="form-group-inline form-group-fixed-medium">
             <legend>Requested<span class="hidden"> date</span></legend>
         </div>
@@ -55,8 +59,13 @@
             <label class="hidden" for="toShiftType">Type of shift to change to</label>
 					#springFormSingleSelect("swap.toShiftType", ${availableShifts})
         </div>
+			#if ($status.errorMessages.size() > 0)
+          <div class="form-right-column">
+						#springShowErrors("" "form__error")
+          </div>
+			#end
     </fieldset>
-    <div class="form-submit">
+    <div class="form-right-column form-submit">
         <input class="submit-button" type="submit" value="Request swap"/>
     </div>
 </form>

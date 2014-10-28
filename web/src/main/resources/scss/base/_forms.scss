@@ -57,8 +57,11 @@ textarea {
   width: 20%;
 }
 
-.form-submit {
+.form-right-column {
   @include gutter('left', 20%);
+}
+.form-submit {
+  margin-top: 25px;
 }
 
 //fieldset {
@@ -87,13 +90,17 @@ textarea {
 //  }
 //}
 
-.error {
+.form__error {
+  @include text($base__font-size--small);
   color: $text__colour--error;
   display: block;
 }
 
-.form-error-summary {
+.form__error-summary {
+  border: 2px solid $text__colour--error;
+  display: inline-block;
   margin-bottom: 15px;
+  padding: 15px;
 }
 
 .form-group {
@@ -108,13 +115,10 @@ textarea {
   @include calc-rem($base__font-size);
   display: inline-block;
   padding-right: 10px;
+  vertical-align: top;
 }
 
 .form-group-fixed-medium {
   padding-right: 0;
   width: 20%;
-}
-
-.form-submit {
-  margin-top: 25px;
 }

@@ -4,6 +4,8 @@
  * Requires: []
  */
 
+$mellow-red: #df3034;
+
 $text__colour--theme: #9325b2;
 $text__colour--primary: #222222;
 $text__colour--secondary: #9b9b9b;
@@ -19,7 +21,7 @@ $border__colour--theme: #9325b2;
 $border__colour--light: #f4f4f4;
 $border__colour--dark: #cccccc;
 
-$text__colour--error: #ff0000;
+$text__colour--error: $mellow-red;
 $background__colour--error: #fff4fb;
 
 $text__colour--notification: #f8e71c;

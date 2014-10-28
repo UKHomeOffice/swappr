@@ -2,28 +2,43 @@
 <h1>Add user</h1>
 <div>
     <form action="/admin/users/add" method="post">
-        <div #if($status.errors.hasErrors()){ class="erros" }#end>
+			#if ($status.errorMessages.size() > 0)
+          <div class="form__error-summary">
+						#springShowErrors("" "form__error")
+          </div>
+			#end
         <div class="form-group">
 
             <label class="label-inline" for="username">Username:</label>
 					#springFormInput("user.username" "")
-					#springShowErrors("" "error")
-        </div>
+					#if ($status.errorMessages.size() > 0)
+              <div class="form-right-column">
+								#springShowErrors("" "form__error")
+              </div>
+					#end
+				</div>
         <div class="form-group">
 
             <label class="label-inline" for="password">Password:</label>
 					#springFormPasswordInput("user.password" "")
-					#springShowErrors("" "error")
+					#if ($status.errorMessages.size() > 0)
+              <div class="form-right-column">
+								#springShowErrors("" "form__error")
+              </div>
+					#end
         </div>
         <div class="form-group">
 
             <label class="label-inline" for="confirmPassword">Confirm password</label>
 					#springFormPasswordInput("user.confirmPassword" "")
 					#springBind("user.matchingPassword")
-					#springShowErrors("" "error")
+					#if ($status.errorMessages.size() > 0)
+              <div class="form-right-column">
+								#springShowErrors("" "form__error")
+              </div>
+					#end
         </div>
-        </div>
-			<div class="form-submit">
+			<div class="form-right-column form-submit">
 					<input class="submit-button" type="submit" value="Add"/>
 			</div>
     </form>

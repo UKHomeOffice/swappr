@@ -5,45 +5,48 @@
 <h1>Add shifts</h1>
 
 <form action="/shifts/new" method="post">
-    <div class="form-error-summary">
-			#springBind("shift")
-      #springShowErrors()
+	 #springBind("shift")
+		#if ($status.errorMessages.size() > 0)
+    <div class="form__error-summary">
+      #springShowErrors("" "form__error")
     </div>
-
+		#end
     <fieldset class="form-group-inline-container">
-			#if($status.errorMessages)
-				#springShowErrors("" "error")
-			#end
         <div class="form-group-inline form-group-fixed-medium">
             <legend>From<span class="hidden"> date</span></legend>
         </div>
         <div class="form-group-inline">
 					<label class="hidden" for="fromDay">Day</label>
 					#springFormInput("shift.fromDay" "class='input--two-digit' maxlength='2'")
-					#springShowErrors("<br />")
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="fromMonth">Month</label>
 					#springFormSingleSelect("shift.fromMonth" ${availableMonths})
         </div>
+				#if ($status.errorMessages.size() > 0)
+						<div class="form-right-column">
+							#springShowErrors("" "form__error")
+						</div>
+				#end
     </fieldset>
 
     <fieldset class="form-group-inline-container">
-			#if($status.errorMessages)
-				#springShowErrors("" "error")
-			#end
         <div class="form-group-inline form-group-fixed-medium">
             <legend>To<span class="hidden"> date</span></legend>
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toDay">Day</label>
 					#springFormInput("shift.toDay" "class='input--two-digit' maxlength='2'")
-					#springShowErrors("<br />")
         </div>
         <div class="form-group-inline">
             <label class="hidden" for="toMonth">Month</label>
 					#springFormSingleSelect("shift.toMonth" ${availableMonths})
         </div>
+			#if ($status.errorMessages.size() > 0)
+          <div class="form-right-column">
+						#springShowErrors("" "form__error")
+          </div>
+			#end
     </fieldset>
 
     <div class="form-group-inline-container">
@@ -52,10 +55,14 @@
 			</label>
 			<div class="form-group-inline">
 				#springFormSingleSelect("shift.type", ${availableShifts})
-				#springShowErrors("<br />")
 			</div>
+			#if ($status.errorMessages.size() > 0)
+          <div class="form-right-column">
+						#springShowErrors("" "form__error")
+          </div>
+			#end
 		</div>
-    <div class="form-submit">
+    <div class="form-right-column form-submit">
         <input class="submit-button" type="submit" value="Add"/>
     </div>
 </form>
