@@ -34,17 +34,11 @@
 
 .action-button {
   @include border-radius(50%);
+  @extend %icon-text-replace;
   border: 1px solid $border__colour--theme;
   display: block;
-  position: relative;
-  font-size: 0;
   height: 26px;
   width: 26px;
-  &:before {
-    @extend %icon;
-    left: 50%;
-    margin-left: -8px;
-  }
 }
 
 .action-button--disabled {
