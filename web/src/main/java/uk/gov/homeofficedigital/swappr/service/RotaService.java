@@ -1,6 +1,5 @@
 package uk.gov.homeofficedigital.swappr.service;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
