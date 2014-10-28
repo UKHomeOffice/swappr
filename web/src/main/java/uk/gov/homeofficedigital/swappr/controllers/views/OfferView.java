@@ -1,5 +1,8 @@
 package uk.gov.homeofficedigital.swappr.controllers.views;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import uk.gov.homeofficedigital.swappr.model.Offer;
 import uk.gov.homeofficedigital.swappr.model.Volunteer;
 import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
@@ -31,4 +34,20 @@ public class OfferView {
     public String getAcceptedVolunteer() {
         return volunteers.stream().filter(v -> v.getStatus() == VolunteerStatus.ACCEPTED).findFirst().map(v -> v.getSwapFrom().getWorker().getUsername()).orElse(null);
     }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }

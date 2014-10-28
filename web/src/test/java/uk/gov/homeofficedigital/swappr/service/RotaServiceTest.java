@@ -3,6 +3,7 @@ package uk.gov.homeofficedigital.swappr.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.userdetails.User;
+import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
@@ -16,6 +17,7 @@ import java.util.Set;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
+import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -130,16 +132,20 @@ public class RotaServiceTest {
         Rota rota1 = make(a(RotaMaker.Rota));
         Rota rota2 = make(a(RotaMaker.Rota));
         when(rotaDao.findByWorker(user)).thenReturn(new HashSet<>(Arrays.asList(rota1, rota2)));
-        Set<Offer> rota1Offers = new HashSet<>(Arrays.asList(make(a(OfferMaker.Offer))));
+        Offer offer = make(a(OfferMaker.Offer));
+        Set<Offer> rota1Offers = new HashSet<>(Arrays.asList(offer));
         Set<Volunteer> rota1Volunteers = new HashSet<>(Arrays.asList(make(a(VolunteerMaker.Volunteer))));
+        Set<Volunteer> offerVolunteers = new HashSet<>(Arrays.asList(make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.offer, offer)))));
+
         when(offerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Offers));
         when(volunteerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Volunteers));
+        when(volunteerDao.findByOffer(offer)).thenReturn(offerVolunteers);
 
         Set<RotaView> myRotas = service.findMyRotas(user);
 
         assertThat(myRotas, hasSize(2));
 
-        assertThat(myRotas, hasItem(new RotaView(rota1, rota1Offers, rota1Volunteers)));
+        assertThat(myRotas, hasItem(new RotaView(rota1, new HashSet<OfferView>(Arrays.asList(new OfferView(offer, offerVolunteers))), rota1Volunteers)));
         assertThat(myRotas, hasItem(new RotaView(rota2, new HashSet<>(), new HashSet<>())));
     }
 
@@ -148,15 +154,18 @@ public class RotaServiceTest {
         Rota rota1 = make(a(RotaMaker.Rota));
         Rota rota2 = make(a(RotaMaker.Rota));
         when(rotaDao.findAll()).thenReturn(new HashSet<>(Arrays.asList(rota1, rota2)));
-        Set<Offer> rota1Offers = new HashSet<>(Arrays.asList(make(a(OfferMaker.Offer))));
-        Set<Volunteer> rota1Volunteers = new HashSet<>(Arrays.asList(make(a(VolunteerMaker.Volunteer))));
+        Offer offer = make(a(OfferMaker.Offer));
+        Set<Offer> rota1Offers = new HashSet<>(Arrays.asList(offer));
+        Set<Volunteer> rota1Volunteers = new HashSet<Volunteer>(Arrays.asList(make(a(VolunteerMaker.Volunteer))));
+        Set<Volunteer> offerVolunteers = new HashSet<>(Arrays.asList(make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.offer, offer)))));
         when(offerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Offers));
         when(volunteerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Volunteers));
+        when(volunteerDao.findByOffer(offer)).thenReturn(offerVolunteers);
 
         Set<RotaView> allRotas = service.findAllRotas();
 
         assertThat(allRotas, hasSize(2));
-        assertThat(allRotas, hasItem(new RotaView(rota1, rota1Offers, rota1Volunteers)));
+        assertThat(allRotas, hasItem(new RotaView(rota1, new HashSet<>(Arrays.asList(new OfferView(offer, offerVolunteers))), rota1Volunteers)));
         assertThat(allRotas, hasItem(new RotaView(rota2, new HashSet<>(), new HashSet<>())));
     }
 
