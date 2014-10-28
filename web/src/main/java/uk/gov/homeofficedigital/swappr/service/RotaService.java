@@ -40,7 +40,7 @@ public class RotaService {
     }
 
     public void rejectVolunteer(Volunteer volunteer) {
-        throw new NotImplementedException();
+        volunteerDao.updateStatus(volunteer, VolunteerStatus.REJECTED);
     }
 
     public void approveSwap(Volunteer volunteer) {

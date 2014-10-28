@@ -76,4 +76,13 @@ public class RotaServiceTest {
         verify(volunteerDao).updateStatus(volunteer3, VolunteerStatus.REJECTED);
         verify(volunteerDao, never()).updateStatus(volunteer, VolunteerStatus.REJECTED);
     }
+
+    @Test
+    public void rejectVolunteerShouldUpdateStatusToRejected() {
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
+
+        service.rejectVolunteer(volunteer);
+
+        verify(volunteerDao).updateStatus(volunteer, VolunteerStatus.REJECTED);
+    }
 }
