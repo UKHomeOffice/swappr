@@ -27,10 +27,8 @@ feature "Logging in" do
     logout
     login_user_ben
     find('.t-nav-timeline').click
-    day = find_day_row_by_date(date)
-    day.find('.t-button-volunteer').click
-    day = find_day_row_by_date(date)
-    expect(day.find('.t-status')).to have_content("You've volunteered to swap")
+    find_day_row_by_date(date).find('.t-button-volunteer').click
+    expect(find_day_row_by_date(date).find('.t-status')).to have_content("You've volunteered to swap")
   end
 
 end
