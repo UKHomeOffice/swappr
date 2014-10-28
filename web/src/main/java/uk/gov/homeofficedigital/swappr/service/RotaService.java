@@ -62,15 +62,13 @@ public class RotaService {
 
     private Set<RotaView> mapToRotaView(Set<Rota> rotas) {
         return rotas.stream()
-                .map(r -> new RotaView(r, offerDao.findByRota(r), volunteerDao.findByRota(r)))
+                .map(r -> new RotaView(r,
+                        offerDao.findByRota(r).stream().map(o -> new OfferView(o, volunteerDao.findByOffer(o))).collect(Collectors.toSet()),
+                        volunteerDao.findByRota(r)))
                 .collect(Collectors.toSet());
     }
 
     public Optional<OfferView> getOffer(Long offerId) {
         return offerDao.findById(offerId).map(o -> new OfferView(o, volunteerDao.findByOffer(o)));
-    }
-
-    public Rota addToRota(User worker, Shift shift) {
-        return rotaDao.create(worker, shift);
     }
 }

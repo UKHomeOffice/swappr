@@ -38,7 +38,7 @@
 
 									#if($rotaView.approvedVolunteer.isPresent())
 										<td class="table__cell--shift">
-											$rotaView.rota.shift.type.label $rotaView.rota.shift.type - Swapped with $rotaView.approvedVolunteer.get().swapFrom.worker.username
+											$rotaView.shiftType - Swapped with $rotaView.approvedVolunteer.get().swapFrom.worker.username
 										</td>
 										<td class="table__cell--action">
 												<span class="action-button action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span>
@@ -48,7 +48,7 @@
 										</td>
 									#elseif(!$rotaView.offers.isEmpty())
                       <td class="table__cell--shift">
-												$rotaView.rota.shift.type.label $rotaView.rota.shift.type
+												$rotaView.shiftType
                       </td>
 											<td class="table__cell--action">
 												#foreach($offer in $rotaView.getOffers())
@@ -58,12 +58,18 @@
                       <td class="secondary-text table__cell--status">
 													##TODO - if someone has volunteered to accept offer, show details
 												#foreach($offer in $rotaView.getOffers())
-                        	<a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.swapTo.type</span> on $display.fullDate($offer.swapTo.date)
+                        	<a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
+                                                    #if($offer.volunteers)
+                                                        Volunteers:
+                                                    #end
+                                                    #foreach($volunteer in $offer.volunteers)
+                                                        $volunteer.swapFrom.worker.username
+                                                    #end
 												#end
                       </td>
 									#elseif (!$rotaView.volunteers.isEmpty())
                       <td class="table__cell--shift">
-												$rotaView.rota.shift.type.label $rotaView.rota.shift.type
+												$rotaView.shiftType
                       </td>
                       <td class="table__cell--action">
                           <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
@@ -71,14 +77,14 @@
                       <td class="t-status secondary-text table__cell--status">
 												#foreach($volunteer in $rotaView.volunteers)
 													#set($otherRota = $volunteer.swapTo.swapFrom)
-                        <a href="/swap/$volunteer.swapTo.id">You've volunteered to swap</a> $rotaView.rota.shift.type.label $rotaView.rota.shift.type <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $otherRota.shift.date
+                            You've volunteered to swap $rotaView.shiftType <span class="icon-arrow-right">for</span> $otherRota.shiftType with $otherRota.worker.username on $otherRota.shift.date
 												#end
 
                       </td>
 
 									#else
                       <td class="table__cell--shift">
-												$rotaView.rota.shift.type.label $rotaView.rota.shift.type
+												$rotaView.shiftType
                       </td>
                       <td class="table__cell--action">
                           <a href="/swap/new?rotaId=$rotaView.rota.id" class="t-swap-shift action-button action-button--swap" title="Request swap">Request swap</a>
@@ -93,48 +99,7 @@
 							#end
 
                 </tr>
-
-
-
-##                    #if($rotaView.offers.isEmpty())
-##                        <a href="/swap/$rotaView.rota.id" class="action-button action-button--swap" title="Request swap">Request swap</a>
-##                    #else
-##                        #foreach($offer in $rotaView.offers)
-##                            #if($offer.status.name() == 'APPROVED')
-##                                <span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span>
-##                            #else
-##                                <span class="action-button--disabled action-button--wait" title="In progress">In progress: $offer</span>
-##                            #end
-##                        #end
-##                    #end
             #end
         </tbody>
     </table>
 #end
-
-<!--
-    Scenarios:
-        <tr>
-            <td class="table__cell--date"><span class="h3">03</span> <span class="secondary-text">Friday</span></td>
-            <td class="table__cell--shift">S1H</td>
-            <td class="table__cell--action"><a href="/swap" class="action-button action-button--swap" title="Request swap">Request swap</a></td>
-            <td class="secondary-text table__cell--status"></td>
-        </tr>
-        <tr>
-            <td class="table__cell--date"><span class="h3">17</span> <span class="secondary-text">Tuesday</span></td>
-            <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
-            <td class="table__cell--action"><span class="action-button--disabled action-button--wait" title="In progress">In progress</span></td>
-            <td class="secondary-text table__cell--status">Waiting authorization</td>
-        </tr>
-        <tr>
-            <td class="table__cell--date"><span class="h3">27</span> <span class="secondary-text">Tuesday</span></td>
-            <td class="table__cell--shift">Swapped with <a href="#">Paul B</a></td>
-            <td class="table__cell--action"><span class="action-button--disabled action-button--swapped" title="Shift swapped">Shift swapped</span></td>
-            <td class="secondary-text table__cell--status">Confirmed</td>
-        </tr>
-        <tr>
-            <td><span class="h3 table__cell--date">28</span> <span class="secondary-text">Tuesday</span></td>
-            <td class="table__cell--shift"></td>
-            <td class="table__cell--action"><a href="#" class="action-button action-button--add" title="Add shift">Add shift</a></td>
-            <td class="secondary-text table__cell--status"></td>
-        </tr> -->

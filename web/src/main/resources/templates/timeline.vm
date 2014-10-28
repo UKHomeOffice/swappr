@@ -31,11 +31,11 @@
         	<tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
             <td class="table__cell--date"><span class="$hiddenClass"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
                     class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></td>
-            <td class="table__cell--shift"><strong>$offer.swapFrom.worker.username</strong> wants to
-                swap $offer.swapFrom.shift.type.label <span class="table__shift-type">$offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.swapTo.type.label <span class="table__shift-type">$offer.swapTo.type</span> on $display.fullDate($offer.swapTo.date)</td>
+            <td class="table__cell--shift"><strong>$offer.offer.swapFrom.worker.username</strong> wants to
+                swap $offer.offer.swapFrom.shift.type.label <span class="table__shift-type">$offer.offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="table__shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)</td>
 
             <td class="table__cell--action">
-							#if($offer.status.name() == 'APPROVED')
+							#if($offer.offer.status.name() == 'APPROVED')
                   <span class="action-button action-button--disabled action-button--swapped"
                         title="Shift swapped">Shift swapped</span>
 							#else
@@ -45,8 +45,8 @@
 							#end
             </td>
             <td class="secondary-text table__cell--status">
-							#if ($offer.status.name() != 'APPROVED')
-								#if($offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
+							#if ($offer.offer.status.name() != 'APPROVED')
+								#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
                 	You've <a href="/swap/$offer.id">offered to swap</a>
 								#end
 							#end

@@ -19,6 +19,10 @@ public class OfferView {
         return offer;
     }
 
+    public Long getId() {
+        return offer.getId();
+    }
+
     public Set<Volunteer> getVolunteers() {
         return volunteers;
     }
