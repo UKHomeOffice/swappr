@@ -8,7 +8,7 @@
                   Invalid username or password
 							#end
 							#if($param.logout)
-                  Successfully logged out
+                  Successfully signed out
 							#end
             </div>
             <div class="form-group">
