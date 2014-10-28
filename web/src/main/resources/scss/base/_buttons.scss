@@ -47,6 +47,9 @@
 
 .action-button--disabled {
   border: 1px solid $border__colour--dark;
+  &:hover {
+    border-color: $border__colour--dark;
+  }
 }
 
 .action-button--swap {
