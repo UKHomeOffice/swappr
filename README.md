@@ -8,11 +8,20 @@ Client / Server app for managing shift swaps
 Swappr uses MySQL. Before running for the first time, ensure the database and user exist and have appropriate 
 permissions. E.g. by executing the contents of [schema.sql](web/src/db/schema.sql).
 
+Start the MySQL server:
+
+```
+mysql.server start
+```
+
+Then set up the db:
+
 ```
 mysql -u root < schema.sql
 ```
 
-then run the seed:
+and run the seed:
+
 ```
 mysql -u root < seed.sql
 ```
@@ -46,10 +55,12 @@ To run the test suite against another instance of the app, pass the hostname of 
 rake "smoke_test['http://www.google.com']"
 ```
 
-### Writing tests
-The tests are written in [Capybara](https://github.com/jnicklas/capybara)
+### Writing
+The tests are written in [Capybara](https://github.com/jnicklas/capybara).
 
-### Debugging tests
+Shared code for steps is in step_definitions/common_steps.rb
+
+### Debugging
 
 To aid debugging of tests, open integration/smoke_tests/spec/spec_helper.rb and set
 
