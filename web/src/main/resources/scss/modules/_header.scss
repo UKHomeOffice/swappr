@@ -80,6 +80,9 @@ header {
     position: absolute;
     min-width: 100px;
     width: 100%;
+    > li {
+      padding-left: 10px;
+    }
   }
 
   .user-settings__list-link {
