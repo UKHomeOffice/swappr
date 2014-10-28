@@ -1,3 +1,5 @@
+#set($pageTitle = 'Swap view')
+
 #set($accepted = $offer.offer.status.name() == 'ACCEPTED')
 #if ($accepted)
 	#set($volunteerText = "is volunteering")
@@ -47,12 +49,12 @@
                 <div class="event__rota event__rota-you">
                     <div class="event__rota-person">You</div>
                     <div class="event__rota-shift">$yourRota.shift.type</div>
-                    <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
+                    <time class="event__rota-date">$display.fullDate($yourRota.shift.date)</time>
                 </div>
                 <div class="event__rota event__rota-them">
                     <div class="event__rota-person">$theirRota.worker.username</div>
                     <div class="event__rota-shift">$theirRota.shift.type</div>
-                    <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
+                    <time class="event__rota-date">$display.fullDate($theirRota.shift.date)</time>
                 </div>
             </div>
 					#if (!$approvedByHR)
@@ -67,6 +69,7 @@
                           <button class="submit-button-secondary" type="submit">Rejected by HR</button>
                       </div>
                   </form>
+
               </div>
 					#end
         </li>
@@ -99,6 +102,7 @@
                 </form>
             </div>
 				#end
+					<a href="mailto:test@test.com?cc=bill@bill.com&amp;subject=Shift%20swap%20request&amp;body=$offer.offer.swapFrom.worker.username%20wants%20to%20swap%20a%20shift%20with%20$volunteer.swapFrom.worker.username.%0A%0A%20$offer.offer.swapFrom.worker.username%20is%20offering%20$offer.offer.swapFrom.shift.type.label%20$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0Ain%20exchange%20for%20$volunteer.swapFrom.shift.type.label%20$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).">Email for approval</a>
       </li>
 	#end
 
