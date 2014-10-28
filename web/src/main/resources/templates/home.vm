@@ -56,7 +56,6 @@
 												#end
 											</td>
                       <td class="secondary-text table__cell--status">
-													##TODO - if someone has volunteered to accept offer, show details
 												#foreach($offer in $rotaView.getOffers())
                         	<a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
                                                     #if($offer.volunteers)
@@ -79,7 +78,6 @@
 													#set($otherRota = $volunteer.swapTo.swapFrom)
                             You've volunteered to swap $rotaView.shiftType <span class="icon-arrow-right">for</span> $otherRota.shiftType with $otherRota.worker.username on $otherRota.shift.date
 												#end
-
                       </td>
 
 									#else

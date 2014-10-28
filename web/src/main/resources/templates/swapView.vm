@@ -88,7 +88,7 @@
                   <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
               </div>
           </div>
-				#if (!$volunteerIsYou && $volunteer.status.name() == 'REQUESTED')
+				#if (!$volunteerIsYou && $volunteer.status.name() == 'CREATED')
             <div class="event__actions">
                 <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">
                     <div class="event__action">
