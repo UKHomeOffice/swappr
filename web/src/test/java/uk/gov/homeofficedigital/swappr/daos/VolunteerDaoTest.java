@@ -25,8 +25,8 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
 
     @Test
     public void create_shouldCreateAndPersistAVolunteer() throws Exception {
-        User bill = new User("Bill", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
-        User ben = new User("Ben", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
+        User bill = UserMaker.bill();
+        User ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
@@ -44,8 +44,8 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
 
     @Test
     public void findByRota_shouldReturnVolunteersForTheGivenRota() throws Exception {
-        User bill = new User("Bill", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
-        User ben = new User("Ben", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
+        User bill = UserMaker.bill();
+        User ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
@@ -64,8 +64,8 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
 
     @Test
     public void findByOffer_shouldReturnVolunteersForTheGivenOffer() throws Exception {
-        User bill = new User("Bill", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
-        User ben = new User("Ben", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
+        User bill = UserMaker.bill();
+        User ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
@@ -86,8 +86,8 @@ public class VolunteerDaoTest  extends SpringIntegrationTest {
 
     @Test
     public void updateStatus_shouldChangeTheStatusOfTheVolunteer() throws Exception {
-        User bill = new User("Bill", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
-        User ben = new User("Ben", "password", Arrays.asList(new SimpleGrantedAuthority("USER_ROLE")));
+        User bill = UserMaker.bill();
+        User ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));

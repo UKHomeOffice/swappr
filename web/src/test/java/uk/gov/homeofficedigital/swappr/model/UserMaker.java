@@ -27,4 +27,7 @@ public class UserMaker {
         return make(a(User, with(username, "Bill")));
     }
 
+    public static User ben() {
+        return make(a(User, with(username, "Ben")));
+    }
 }

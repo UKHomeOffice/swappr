@@ -3,29 +3,30 @@ package uk.gov.homeofficedigital.swappr.controllers;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
-import uk.gov.homeofficedigital.swappr.model.Role;
 import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
+import uk.gov.homeofficedigital.swappr.model.UserMaker;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
+import static com.natpryce.makeiteasy.MakeItEasy.a;
+import static com.natpryce.makeiteasy.MakeItEasy.make;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+
 public class ShiftControllerTest {
 
     private RotaDao rotaDao = mock(RotaDao.class);
-    private User user = new User("Bob", "password", Arrays.asList(new SimpleGrantedAuthority(Role.USER.name())));
+    private User user = make(a(UserMaker.User));
     private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private BindingResult bindingResult = mock(BindingResult.class);
 
