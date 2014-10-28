@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.service;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
@@ -36,6 +37,10 @@ public class RotaService {
         volunteerDao.updateStatus(volunteer, VolunteerStatus.ACCEPTED);
         offerDao.updateStatus(volunteer.getSwapTo(), OfferStatus.ACCEPTED);
         volunteerDao.findByOffer(volunteer.getSwapTo()).stream().filter(v -> !v.getId().equals(volunteer.getId())).forEach((r) -> volunteerDao.updateStatus(r, VolunteerStatus.REJECTED));
+    }
+
+    public void rejectVolunteer(Volunteer volunteer) {
+        throw new NotImplementedException();
     }
 
     public void approveSwap(Volunteer volunteer) {
