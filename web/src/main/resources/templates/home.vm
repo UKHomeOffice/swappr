@@ -81,10 +81,12 @@
     <td class="secondary-text table__cell--status">
         #foreach($offer in $dayView.rota.offers)
             <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
-            Volunteers:
+            <div class="volunteers">
             #foreach($volunteer in $offer.volunteers)
                 $volunteer.swapFrom.worker.username
             #end
+								has replied.
+            </div>
         #end
     </td>
 </tr>
