@@ -42,8 +42,8 @@ public class OfferView {
     }
 
     public boolean isOfferForCurrentUser() {
-        Principal p = (Principal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return p.getName().equals(offer.getSwapFrom().getWorker().getUsername());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return username.equals(offer.getSwapFrom().getWorker().getUsername());
     }
     @Override
     public int hashCode() {
