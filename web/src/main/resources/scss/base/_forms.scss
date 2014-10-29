@@ -23,14 +23,16 @@ fieldset {
   width: 100%;
 }
 
-input,
-select,
-textarea {
+input[type="text"],
+select {
   @include text($base__font-size--small);
   background-color: $white;
   border: 1px solid #bfc1c3;
   border-radius: 0;
   padding: 0;
+  line-height: 0;
+  height: 24px;
+  margin: 0;
   &:focus {
     outline: 3px solid $background__colour--theme--primary;
   }
@@ -64,32 +66,6 @@ textarea {
   margin-top: 25px;
 }
 
-//fieldset {
-//  border: 0;
-//  float: left;
-//  margin-bottom : 15px;
-//}
-//
-//legend {
-//  @extend h3;
-//  float: left;
-//  width: 100%;
-//}
-//
-//label {
-//  display: block;
-//  font-weight: bold;
-//  clear: both;
-//  &.block-label {
-//    clear: none;
-//    float: left;
-//    margin-right: 15px;
-//    span {
-//      display: block;
-//    }
-//  }
-//}
-
 .form__error {
   @include text($base__font-size--small);
   color: $text__colour--error;
@@ -115,7 +91,7 @@ textarea {
   @include calc-rem($base__font-size);
   display: inline-block;
   padding-right: 10px;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .form-group-fixed-medium {
