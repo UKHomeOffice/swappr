@@ -169,7 +169,7 @@
             #elseif($volunteer.status == 'REJECTED')
                 $otherRota.worker.username rejected your offer to swap $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type on $display.fullDate($otherRota.shift.date)
             #elseif($volunteer.status == 'DENIED')
-                HR has denies your swap from $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $display.fullDate($otherRota.shift.date)
+                The duty list compilers have denied your swap from $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $display.fullDate($otherRota.shift.date)
             #end
         #end
     </td>
