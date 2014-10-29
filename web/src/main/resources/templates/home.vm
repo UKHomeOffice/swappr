@@ -3,7 +3,7 @@
 #set($tab = 'home')
 
 #if ($flashType == 'addShift')
-    <div class="notification notification--awaiting">Shift added</div>
+<div class="notification notification--awaiting">Shift added</div>
 #end
 #if ($flashType == 'createSwap')
 <div class="notification notification--awaiting">New swap created</div>
@@ -16,168 +16,179 @@
 #end
 
 #foreach($rotaMonth in $rotasByMonth.keySet())
-    #set($rotaViews = $rotasByMonth.get($rotaMonth))
-    <a href="/shifts/new" class="submit-button submit-button--right-lowered">Add shifts<span class="hidden"> for $display.month($rotaMonth)</span></a>
-    <table>
-        <caption class="h1"><span class="secondary-text">You / </span>$display.month($rotaMonth)</caption>
-        <thead class="hidden">
-        <tr>
-            <th scope=col class="table__cell--date">Date</th>
-            <th scope=col class="table__cell--shift">Shift</th>
-            <th scope=col class="table__cell--action">Action</th>
-            <th scope=col class="table__cell--status">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-#foreach($dayView in $rotaViews)
-## Each scenario
-#if ($dayView.status == 'NotWorking')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+	#set($rotaViews = $rotasByMonth.get($rotaMonth))
+<div class="timeline__heading-container">
+<h1 class="timeline__heading"><span class="secondary-text">You / </span>$display.month($rotaMonth)</h1>
+<a href="/shifts/new" class="submit-button submit-button--right-lowered">Add shifts<span
+        class="hidden"> for $display.month($rotaMonth)</span></a>
+</div>
+<ol class="timeline__days">
+	#foreach($dayView in $rotaViews)
+	## Each scenario
+  <li class="t-day timeline__day" data-t-date="$display.isoDate($dayView.day)">
+		#if ($dayView.status == 'NotWorking')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-    <td class="table__cell--shift"></td>
-    <td class="table__cell--action"><a href="/shifts/new?shiftDate=$display.isoDate($dayView.day)" class="t-add-shift action-button action-button--add" title="Add shift">Add shift</a></td>
-    <td class="secondary-text table__cell--status"></td>
-</tr>
+        <div class="timeline__day-info timeline__day-info-shift"></div>
+        <div class="timeline__day-info timeline__day-info-action"><a
+                href="/shifts/new?shiftDate=$display.isoDate($dayView.day)"
+                class="t-add-shift action-button action-button--add" title="Add shift">Add shift</a></div>
+		#elseif($dayView.status == 'WorkingOnly')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'WorkingOnly')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+            <a href="/swap/new?rotaId=$dayView.rota.rota.id" class="t-swap-shift action-button action-button--swap"
+               title="Request swap">Request swap</a>
+        </div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status"></div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        <a href="/swap/new?rotaId=$dayView.rota.rota.id" class="t-swap-shift action-button action-button--swap" title="Request swap">Request swap</a>
-    </td>
-    <td class="secondary-text table__cell--status"></td>
-</tr>
+		#elseif($dayView.status == 'OfferAwaitingVolunteers')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'OfferAwaitingVolunteers')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+					#foreach($offer in $dayView.rota.getOffers())
+              <span class="action-button action-button--disabled action-button--wait"
+                    title="In progress">In progress</span>
+					#end
+        </div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status">
+					#foreach($offer in $dayView.rota.getOffers())
+              <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span
+                  class="t-offer-shift-type">$offer.offer.swapTo.type</span>
+              on $display.fullDate($offer.offer.swapTo.date)
+					#end
+        </div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        #foreach($offer in $dayView.rota.getOffers())
-            <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
-        #end
-    </td>
-    <td class="secondary-text table__cell--status">
-        #foreach($offer in $dayView.rota.getOffers())
-            <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
-        #end
-    </td>
-</tr>
+		#elseif($dayView.status == 'OfferWithVolunteers')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'OfferWithVolunteers')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+					#foreach($offer in $dayView.rota.offers)
+              <span class="action-button action-button--disabled action-button--wait"
+                    title="In progress">In progress</span>
+					#end
+        </div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status">
+					#foreach($offer in $dayView.rota.offers)
+              <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span
+                  class="t-offer-shift-type">$offer.offer.swapTo.type</span>
+              on $display.fullDate($offer.offer.swapTo.date)
+              <div class="volunteers">
+								#foreach($volunteer in $offer.volunteers)
+									$volunteer.swapFrom.worker.username
+								#end
+                  has replied.
+              </div>
+					#end
+        </div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        #foreach($offer in $dayView.rota.offers)
-            <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
-        #end
-    </td>
-    <td class="secondary-text table__cell--status">
-        #foreach($offer in $dayView.rota.offers)
-            <a href="/swap/$offer.id">You've requested a swap</a> <span class="icon-arrow-right">for</span> <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)
-            <div class="volunteers">
-            #foreach($volunteer in $offer.volunteers)
-                $volunteer.swapFrom.worker.username
-            #end
-								has replied.
-            </div>
-        #end
-    </td>
-</tr>
+		#elseif($dayView.status == 'OfferAwaitingApproval')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'OfferAwaitingApproval')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+					#foreach($offer in $dayView.rota.offers)
+              <span class="action-button action-button--disabled action-button--wait"
+                    title="In progress">In progress</span>
+					#end
+        </div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status">
+					#foreach($offer in $dayView.rota.offers)
+              <a href="/swap/$offer.id">Your swap</a>
+              with $offer.acceptedVolunteer <span class="icon-arrow-right">for</span>
+              <span class="t-offer-shift-type">$offer.offer.swapTo.type</span>
+              on $display.fullDate($offer.offer.swapTo.date) is awaiting approval
+					#end
+        </div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        #foreach($offer in $dayView.rota.offers)
-            <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
-        #end
-    </td>
-    <td class="secondary-text table__cell--status">
-        #foreach($offer in $dayView.rota.offers)
-            <a href="/swap/$offer.id">Your swap</a>
-            with $offer.acceptedVolunteer <span class="icon-arrow-right">for</span>
-            <span class="t-offer-shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date) is awaiting approval
-        #end
-    </td>
-</tr>
+		#elseif($dayView.status == 'OfferApproved')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'OfferApproved')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+					#foreach($offer in $dayView.rota.offers)
+              <span class="action-button action-button--disabled action-button--swapped"
+                    title="In progress">In progress</span>
+					#end
+        </div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status">
+					#foreach($offer in $dayView.rota.offers)
+              <a href="/swap/$offer.id">Your swap</a>
+              with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
+              <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span>
+              on $display.fullDate($offer.offer.swapTo.date) has been approved
+					#end
+        </div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        #foreach($offer in $dayView.rota.offers)
-            <span class="action-button action-button--disabled action-button--swapped" title="In progress">In progress</span>
-        #end
-    </td>
-    <td class="secondary-text table__cell--status">
-        #foreach($offer in $dayView.rota.offers)
-            <a href="/swap/$offer.id">Your swap</a>
-            with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
-            <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date) has been approved
-        #end
-    </td>
-</tr>
+		#elseif($dayView.status == 'OfferDenied')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'OfferDenied')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+					#foreach($offer in $dayView.rota.offers)
+              <span class="action-button action-button--disabled action-button--wait"
+                    title="In progress">In progress</span>
+					#end
+        </div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status">
+					#foreach($offer in $dayView.rota.offers)
+              <a href="/swap/$offer.id">Your swap</a>
+              with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
+              <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span>
+              on $display.fullDate($dayView.rota.offer.offer.swapTo.date) has been denied
+					#end
+        </div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        #foreach($offer in $dayView.rota.offers)
-            <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
-        #end
-    </td>
-    <td class="secondary-text table__cell--status">
-        #foreach($offer in $dayView.rota.offers)
-            <a href="/swap/$offer.id">Your swap</a>
-            with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
-            <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span> on $display.fullDate($dayView.rota.offer.offer.swapTo.date) has been denied
-        #end
-    </td>
-</tr>
+		#elseif($dayView.status == 'Volunteered')
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+            <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-#elseif($dayView.status == 'Volunteered')
-<tr class="t-day" data-t-date="$display.isoDate($dayView.day)">
-    <td class="table__cell--date"><span class="table__day">$dayView.day.dayOfMonth</span> <span class="secondary-text">${display.day($dayView.day)}</span></td>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-action">
+					#foreach($offer in $dayView.rota.volunteers)
+              <span class="action-button action-button--disabled action-button--wait"
+                    title="In progress">In progress</span>
+					#end
+        </div>
 
-    <td class="table__cell--shift">$dayView.rota.shiftType</td>
-    <td class="table__cell--action">
-        #foreach($offer in $dayView.rota.volunteers)
-            <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
-        #end
-    </td>
-
-    <td class="t-status secondary-text table__cell--status">
-        #foreach($volunteer in $dayView.rota.volunteers)
-            #set($otherRota = $volunteer.swapTo.swapFrom)
-            #if($volunteer.status == 'CREATED')
-                You've volunteered to swap $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $display.fullDate($otherRota.shift.date)
-            #elseif($volunteer.status == 'ACCEPTED')
-                $otherRota.worker.username accepted your offer to swap $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type on $display.fullDate($otherRota.shift.date)
-            #elseif($volunteer.status == 'APPROVED')
-                You have swapped this shift with $otherRota.worker.username <span class="icon-arrow-right">for</span>  $otherRota.shift.type.label $otherRota.shift.type on $display.fullDate($otherRota.shift.date)
-            #elseif($volunteer.status == 'REJECTED')
-                $otherRota.worker.username rejected your offer to swap $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type on $display.fullDate($otherRota.shift.date)
-            #elseif($volunteer.status == 'DENIED')
-                The duty list compilers have denied your swap from $dayView.rota.shiftType <span class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type with $otherRota.worker.username on $display.fullDate($otherRota.shift.date)
-            #end
-        #end
-    </td>
-</tr>
-#end
-#end
-        </tbody>
-    </table>
+        <div class="t-status secondary-text timeline__day-info timeline__day-info-status">
+					#foreach($volunteer in $dayView.rota.volunteers)
+						#set($otherRota = $volunteer.swapTo.swapFrom)
+						#if($volunteer.status == 'CREATED')
+                You've volunteered to swap $dayView.rota.shiftType <span
+                    class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type
+                with $otherRota.worker.username on $display.fullDate($otherRota.shift.date)
+						#elseif($volunteer.status == 'ACCEPTED')
+							$otherRota.worker.username accepted your offer to swap $dayView.rota.shiftType <span
+                    class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type
+                on $display.fullDate($otherRota.shift.date)
+						#elseif($volunteer.status == 'APPROVED')
+                You have swapped this shift with $otherRota.worker.username <span
+                    class="icon-arrow-right">for</span>  $otherRota.shift.type.label $otherRota.shift.type
+                on $display.fullDate($otherRota.shift.date)
+						#elseif($volunteer.status == 'REJECTED')
+							$otherRota.worker.username rejected your offer to swap $dayView.rota.shiftType <span
+                    class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type
+                on $display.fullDate($otherRota.shift.date)
+						#elseif($volunteer.status == 'DENIED')
+                The duty list compilers have denied your swap from $dayView.rota.shiftType <span
+                    class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type
+                with $otherRota.worker.username on $display.fullDate($otherRota.shift.date)
+						#end
+					#end
+        </div>
+    </li>
+		#end
+	#end
+</ol>
 #end

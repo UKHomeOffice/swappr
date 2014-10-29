@@ -26,10 +26,9 @@
 }
 
 .submit-button--right-lowered {
-  @include media(tablet) {
-    float: right;
-    margin-bottom: -40px;
-  }
+  clear: none;
+  float: right;
+  margin-top: 15px;
 }
 
 .action-button {

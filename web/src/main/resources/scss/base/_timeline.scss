@@ -1,0 +1,79 @@
+.timeline__heading-container {
+  @extend %contain-floats;
+  padding-bottom: 20px;
+}
+.timeline__heading {
+  float: left;
+}
+.timeline__days {
+  @include calc-rem($base__font-size--small);
+  clear: both;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 50px 0;
+}
+
+.timeline__day {
+  border-bottom: 1px solid $border__colour--dark;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+  @include media(tablet) {
+    padding: 20px 5px;
+    text-align: left;
+  }
+  &:first-child {
+    border-top: 1px solid $border__colour--dark;
+  }
+}
+
+.timeline__day-info {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  &.timeline__day-info-action {
+    width: 10%;
+  }
+  &.timeline__day-info-status {
+    width: 80%;
+  }
+  &.timeline__day-info-shift {
+    @include text($base__font-size--large, $base__line-height--large);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  @include media(tablet) {
+
+    &.timeline__day-info-date {
+      width: 20%;
+    }
+
+    &.timeline__day-info-shift {
+      @include text($base__font-size--small, $base__line-height--small);
+      margin-top: 0;
+      margin-bottom: 0;
+      width: 40%;
+    }
+
+    &.timeline__day-info-action {
+      width: 10%;
+    }
+
+    &.timeline__day-info-status {
+      width: 27%;
+    }
+  }
+}
+
+.timeline__day {
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.timeline__shift-type {
+  color: $text__colour--secondary;
+  font-size: 0.9em;
+}

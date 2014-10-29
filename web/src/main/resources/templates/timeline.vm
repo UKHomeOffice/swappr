@@ -5,67 +5,60 @@
 #foreach($rotaMonth in $rotasByMonth.keySet())
 	#set($rotaViews = $rotasByMonth.get($rotaMonth))
 
-<table>
-    <caption class="h1"><span class="secondary-text">All / </span>$display.month($rotaMonth)</caption>
-    <thead class="hidden">
-    <tr>
-        <th scope=col class="table__cell--date">Date</th>
-        <th scope=col class="table__cell--shift">Shift</th>
-        <th scope=col class="table__cell--action">Action</th>
-        <th scope=col class="table__cell--status">Status</th>
-    </tr>
-    </thead>
-    <tbody>
-			#if($rotaViews.isEmpty())
-      <tr>
-          <td colspan="2">No swaps</td>
-      </tr>
-			#end
-			#foreach($rotaView in $rotaViews)
-				#foreach($offer in $rotaView.getOffers())
-					#if ($rotaView.rota.shift.date == $lastDate)
-						#set($hiddenClass = " hidden")
-					#else
-						#set($hiddenClass = "")
-					#end
-					#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
-						#set($offererIsYou=true)
-					#else
-						#set($offererIsYou=false)
-					#end
-        	<tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
-            <td class="table__cell--date"><span class="$hiddenClass"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
-                    class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></td>
-            <td class="table__cell--shift">
-							#if($offererIsYou==true)
-                  <strong>You</strong> want
-							#else
-								<strong>$offer.offer.swapFrom.worker.username</strong> wants
-							#end
-								to swap $offer.offer.swapFrom.shift.type.label <span class="table__shift-type">$offer.offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="table__shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)</td>
+<div class="timeline__heading-container">
+    <h1 class="timeline__heading"><span class="secondary-text">All / </span>$display.month($rotaMonth)</h1>
+</div>
+	#if($rotaViews.isEmpty())
+  <p>No swaps</p>
+	#else
+  <ol class="timeline__days">
 
-            <td class="table__cell--action">
-							#if($offer.offer.status.name() == 'APPROVED')
-                  <span class="action-button action-button--disabled action-button--swapped"
-                        title="Shift swapped">Shift swapped</span>
-							#else
-                  <form action="/swap/$offer.id/volunteer" method="post">
-                      <button class="t-button-volunteer action-button action-button--swap" type="submit" title="Volunteer to swap">Volunteer</button>
-                  </form>
-							#end
-            </td>
-            <td class="secondary-text table__cell--status">
-							#if ($offer.offer.status.name() != 'APPROVED')
-								#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
-                	You've <a href="/swap/$offer.id">offered to swap</a>
-								#end
-							#end
-            </td>
-        </tr>
 
-					#set($lastDate = $rotaView.rota.shift.date)
+		#foreach($rotaView in $rotaViews)
+			#foreach($offer in $rotaView.getOffers())
+				#if ($rotaView.rota.shift.date == $lastDate)
+					#set($hiddenClass = " hidden")
+				#else
+					#set($hiddenClass = "")
 				#end
+				#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
+					#set($offererIsYou=true)
+				#else
+					#set($offererIsYou=false)
+				#end
+      <li class="t-day timeline__day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
+              <div class="timeline__day-info timeline__day-info-date"><span class="$hiddenClass"><span class="timeline__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
+                      class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></div>
+              <div class="timeline__day-info timeline__day-info-shift">
+								#if($offererIsYou==true)
+                    <strong>You</strong> want
+								#else
+                    <strong>$offer.offer.swapFrom.worker.username</strong> wants
+								#end
+                  to swap $offer.offer.swapFrom.shift.type.label <span class="timeline__shift-type">$offer.offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="timeline__shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)</div>
+
+              <div class="timeline__day-info timeline__day-info-action">
+								#if($offer.offer.status.name() == 'APPROVED')
+                    <span class="action-button action-button--disabled action-button--swapped"
+                          title="Shift swapped">Shift swapped</span>
+								#else
+                    <form action="/swap/$offer.id/volunteer" method="post">
+                        <button class="t-button-volunteer action-button action-button--swap" type="submit" title="Volunteer to swap">Volunteer</button>
+                    </form>
+								#end
+              </div>
+              <div class="secondary-text timeline__day-info timeline__day-info-status">
+								#if ($offer.offer.status.name() != 'APPROVED')
+									#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
+                      You've <a href="/swap/$offer.id">offered to swap</a>
+									#end
+								#end
+              </div>
+          </li>
+
+				#set($lastDate = $rotaView.rota.shift.date)
 			#end
-    </tbody>
-</table>
+		#end
+  </ol>
+	#end
 #end
