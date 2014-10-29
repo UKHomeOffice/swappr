@@ -27,7 +27,7 @@
 					#set($offererIsYou=false)
 				#end
       <li class="t-day timeline__day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
-              <div class="timeline__day-info timeline__day-info-date"><span class="$hiddenClass"><span class="timeline__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
+              <div class="timeline__day-info timeline__day-info-date"><span class="$hiddenClass"><span class="timeline__date-day">$rotaView.rota.shift.date.dayOfMonth</span> <span
                       class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></div>
               <div class="timeline__day-info timeline__day-info-shift">
 								#if($offererIsYou==true)

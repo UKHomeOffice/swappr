@@ -27,7 +27,7 @@
 	## Each scenario
   <li class="t-day timeline__day" data-t-date="$display.isoDate($dayView.day)">
 		#if ($dayView.status == 'NotWorking')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift"></div>
@@ -35,7 +35,7 @@
                 href="/shifts/new?shiftDate=$display.isoDate($dayView.day)"
                 class="t-add-shift action-button action-button--add" title="Add shift">Add shift</a></div>
 		#elseif($dayView.status == 'WorkingOnly')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
@@ -46,7 +46,7 @@
         <div class="secondary-text timeline__day-info timeline__day-info-status"></div>
 
 		#elseif($dayView.status == 'OfferAwaitingVolunteers')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
@@ -65,7 +65,7 @@
         </div>
 
 		#elseif($dayView.status == 'OfferWithVolunteers')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
@@ -90,7 +90,7 @@
         </div>
 
 		#elseif($dayView.status == 'OfferAwaitingApproval')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
@@ -110,7 +110,7 @@
         </div>
 
 		#elseif($dayView.status == 'OfferApproved')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
@@ -130,7 +130,7 @@
         </div>
 
 		#elseif($dayView.status == 'OfferDenied')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
@@ -150,7 +150,7 @@
         </div>
 
 		#elseif($dayView.status == 'Volunteered')
-        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__day">$dayView.day.dayOfMonth</span>
+        <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
         <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
