@@ -1,7 +1,14 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.MapBindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.support.BindingAwareModelMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import uk.gov.homeofficedigital.swappr.controllers.exceptions.RotaNotFoundException;
@@ -9,12 +16,11 @@ import uk.gov.homeofficedigital.swappr.controllers.forms.SwapForm;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
-import uk.gov.homeofficedigital.swappr.model.Rota;
-import uk.gov.homeofficedigital.swappr.model.RotaMaker;
-import uk.gov.homeofficedigital.swappr.model.Volunteer;
-import uk.gov.homeofficedigital.swappr.model.VolunteerMaker;
+import uk.gov.homeofficedigital.swappr.model.*;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Optional;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
@@ -29,6 +35,8 @@ public class SwapControllerTest {
     private OfferDao offerDao = mock(OfferDao.class);
     private VolunteerDao volunteerDao = mock(VolunteerDao.class);
     private ControllerHelper helper = mock(ControllerHelper.class);
+    private User user = make(a(UserMaker.User));
+    private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private SwapController swapController = new SwapController(rotaDao, rotaService, offerDao, volunteerDao, helper);
 
     @Test(expected = RotaNotFoundException.class)
@@ -55,6 +63,32 @@ public class SwapControllerTest {
         assertEquals(form.getFromShiftType(), rota.getShift().getType());
         assertEquals(form.getToDate(), rota.getShift().getDate());
     }
+
+    @Test
+    public void add_shouldRedisplayTheFormWhenThereAreBindingErrors() {
+
+        BindingResult bindingResult = new MapBindingResult(new HashMap<String, String>(), "swapForm");
+        bindingResult.addError(new ObjectError("swapForm", "whoops"));
+        SwapForm form = new SwapForm();
+        String viewName = swapController.add(form, bindingResult, principal, new RedirectAttributesModelMap());
+        assertEquals(viewName, "createSwap");
+    }
+
+    @Ignore // TODO: Complete test implementation
+    public void add_shouldDelegateToRotaService() {
+
+        SwapForm form = new SwapForm();
+        BindingResult bindingResult = new MapBindingResult(new HashMap<String, String>(), "swapForm");
+
+        LocalDate now = LocalDate.now();
+        Rota createdRota = new Rota(44l, user, new Shift(now, ShiftType.B1H));
+//        when(rotaDao.findOrCreate(user, new Shift())).thenReturn(createdRota);
+
+        swapController.add(form, bindingResult, principal, new RedirectAttributesModelMap());
+
+//        verify(rotaService).requestSwap(createdRota, );
+    }
+
 
     @Test
     public void acceptSwap_shouldFindTheVolunteerAndDelegateToTheRotaService() throws Exception {
