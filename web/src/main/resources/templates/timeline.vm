@@ -28,11 +28,21 @@
 					#else
 						#set($hiddenClass = "")
 					#end
+					#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
+						#set($offererIsYou=true)
+					#else
+						#set($offererIsYou=false)
+					#end
         	<tr class="t-day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
             <td class="table__cell--date"><span class="$hiddenClass"><span class="table__day">$rotaView.rota.shift.date.dayOfMonth</span> <span
                     class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></td>
-            <td class="table__cell--shift"><strong>$offer.offer.swapFrom.worker.username</strong> wants to
-                swap $offer.offer.swapFrom.shift.type.label <span class="table__shift-type">$offer.offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="table__shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)</td>
+            <td class="table__cell--shift">
+							#if($offererIsYou==true)
+                  <strong>You</strong> want
+							#else
+								<strong>$offer.offer.swapFrom.worker.username</strong> wants
+							#end
+								to swap $offer.offer.swapFrom.shift.type.label <span class="table__shift-type">$offer.offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="table__shift-type">$offer.offer.swapTo.type</span> on $display.fullDate($offer.offer.swapTo.date)</td>
 
             <td class="table__cell--action">
 							#if($offer.offer.status.name() == 'APPROVED')
