@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.gov.homeofficedigital.swappr.controllers.views.DayView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
+import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.security.Principal;
@@ -43,7 +44,7 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String showHomePage(Model model, Principal principal) {
 
-        User user = helper.userFromPrincipal(principal);
+        SwapprUser user = helper.userFromPrincipal(principal);
         Map<Month, List<DayView>> rotasByMonth = daysByMonth(rotaService.findMyRotas(user));
 
         model.addAttribute("rotasByMonth", rotasByMonth);

@@ -25,7 +25,7 @@ public class OfferDaoTest extends SpringIntegrationTest {
     @Test
     public void create_shouldCreateAnOffer() throws Exception {
         LocalDate now = LocalDate.now();
-        User user = UserMaker.bill();
+        SwapprUser user = UserMaker.bill();
         Shift rotaShift = new Shift(now, ShiftType.C1H);
         Rota rota = rotaDao.create(user, rotaShift);
         Shift swapTo = new Shift(now.plusDays(2), ShiftType.BFH);
@@ -43,7 +43,7 @@ public class OfferDaoTest extends SpringIntegrationTest {
     @Test
     public void findByRota_shouldRetrieveOffersForARota() throws Exception {
         LocalDate now = LocalDate.now();
-        User user = UserMaker.bill();
+        SwapprUser user = UserMaker.bill();
         Shift shiftToday = new Shift(now, ShiftType.C1H);
         Shift shiftTomorrow = new Shift(now.plusDays(1), ShiftType.C1H);
         Rota rotaToday = rotaDao.create(user, shiftToday);

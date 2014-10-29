@@ -12,7 +12,7 @@ import static com.natpryce.makeiteasy.Property.newProperty;
 public class RotaMaker {
     private static AtomicLong idSeq = new AtomicLong(3000);
     public static Property<Rota, Long> id = newProperty();
-    public static Property<Rota, User> user = newProperty();
+    public static Property<Rota, SwapprUser> user = newProperty();
     public static Property<Rota, Shift> shift = newProperty();
 
     public static Instantiator<Rota> Rota = (lookup) ->

@@ -128,7 +128,7 @@ public class RotaServiceTest {
 
     @Test
     public void findMyRotasShouldCollateTheRotasOffersAndVolunteers() {
-        User user = make(a(UserMaker.User));
+        SwapprUser user = make(a(UserMaker.User));
         Rota rota1 = make(a(RotaMaker.Rota));
         Rota rota2 = make(a(RotaMaker.Rota));
         when(rotaDao.findByWorker(user)).thenReturn(new HashSet<>(Arrays.asList(rota1, rota2)));

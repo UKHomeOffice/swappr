@@ -4,10 +4,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
-import uk.gov.homeofficedigital.swappr.model.Rota;
-import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.model.UserMaker;
+import uk.gov.homeofficedigital.swappr.model.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -23,7 +20,7 @@ public class RotaDaoTest extends SpringIntegrationTest {
     @Test
     public void create_shouldCreateAndPersistAShift() throws Exception {
         LocalDate now = LocalDate.now();
-        User user = UserMaker.bill();
+        SwapprUser user = UserMaker.bill();
         Shift expectedShift = new Shift(now, ShiftType.C1H);
         Rota rota = rotaDao.create(user, expectedShift);
 
@@ -37,8 +34,8 @@ public class RotaDaoTest extends SpringIntegrationTest {
 
     @Test
     public void findByWorker_shouldFindRotasForWorker() throws Exception {
-        User bill = UserMaker.bill();
-        User ben = UserMaker.ben();
+        SwapprUser bill = UserMaker.bill();
+        SwapprUser ben = UserMaker.ben();
 
         LocalDate now = LocalDate.now();
         List<Rota> billsRota = Arrays.asList(
@@ -56,8 +53,8 @@ public class RotaDaoTest extends SpringIntegrationTest {
 
     @Test
     public void findAll_shouldFindRotasForAllWorker() throws Exception {
-        User bill = UserMaker.bill();
-        User ben = UserMaker.ben();
+        SwapprUser bill = UserMaker.bill();
+        SwapprUser ben = UserMaker.ben();
 
         LocalDate now = LocalDate.now();
         List<Rota> billsRota = Arrays.asList(
@@ -76,7 +73,7 @@ public class RotaDaoTest extends SpringIntegrationTest {
     @Test
     public void findOrCreate_shouldCreateRota_givenRotaDoesNotExist() throws Exception {
         LocalDate now = LocalDate.now();
-        User user = UserMaker.bill();
+        SwapprUser user = UserMaker.bill();
         Shift expectedShift = new Shift(now, ShiftType.C1H);
         Rota rota = rotaDao.findOrCreate(user, expectedShift);
 

@@ -11,7 +11,7 @@ import uk.gov.homeofficedigital.swappr.service.Services;
 
 @Configuration
 @EnableAutoConfiguration
-@Import({DAOs.class, Security.class, Security.AuthenticationConfiguration.class, Controllers.class, Services.class})
+@Import({DAOs.class, Security.class, Controllers.class, Services.class})
 public class Application {
 
     public static void main(String[] args) {

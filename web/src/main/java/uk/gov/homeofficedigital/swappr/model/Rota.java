@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.User;
 public class Rota {
 
     private final Long id;
-    private final User worker;
+    private final SwapprUser worker;
     private final Shift shift;
 
-    public Rota(Long id, User worker, Shift shift) {
+    public Rota(Long id, SwapprUser worker, Shift shift) {
         this.id = id;
         this.worker = worker;
         this.shift = shift;
@@ -21,7 +21,7 @@ public class Rota {
         return id;
     }
 
-    public User getWorker() {
+    public SwapprUser getWorker() {
         return worker;
     }
 

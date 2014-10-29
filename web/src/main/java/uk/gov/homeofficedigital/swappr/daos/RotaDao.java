@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
+import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -26,14 +27,14 @@ public class RotaDao {
         this.userService = userService;
     }
 
-    public Rota create(User worker, Shift shift) {
+    public Rota create(SwapprUser worker, Shift shift) {
         long id = DaoUtil.create(template,
                 "insert into rota (username, shiftDate, shiftCode) values (:username, :shiftDate, :shiftCode)",
                 toMap("username", worker.getUsername(), "shiftDate", Date.valueOf(shift.getDate()), "shiftCode", shift.getType().name()));
         return new Rota(id, worker, shift);
     }
 
-    public Rota findOrCreate(User worker, Shift shift) {
+    public Rota findOrCreate(SwapprUser worker, Shift shift) {
         List<Long> id = template.query("select id from rota where username = :user and shiftDate = :shiftDate and shiftCode = :shiftCode",
                 toMap("user", worker.getUsername(), "shiftDate", Date.valueOf(shift.getDate()), "shiftCode", shift.getType().name()), (rs, idx) -> rs.getLong("id"));
         if (!id.isEmpty()) {
@@ -52,7 +53,7 @@ public class RotaDao {
         }
     }
 
-    public Set<Rota> findByWorker(User worker) {
+    public Set<Rota> findByWorker(SwapprUser worker) {
         List<Rota> rota = template.query("select * from rota where username = :username", toMap("username", worker.getUsername()), this::mapRota);
         return new HashSet<>(rota);
     }
@@ -63,7 +64,7 @@ public class RotaDao {
     }
 
     private Rota mapRota(ResultSet rs, int row) throws SQLException {
-        User user = (User) userService.loadUserByUsername(rs.getString("username"));
+        SwapprUser user = (SwapprUser) userService.loadUserByUsername(rs.getString("username"));
         Shift shift = new Shift(rs.getDate("shiftDate").toLocalDate(), ShiftType.valueOf(rs.getString("shiftCode")));
         return new Rota(rs.getLong("id"), user, shift);
     }

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 public class DAOs {
 
     @Bean
-    public RotaDao rotaDao(NamedParameterJdbcTemplate jdbcTemplate, UserDetailsManager userService) {
+    public RotaDao rotaDao(NamedParameterJdbcTemplate jdbcTemplate, UserDetailsService userService) {
         return new RotaDao(jdbcTemplate, userService);
     }
 
@@ -28,9 +28,8 @@ public class DAOs {
     }
 
     @Bean
-    public JdbcUserDetailsManager userManager(DataSource ds) {
-        JdbcUserDetailsManager mgr = new JdbcUserDetailsManager();
-        mgr.setDataSource(ds);
-        return mgr;
+    public UserDao userDetailsService(NamedParameterJdbcTemplate jdbcTemplate) {
+        return new UserDao(jdbcTemplate);
     }
+
 }

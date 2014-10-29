@@ -52,7 +52,7 @@ public class RotaService {
         offerDao.updateStatus(volunteer.getSwapTo(), OfferStatus.DENIED);
     }
 
-    public Set<RotaView> findMyRotas(User worker) {
+    public Set<RotaView> findMyRotas(SwapprUser worker) {
         return mapToRotaView(rotaDao.findByWorker(worker));
     }
 

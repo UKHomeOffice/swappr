@@ -5,10 +5,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import org.springframework.validation.support.BindingAwareModelMap;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
-import uk.gov.homeofficedigital.swappr.model.Rota;
-import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.model.UserMaker;
+import uk.gov.homeofficedigital.swappr.model.*;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.time.LocalDate;
@@ -29,7 +26,7 @@ import static org.mockito.Mockito.when;
 
 public class TimelineControllerTest {
 
-    private User user = make(a(UserMaker.User));
+    private SwapprUser user = make(a(UserMaker.User));
     private RotaService rotaService = mock(RotaService.class);
     private TimelineController controller = new TimelineController(rotaService);
 

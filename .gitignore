@@ -33,3 +33,4 @@ build/
 
 integration/smoke_tests/vendor
 integration/smoke_tests/.bundle
+.gradletasknamecache

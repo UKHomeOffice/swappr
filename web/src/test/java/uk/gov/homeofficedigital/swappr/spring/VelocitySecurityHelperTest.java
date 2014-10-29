@@ -7,8 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
 import uk.gov.homeofficedigital.swappr.model.Role;
+import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -33,7 +35,7 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
     @Test
     public void loggedInUserShouldReturnUserWhenLoggedIn() {
 
-        User user = make(a(User, with(authorities, userAuthority)));
+        UserDetails user = make(a(User, with(authorities, userAuthority)));
         login(user);
 
         assertThat(sec.loggedInUser().get(), equalTo(user));
@@ -41,7 +43,7 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
 
     @Test
     public void hasAuthorityShouldTestForAuthorityName() {
-        User user = make(a(User, with(authorities, adminAuthority)));
+        UserDetails user = make(a(User, with(authorities, adminAuthority)));
         login(user);
 
         assertThat(sec.hasAuthority(Role.ADMIN), equalTo(true));
@@ -49,7 +51,7 @@ public class VelocitySecurityHelperTest extends SpringIntegrationTest {
     }
 
 
-    private void login(User user) {
+    private void login(UserDetails user) {
         Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
     }

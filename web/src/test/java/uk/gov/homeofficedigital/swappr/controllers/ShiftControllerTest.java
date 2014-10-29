@@ -11,6 +11,7 @@ import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
+import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 import uk.gov.homeofficedigital.swappr.model.UserMaker;
 
 import java.time.*;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.*;
 public class ShiftControllerTest {
 
     private RotaDao rotaDao = mock(RotaDao.class);
-    private User user = make(a(UserMaker.User));
+    private SwapprUser user = make(a(UserMaker.User));
     private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private BindingResult bindingResult = mock(BindingResult.class);
 

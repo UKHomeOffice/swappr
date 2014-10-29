@@ -7,10 +7,7 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import uk.gov.homeofficedigital.swappr.controllers.views.DayView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
-import uk.gov.homeofficedigital.swappr.model.Rota;
-import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.model.UserMaker;
+import uk.gov.homeofficedigital.swappr.model.*;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.time.LocalDate;
@@ -33,7 +30,7 @@ import static org.mockito.Mockito.when;
 public class HomeControllerTest {
 
     private RotaService rotaService = mock(RotaService.class);
-    private User user = make(a(UserMaker.User));
+    private SwapprUser user = make(a(UserMaker.User));
     private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private HomeController controller = new HomeController(rotaService, new ControllerHelper());
 

@@ -2,12 +2,12 @@ package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.junit.Test;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import uk.gov.homeofficedigital.swappr.controllers.forms.UserForm;
+import uk.gov.homeofficedigital.swappr.daos.UserDao;
+import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
 import java.util.Arrays;
 
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 public class UserAdminControllerTest {
 
     private PasswordEncoder encoder = mock(PasswordEncoder.class);
-    private UserDetailsManager userService = mock(UserDetailsManager.class);
+    private UserDao userService = mock(UserDao.class);
     private UserAdminController controller = new UserAdminController(userService, encoder);
 
     @Test
@@ -55,6 +55,6 @@ public class UserAdminControllerTest {
         String target = controller.add(form, result);
 
         assertEquals("redirect:/", target);
-        verify(userService).createUser(new User("someUser", "encodedPassword", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
+        verify(userService).createUser(new SwapprUser("someUser", "encodedPassword", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
     }
 }

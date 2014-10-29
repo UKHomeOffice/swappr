@@ -14,22 +14,22 @@ import static com.natpryce.makeiteasy.Property.newProperty;
 
 public class UserMaker {
 
-    public static Property<User, String> username = newProperty();
-    public static Property<User, String> password = newProperty();
-    public static Property<User, List<GrantedAuthority>> authorities = newProperty();
+    public static Property<SwapprUser, String> username = newProperty();
+    public static Property<SwapprUser, String> password = newProperty();
+    public static Property<SwapprUser, List<GrantedAuthority>> authorities = newProperty();
     public static List<GrantedAuthority> userAuthority = Arrays.asList(new SimpleGrantedAuthority(Role.USER.name()));
     public static List<GrantedAuthority> adminAuthority = Arrays.asList(new SimpleGrantedAuthority(Role.ADMIN.name()));
 
-    public static Instantiator<User> User = (lookup) ->
-            new User(lookup.valueOf(username, "default"),
+    public static Instantiator<SwapprUser> User = (lookup) ->
+            new SwapprUser(lookup.valueOf(username, "default"),
                     lookup.valueOf(password, "password"),
                     lookup.valueOf(authorities, userAuthority));
 
-    public static User bill() {
+    public static SwapprUser bill() {
         return make(a(User, with(username, "Bill")));
     }
 
-    public static User ben() {
+    public static SwapprUser ben() {
         return make(a(User, with(username, "Ben")));
     }
 }

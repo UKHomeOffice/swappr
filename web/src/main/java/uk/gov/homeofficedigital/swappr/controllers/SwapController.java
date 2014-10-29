@@ -1,6 +1,5 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +12,7 @@ import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
-import uk.gov.homeofficedigital.swappr.model.Offer;
-import uk.gov.homeofficedigital.swappr.model.Rota;
-import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.Volunteer;
+import uk.gov.homeofficedigital.swappr.model.*;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import javax.validation.Valid;
@@ -78,7 +74,7 @@ public class SwapController {
             return "createSwap";
         }
 
-        User user = controllerHelper.userFromPrincipal(principal);
+        SwapprUser user = controllerHelper.userFromPrincipal(principal);
         Shift from = new Shift(swap.getFromDate(), swap.getFromShiftType());
         Shift to = new Shift(swap.getToDate(), swap.getToShiftType());
         Rota rota = rotaDao.findOrCreate(user, from);
@@ -94,7 +90,7 @@ public class SwapController {
 
         Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
 
-        User user = controllerHelper.userFromPrincipal(principal);
+        SwapprUser user = controllerHelper.userFromPrincipal(principal);
 
         Rota myRota = rotaDao.findOrCreate(user, offer.getSwapTo());
 
