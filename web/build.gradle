@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: 'compass'
 apply plugin: 'watch'
+apply plugin: "jacoco"
 
 repositories { jcenter() }
 
