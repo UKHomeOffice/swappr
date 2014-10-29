@@ -44,7 +44,8 @@
 
 		#if ($accepted)
         <li class="event">
-            <strong>Swap agreed.</strong> Waiting for the duty list compilers to authorise.
+            <p><strong>Swap agreed.</strong></p>
+						<p><a href="mailto:test@test.com?cc=bill@bill.com&amp;subject=Swap%20request%20from%20$offer.offer.swapFrom.worker.username&amp;body=$offer.offer.swapFrom.worker.username%20and%20$volunteer.swapFrom.worker.username%20want%20to%20swap%20the%20following%20shifts%3A%0A%0A%20$offer.offer.swapFrom.worker.username%20is%20offering%20his%20shift%20$offer.offer.swapFrom.shift.type.label%20$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0Ain%20exchange%20for%20$volunteer.swapFrom.worker.username's%20shift%20$volunteer.swapFrom.shift.type.label%20$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.">Send an email to the duty list compilers to authorise the swap</a></p>
             <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
                 <div class="event__rota event__rota-you">
                     <div class="event__rota-person">You</div>
@@ -92,7 +93,7 @@
 				#if (!$volunteerIsYou && $volunteer.status.name() == 'CREATED')
             <div class="event__actions">
                 <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">
-                    <div class="event__action">
+										<div class="event__action">
                         <button class="submit-button" type="submit">Accept offer</button>
                     </div>
                 </form>
@@ -103,7 +104,6 @@
                 </form>
             </div>
 				#end
-					<a href="mailto:test@test.com?cc=bill@bill.com&amp;subject=Shift%20swap%20request&amp;body=$offer.offer.swapFrom.worker.username%20wants%20to%20swap%20a%20shift%20with%20$volunteer.swapFrom.worker.username.%0A%0A%20$offer.offer.swapFrom.worker.username%20is%20offering%20$offer.offer.swapFrom.shift.type.label%20$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0Ain%20exchange%20for%20$volunteer.swapFrom.shift.type.label%20$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).">Email for approval</a>
       </li>
 	#end
 
