@@ -1,6 +1,7 @@
 #* @vtlvariable name="availableMonths" type="java.util.Map<java.lang.String, java.lang.String>" *#
 #* @vtlvariable name="availableShifts" type="java.util.Map<java.lang.String, java.lang.String>" *#
 #set($pageTitle = 'Add shift')
+#set($tab = 'home')
 
 <h1>Add shifts</h1>
 
