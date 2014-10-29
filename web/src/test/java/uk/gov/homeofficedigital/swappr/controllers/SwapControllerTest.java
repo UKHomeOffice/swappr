@@ -46,7 +46,9 @@ public class SwapControllerTest {
         when(rotaDao.findById(22l)).thenReturn(Optional.of(rota));
 
         Model model = new BindingAwareModelMap();
-        swapController.view(22l, model);
+        String viewName = swapController.view(22l, model);
+
+        assertEquals(viewName, "createSwap");
 
         SwapForm form = (SwapForm) model.asMap().get("swap");
         assertEquals(form.getFromDate(), rota.getShift().getDate());
