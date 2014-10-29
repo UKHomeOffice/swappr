@@ -23,12 +23,13 @@ fieldset {
 }
 
 input[type="text"],
+input[type="password"],
 select {
   @include text($base__font-size--small);
   background-color: $white;
   border: 1px solid #bfc1c3;
   border-radius: 0;
-  padding: 0;
+  padding: 2px;
   line-height: 0;
   height: 24px;
   margin: 0;
