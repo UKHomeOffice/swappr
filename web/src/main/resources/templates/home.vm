@@ -117,7 +117,7 @@
     <td class="table__cell--shift">$dayView.rota.shiftType</td>
     <td class="table__cell--action">
         #foreach($offer in $dayView.rota.offers)
-            <span class="action-button action-button--disabled action-button--wait" title="In progress">In progress</span>
+            <span class="action-button action-button--disabled action-button--swapped" title="In progress">In progress</span>
         #end
     </td>
     <td class="secondary-text table__cell--status">
