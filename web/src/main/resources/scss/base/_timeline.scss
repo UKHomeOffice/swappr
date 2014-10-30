@@ -36,7 +36,7 @@
     width: 10%;
   }
   &.timeline__day-info-status {
-    width: 80%;
+    width: 30%;
   }
   &.timeline__day-info-shift {
     @include text($base__font-size--large, $base__line-height--large);
