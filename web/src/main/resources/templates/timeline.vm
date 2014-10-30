@@ -67,11 +67,11 @@
 
                     <div class="timeline__day-info timeline__day-info-action">
             <span class="action-button action-button--disabled action-button--wait"
-                  title="Shift swapped">you have volunteered</span>
+                  title="Shift swapped">you have replied</span>
                     </div>
 
                     <div class="secondary-text timeline__day-info timeline__day-info-status">
-                        You have volunteered
+                        You have replied
                     </div>
 
                 #else
