@@ -17,8 +17,13 @@ feature "Logging in" do
   end
 
   scenario "You can offer to swap a shift" do
+    date = page.all('.t-day')[3]['data-t-date']
     offer_shift(3, 'BFH - Early', 'S1H - Late')
     expect(page.all('.t-day')[3].find('.t-status')).to have_content('Swap requested')
+    # logout
+    # login_user_ben
+    # find('.t-nav-timeline').click
+    # expect(find_day_row_by_date(date).find('.t-shift')).to have_content("Bill Beetroot wants to swap")
   end
 
   scenario "You can volunteer to swap for an offered shift" do
