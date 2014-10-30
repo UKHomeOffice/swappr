@@ -48,7 +48,7 @@
               </div>
               <div class="secondary-text timeline__day-info timeline__day-info-status">
 								#if ($offer.offer.status.name() != 'APPROVED')
-									#if($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername())
+									#if($offer.offerForCurrentUser)
                       You've <a href="/swap/$offer.id">offered to swap</a>
 									#end
 								#end
