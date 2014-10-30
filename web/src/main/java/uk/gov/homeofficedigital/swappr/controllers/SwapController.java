@@ -105,6 +105,30 @@ public class SwapController {
         Volunteer volunteer = volunteerDao.findById(volunteerId).orElseThrow(() -> new RuntimeException("Invalid volunteer"));
         rotaService.acceptVolunteer(volunteer);
         attrs.addFlashAttribute("flashType", "acceptSwap");
+        return "redirect:/swap/" + offerId;
+    }
+
+    @RequestMapping(value = "/{id}/volunteer/{volunteerId}/reject", method = RequestMethod.POST)
+    public String rejectVolunteer(@PathVariable("id") Long offerId, @PathVariable("volunteerId") Long volunteerId, RedirectAttributes attrs) {
+        Volunteer volunteer = volunteerDao.findById(volunteerId).orElseThrow(() -> new RuntimeException("Invalid volunteer"));
+        rotaService.rejectVolunteer(volunteer);
+        attrs.addFlashAttribute("flashType", "rejectVolunteer");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{id}/volunteer/{volunteerId}/approve", method = RequestMethod.POST)
+    public String approveSwap(@PathVariable("id") Long offerId, @PathVariable("volunteerId") Long volunteerId, RedirectAttributes attrs) {
+        Volunteer volunteer = volunteerDao.findById(volunteerId).orElseThrow(() -> new RuntimeException("Invalid volunteer"));
+        rotaService.approveSwap(volunteer);
+        attrs.addFlashAttribute("flashType", "approveSwap");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{id}/volunteer/{volunteerId}/deny", method = RequestMethod.POST)
+    public String denySwap(@PathVariable("id") Long offerId, @PathVariable("volunteerId") Long volunteerId, RedirectAttributes attrs) {
+        Volunteer volunteer = volunteerDao.findById(volunteerId).orElseThrow(() -> new RuntimeException("Invalid volunteer"));
+        rotaService.denySwap(volunteer);
+        attrs.addFlashAttribute("flashType", "denySwap");
         return "redirect:/";
     }
 

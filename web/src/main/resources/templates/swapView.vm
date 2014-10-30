@@ -14,7 +14,7 @@
 	#set($confirmedLabel = "agreed")
 #end
 
-#set($offererIsYou = ($offer.offer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()))
+#set($offererIsYou = ($offer.offerForCurrentUser))
 
 #if($offererIsYou)
 	#set($offerer = "You")
@@ -62,12 +62,12 @@
             <div class="event__actions">
 
                 <div class="event__action">
-                    <form action="">
+                    <form action="/swap/$offer.id/volunteer/$volunteer.id/approve" method="POST">
                         <button class="submit-button" type="submit">Approved</button>
                     </form>
                 </div>
                 <div class="event__action">
-                    <form action="">
+                    <form action="/swap/$offer.id/volunteer/$volunteer.id/deny" method="POST">
                         <button class="submit-button-secondary" type="submit">Rejected</button>
                     </form>
                 </div>
@@ -108,7 +108,7 @@
                   <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
               </div>
           </div>
-				#if (!$volunteerIsYou && !$accepted && $volunteer.status.name() == 'CREATED')
+				#if ($offererIsYou && !$accepted && $volunteer.status.name() == 'CREATED')
             <div class="event__actions">
                 <div class="event__action">
                     <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">

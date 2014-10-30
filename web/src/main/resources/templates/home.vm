@@ -123,8 +123,8 @@
         <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
               <a href="/swap/$offer.id">Your swap</a>
-              with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
-              <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span>
+              with $offer.acceptedVolunteer <span class="icon-arrow-right">for</span>
+              <span class="t-offer-shift-type">$offer.offer.swapTo.type</span>
               on $display.fullDate($offer.offer.swapTo.date) has been approved
 					#end
         </div>
@@ -166,9 +166,7 @@
 						#set($otherRota = $volunteer.swapTo.swapFrom)
 						#if($volunteer.status == 'CREATED')
 							Swap requested.
-							#foreach($offer in $dayView.rota.volunteers)
-            <div><a href="/swap/$offer.id">You have replied</a></div>
-							#end
+            <div><a href="/swap/$volunteer.swapTo.id">You have replied</a></div>
 						#elseif($volunteer.status == 'ACCEPTED')
 							$otherRota.worker.fullname accepted your offer to swap $dayView.rota.shiftType <span
                     class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type

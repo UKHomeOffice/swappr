@@ -34,7 +34,7 @@ public class OfferView {
     }
 
     public String getAcceptedVolunteer() {
-        return volunteers.stream().filter(v -> v.getStatus() == VolunteerStatus.ACCEPTED).findFirst().map(v -> v.getSwapFrom().getWorker().getFullname()).orElse(null);
+        return volunteers.stream().filter(v -> v.getStatus() == VolunteerStatus.ACCEPTED || v.getStatus() == VolunteerStatus.APPROVED).findFirst().map(v -> v.getSwapFrom().getWorker().getFullname()).orElse(null);
     }
 
     public Shift fromShift() {
