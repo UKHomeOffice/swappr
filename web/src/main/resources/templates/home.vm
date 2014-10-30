@@ -165,10 +165,9 @@
 					#foreach($volunteer in $dayView.rota.volunteers)
 						#set($otherRota = $volunteer.swapTo.swapFrom)
 						#if($volunteer.status == 'CREATED')
+							Swap requested.
 							#foreach($offer in $dayView.rota.volunteers)
-            <a href="/swap/$offer.id">You've volunteered to swap</a> $dayView.rota.shiftType <span
-                    class="icon-arrow-right">for</span> $otherRota.shift.type.label $otherRota.shift.type
-                with $otherRota.worker.fullname on $display.fullDate($otherRota.shift.date)
+            <div><a href="/swap/$offer.id">You have replied</a></div>
 							#end
 						#elseif($volunteer.status == 'ACCEPTED')
 							$otherRota.worker.fullname accepted your offer to swap $dayView.rota.shiftType <span
