@@ -17,11 +17,9 @@
 .timeline__day {
   border-bottom: 1px solid $border__colour--dark;
   margin: 0 auto;
-  text-align: center;
   padding: 10px;
   @include media(tablet) {
     padding: 20px 5px;
-    text-align: left;
   }
   &:first-child {
     border-top: 1px solid $border__colour--dark;
@@ -36,7 +34,7 @@
     width: 10%;
   }
   &.timeline__day-info-status {
-    width: 30%;
+    width: 80%;
   }
   &.timeline__day-info-shift {
     @include text($base__font-size--large, $base__line-height--large);
