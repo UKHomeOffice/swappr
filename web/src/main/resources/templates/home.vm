@@ -80,9 +80,9 @@
               <div class="volunteers">
                   <a href="/swap/$offer.id">
 								#foreach($volunteer in $offer.volunteers)
-									$volunteer.swapFrom.worker.fullname#if($foreach.count>1 && !$foreach.last), #end
+									$volunteer.swapFrom.worker.fullname#if($foreach.count>0 && !$foreach.last), #end
 								#end
-								#if($foreach.count>1) have
+								#if($offer.volunteers.size()>1) have
 								#else has
 								#end
 								replied.</a>
