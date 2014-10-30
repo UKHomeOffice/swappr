@@ -26,13 +26,13 @@ public class UserDao implements UserDetailsService {//, UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<UserDetails> users = template.query("select username, password, enabled from users where username = :username", toMap("username", username), this::mapUser);
+        List<SwapprUser> users = template.query("select username, password, enabled, email, fullname from users where username = :username", toMap("username", username), this::mapUser);
 
         if (users.isEmpty()) {
             throw new UsernameNotFoundException(String.format("Username %s not found", username));
         }
 
-        UserDetails user = users.get(0); // contains no GrantedAuthority[]
+        SwapprUser user = users.get(0); // contains no GrantedAuthority[]
 
         Set<GrantedAuthority> dbAuthsSet = new HashSet<GrantedAuthority>(loadUserAuthorities(user.getUsername()));
         List<GrantedAuthority> dbAuths = new ArrayList<GrantedAuthority>(dbAuthsSet);
@@ -41,7 +41,7 @@ public class UserDao implements UserDetailsService {//, UserDetailsManager {
             throw new UsernameNotFoundException(String.format("User %s has no GrantedAuthority", username));
         }
 
-        return new SwapprUser(username, user.getPassword(), dbAuths, user.isAccountNonExpired(), user.isAccountNonLocked(), user.isCredentialsNonExpired(), user.isEnabled());
+        return new SwapprUser(username, user.getPassword(), dbAuths,user.getFullname(), user.getEmail(), user.isAccountNonExpired(), user.isAccountNonLocked(), user.isCredentialsNonExpired(), user.isEnabled());
     }
 
     public void createUser(SwapprUser user) {
@@ -81,7 +81,7 @@ public class UserDao implements UserDetailsService {//, UserDetailsManager {
 
     // # ROW MAPPERS
     private SwapprUser mapUser(ResultSet rs, int row) throws SQLException {
-        return new SwapprUser(rs.getString("username"), rs.getString("password"), AuthorityUtils.NO_AUTHORITIES, true, true, true, rs.getBoolean("enabled"));
+        return new SwapprUser(rs.getString("username"), rs.getString("password"), AuthorityUtils.NO_AUTHORITIES, rs.getString("fullname"), rs.getString("email"), true, true, true, rs.getBoolean("enabled"));
     }
 
     private SimpleGrantedAuthority mapAuthority(ResultSet rs, int row) throws SQLException {
