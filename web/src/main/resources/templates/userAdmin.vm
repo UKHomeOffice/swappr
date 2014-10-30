@@ -17,6 +17,29 @@
               </div>
 					#end
 				</div>
+
+        <div class="form-group">
+
+            <label class="label-inline" for="fullname">Full name:</label>
+            #springFormInput("user.fullname" "")
+            #if ($status.errorMessages.size() > 0)
+                <div class="form-right-column">
+                    #springShowErrors("" "form__error")
+                </div>
+            #end
+        </div>
+
+        <div class="form-group">
+
+            <label class="label-inline" for="email">Email:</label>
+            #springFormInput("user.email" "")
+            #if ($status.errorMessages.size() > 0)
+                <div class="form-right-column">
+                    #springShowErrors("" "form__error")
+                </div>
+            #end
+        </div>
+
         <div class="form-group">
 
             <label class="label-inline" for="password">Password:</label>

@@ -20,7 +20,7 @@
 	#set($offerer = "You")
 	#set($offererClass = "you")
 #else
-	#set($offerer = $offer.offer.swapFrom.worker.username)
+	#set($offerer = $offer.offer.swapFrom.worker.fullname)
 	#set($offererClass = "them")
 #end
 
@@ -38,14 +38,14 @@
 		#else
 			#set($yourRota = $offer.offer.swapFrom)
 			#set($theirRota = $volunteer.swapFrom)
-			#set($volunteerName = $theirRota.worker.username)
+			#set($volunteerName = $theirRota.worker.fullname)
 			#set($volunteerClass = "them")
 		#end
 
 		#if ($accepted)
         <li class="event">
             <p><strong>Swap agreed.</strong></p>
-						<p><a href="mailto:test@test.com?cc=bill@bill.com&amp;subject=Swap%20request%20from%20$offer.offer.swapFrom.worker.username&amp;body=$offer.offer.swapFrom.worker.username%20and%20$volunteer.swapFrom.worker.username%20want%20to%20swap%20the%20following%20shifts%3A%0A%0A%20$offer.offer.swapFrom.worker.username%20is%20offering%20his%20shift%20$offer.offer.swapFrom.shift.type.label%20$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0Ain%20exchange%20for%20$volunteer.swapFrom.worker.username's%20shift%20$volunteer.swapFrom.shift.type.label%20$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.">Send an email to the duty list compilers to authorise the swap</a></p>
+						<p><a href="mailto:test@test.com?cc=$offer.offer.swapFrom.worker.email;$volunteer.swapFrom.worker.email&amp;subject=Swap%20request%20from%20$offer.offer.swapFrom.worker.fullname&amp;body=$offer.offer.swapFrom.worker.fullname%20and%20$volunteer.swapFrom.worker.fullname%20want%20to%20swap%20the%20following%20shifts%3A%0A%0A%20$offer.offer.swapFrom.worker.fullname%20is%20offering%20his%20shift%20$offer.offer.swapFrom.shift.type.label%20$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0Ain%20exchange%20for%20$volunteer.swapFrom.worker.fullname's%20shift%20$volunteer.swapFrom.shift.type.label%20$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.">Send an email to the duty list compilers to authorise the swap</a></p>
             <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
                 <div class="event__rota event__rota-you">
                     <div class="event__rota-person">You</div>
@@ -53,7 +53,7 @@
                     <time class="event__rota-date">$display.fullDate($yourRota.shift.date)</time>
                 </div>
                 <div class="event__rota event__rota-them">
-                    <div class="event__rota-person">$theirRota.worker.username</div>
+                    <div class="event__rota-person">$theirRota.worker.fullname</div>
                     <div class="event__rota-shift">$theirRota.shift.type</div>
                     <time class="event__rota-date">$display.fullDate($theirRota.shift.date)</time>
                 </div>
@@ -85,7 +85,7 @@
                   <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
               </div>
               <div class="event__rota event__rota-them">
-                  <div class="event__rota-person">$theirRota.worker.username</div>
+                  <div class="event__rota-person">$theirRota.worker.fullname</div>
                   <div class="event__rota-shift">$theirRota.shift.type</div>
                   <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
               </div>
