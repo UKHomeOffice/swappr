@@ -109,7 +109,8 @@
 }
 
 .event__rota-shift {
-  @include text($base__font-size--xlarge, "", "", "", bold);
+  @include text($base__font-size--xlarge);
+  font-weight: bold;
 }
 
 .event__actions {
