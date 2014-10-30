@@ -54,6 +54,7 @@ public class OfferView {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return !isOfferForCurrentUser() && volunteers.stream().filter(v -> v.getSwapFrom().getWorker().getUsername().equals(username)).findFirst().isPresent();
     }
+
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);

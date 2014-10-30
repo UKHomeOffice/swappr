@@ -20,46 +20,92 @@
 				#else
 					#set($hiddenClass = "")
 				#end
+                #set($lastDate = $offer.fromShift().date)
       <li class="t-day timeline__day" data-t-date="$display.isoDate($offer.fromShift().date)">
               <div class="timeline__day-info timeline__day-info-date"><span class="$hiddenClass"><span class="timeline__date-day">$offer.fromShift().date.dayOfMonth</span> <span
                       class="secondary-text">${display.day($offer.fromShift().date)}</span></span></div>
-              <div class="timeline__day-info timeline__day-info-shift">
-								#if($offer.offerForCurrentUser)
-                    <strong>You</strong> want
-								#else
-                    <strong>$offer.offer.swapFrom.worker.fullname</strong> wants
-								#end
-                  to swap $offer.fromShift().type.label <span class="timeline__shift-type">$offer.fromShift().type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="timeline__shift-type">$offer.offer.swapTo.type</span>
-								#if(!$offer.sameDaySwap)
-                    on $display.fullDate($offer.offer.swapTo.date)
-								#end
-							</div>
 
-              <div class="timeline__day-info timeline__day-info-action">
-								#if($offer.offer.status.name() == 'APPROVED')
-                    <span class="action-button action-button--disabled action-button--swapped"
-                          title="Shift swapped">Shift swapped</span>
-								#elseif($offer.currentUserVolunteered)
-                    <span class="action-button action-button--disabled action-button--wait"
-                          title="Shift swapped">you have volunteered</span>
-                                #else
-                    <form action="/swap/$offer.id/volunteer" method="post">
-                        <button class="t-button-volunteer action-button action-button--swap" type="submit" title="Volunteer to swap">Volunteer</button>
-                    </form>
-								#end
-              </div>
-              <div class="secondary-text timeline__day-info timeline__day-info-status">
-								#if ($offer.offer.status.name() != 'APPROVED')
-									#if($offer.offerForCurrentUser)
-                      You've <a href="/swap/$offer.id">offered to swap</a>
-                                    #elseif($offer.currentUserVolunteered)
-                                        You have volunteered
-									#end
-								#end
-              </div>
+#if($offer.offerForCurrentUser)
+    <div class="timeline__day-info timeline__day-info-shift">
+            <strong>You</strong> want to swap $offer.fromShift().type.label <span class="timeline__shift-type">$offer.fromShift().type</span>
+         <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="timeline__shift-type">$offer.offer.swapTo.type</span>
+        #if(!$offer.sameDaySwap)
+            on $display.fullDate($offer.offer.swapTo.date)
+        #end
+    </div>
+
+    <div class="timeline__day-info timeline__day-info-action">
+        #if($offer.offer.status.name() == 'APPROVED')
+            <span class="action-button action-button--disabled action-button--swapped"
+                  title="Shift swapped">Shift swapped</span>
+        #else
+            <span class="action-button action-button--disabled action-button--wait"
+                  title="Awaiting volunteers">Awaiting volunteers</span>
+        #end
+    </div>
+
+    <div class="secondary-text timeline__day-info timeline__day-info-status">
+        #if ($offer.offer.status.name() != 'APPROVED')
+            You've <a href="/swap/$offer.id">offered to swap</a>
+        #end
+    </div>
+
+#elseif($offer.currentUserVolunteered)
+    <div class="timeline__day-info timeline__day-info-shift">
+        <strong>$offer.offer.swapFrom.worker.fullname</strong> wants to swap $offer.fromShift().type.label
+        <span class="timeline__shift-type">$offer.fromShift().type</span>
+        <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label
+        <span class="timeline__shift-type">$offer.offer.swapTo.type</span>
+        #if(!$offer.sameDaySwap)
+            on $display.fullDate($offer.offer.swapTo.date)
+        #end
+    </div>
+
+    <div class="timeline__day-info timeline__day-info-action">
+        #if($offer.offer.status.name() == 'APPROVED')
+            <span class="action-button action-button--disabled action-button--swapped"
+                  title="Shift swapped">Shift swapped</span>
+        #else
+            <span class="action-button action-button--disabled action-button--wait"
+                  title="Shift swapped">you have volunteered</span>
+        #end
+    </div>
+
+    <div class="secondary-text timeline__day-info timeline__day-info-status">
+        #if ($offer.offer.status.name() != 'APPROVED')
+            You have volunteered
+        #end
+    </div>
+
+#else
+    <div class="timeline__day-info timeline__day-info-shift">
+        <strong>$offer.offer.swapFrom.worker.fullname</strong> wants to swap $offer.fromShift().type.label
+        <span class="timeline__shift-type">$offer.fromShift().type</span>
+        <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label
+        <span class="timeline__shift-type">$offer.offer.swapTo.type</span>
+        #if(!$offer.sameDaySwap)
+            on $display.fullDate($offer.offer.swapTo.date)
+        #end
+    </div>
+
+    <div class="timeline__day-info timeline__day-info-action">
+        #if($offer.offer.status.name() == 'APPROVED')
+            <span class="action-button action-button--disabled action-button--swapped"
+                  title="Shift swapped">Shift swapped</span>
+        #else
+            <form action="/swap/$offer.id/volunteer" method="post">
+                <button class="t-button-volunteer action-button action-button--swap" type="submit" title="Volunteer to swap">Volunteer</button>
+            </form>
+        #end
+    </div>
+
+    <div class="secondary-text timeline__day-info timeline__day-info-status">
+    </div>
+
+#end
           </li>
 
-				#set($lastDate = $offer.fromShift().date)
+
 			#end
   </ol>
 	#end
