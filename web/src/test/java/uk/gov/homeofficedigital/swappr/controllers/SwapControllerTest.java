@@ -98,7 +98,7 @@ public class SwapControllerTest {
         RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
         String target = swapController.acceptVolunteer(volunteer.getSwapTo().getId(), volunteer.getId(), attrs);
 
-        assertEquals("redirect:/", target);
+        assertEquals("redirect:/swap/" + volunteer.getSwapTo().getId(), target);
         verify(rotaService).acceptVolunteer(volunteer);
         assertEquals("acceptSwap", attrs.getFlashAttributes().get("flashType"));
     }
