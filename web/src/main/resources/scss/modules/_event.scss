@@ -9,7 +9,7 @@
   border-top: 1px solid $border__colour--dark;
   display: block;
   list-style: none;
-  padding: 50px 40px 20px 40px;
+  padding: 50px 40px 50px 40px;
   position: relative;
   &:before {
     display: block;
@@ -37,6 +37,26 @@
   }
 }
 
+.event__heading {
+  @include text($base__font-size);
+  padding: 0;
+  margin-top: 0;
+}
+
+.event__heading--strong {
+  font-weight: bold;
+}
+
+.event__subheading {
+  padding: 0;
+  margin: 0;
+}
+
+.event__step {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
 .event__date {
   @include text($base__font-size--xsmall, "", "", $text__colour--secondary);
   position: absolute;
@@ -60,10 +80,6 @@
     left: 50%;
   }
   &.event__swap-accepted:before {
-    @extend %icon;
-    @extend %icon-wait-disabled;
-  }
-  &.event__swap-approved:before {
     content: "✔";
   }
 }
@@ -76,10 +92,16 @@
   padding: 20px 30px;
   text-align: center;
   &:first-child {
-    margin-right: 30px;
+    margin-bottom: 30px;
   }
-  &:last-child {
-    margin-left: 30px;
+  @include media(tablet) {
+    &:first-child {
+      margin-bottom: 0;
+      margin-right: 30px;
+    }
+    &:last-child {
+      margin-left: 30px;
+    }
   }
   .event__swap-confirmed & {
     background-color: $background__colour--swap;
@@ -90,7 +112,15 @@
   @include text($base__font-size--xlarge, "", "", "", bold);
 }
 
+.event__actions {
+  text-align: center;
+}
+
 .event__action {
+  display: inline-block;
   margin-top: 20px;
   text-align: center;
+  &:first-child {
+    margin-right: 20px;
+  }
 }
