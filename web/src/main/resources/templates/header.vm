@@ -1,5 +1,5 @@
 <div class="header__banner">
-    <h1 class="header__logo">Swappr.<span class="phase-tag">alpha</span></h1>
+    <h1 class="header__logo"><strong>Swappr</strong>.<span class="phase-tag">alpha</span></h1>
 
 	#if($sec.loggedInUser().isPresent())
       <div class="user-settings">
