@@ -27,7 +27,7 @@
                         class="secondary-text">${display.day($offer.fromShift().date)}</span></span></div>
 
                 #if($offer.offerForCurrentUser)
-                    <div class="timeline__day-info timeline__day-info-shift">
+                    <div class="timeline__day-info timeline__day-info-shift t-shift">
                         <strong>You</strong> want to swap $offer.fromShift().type.label <span
                             class="timeline__shift-type">$offer.fromShift().type</span>
                         <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span
@@ -54,7 +54,7 @@
                     </div>
 
                 #elseif($offer.currentUserVolunteered)
-                    <div class="timeline__day-info timeline__day-info-shift">
+                    <div class="timeline__day-info timeline__day-info-shift t-shift">
                         <strong>$offer.offer.swapFrom.worker.fullname</strong> wants to
                         swap $offer.fromShift().type.label
                         <span class="timeline__shift-type">$offer.fromShift().type</span>
@@ -75,7 +75,7 @@
                     </div>
 
                 #else
-                    <div class="timeline__day-info timeline__day-info-shift">
+                    <div class="timeline__day-info timeline__day-info-shift t-shift">
                         <strong>$offer.offer.swapFrom.worker.fullname</strong> wants to
                         swap $offer.fromShift().type.label
                         <span class="timeline__shift-type">$offer.fromShift().type</span>
@@ -100,9 +100,6 @@
                                 </button>
                             </form>
                         #end
-                    </div>
-
-                    <div class="secondary-text timeline__day-info timeline__day-info-status">
                     </div>
 
                 #end

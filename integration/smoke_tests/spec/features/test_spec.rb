@@ -11,10 +11,10 @@ feature "Full journey - offer shift, accept volunteer, mark as approved" do
     date = find_date_by_row(3)
     offer_shift(3, 'BFH - Early', 'S1H - Late')
     assert_status_for_date(date, 'Swap requested')
-    # logout
-    # login_user_ben
-    # go_to_timeline
-    # assert_shift_details_for_date(date, "Bill Beetroot wants to swap")
+    logout
+    login_user_ben
+    go_to_timeline
+    assert_shift_details_for_date(date, "Bill Beetroot wants to swap")
   end
 
   scenario "You can volunteer to swap for an offered shift" do
