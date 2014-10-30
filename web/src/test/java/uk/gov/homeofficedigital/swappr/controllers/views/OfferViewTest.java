@@ -11,7 +11,9 @@ import uk.gov.homeofficedigital.swappr.model.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 import static com.natpryce.makeiteasy.MakeItEasy.*;
 import static org.junit.Assert.*;
@@ -98,5 +100,51 @@ public class OfferViewTest {
         OfferView offerView = new OfferView(offer, Collections.emptySet());
 
         assertFalse(offerView.isOfferForCurrentUser());
+    }
+
+    @Test
+    public void isCurrentUserVolunteered_shouldBeTrue_givenUserInTheVolunteersList() throws Exception {
+        SecurityContextHolder.setContext(new SecurityContext() {
+            @Override
+            public Authentication getAuthentication() {
+                return new UsernamePasswordAuthenticationToken((Principal) () -> "Fred", null);
+            }
+
+            @Override
+            public void setAuthentication(Authentication authentication) {
+
+            }
+        });
+        SwapprUser volunteerUser = make(a(UserMaker.User, with(UserMaker.username, "Fred")));
+        Offer offer = make(an(OfferMaker.Offer,
+                with(OfferMaker.rota, make(a(RotaMaker.Rota,
+                        with(RotaMaker.user, new SwapprUser("Arthur", "abc", Collections.emptyList(), "Arthur", "a@mail.com")))))));
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user,volunteerUser))))));
+        OfferView offerView = new OfferView(offer, new HashSet<>(Arrays.asList(volunteer)));
+
+        assertTrue(offerView.isCurrentUserVolunteered());
+    }
+
+    @Test
+    public void isCurrentUserVolunteered_shouldBeFalse_givenUserIsNotInTheVolunteersList() throws Exception {
+        SecurityContextHolder.setContext(new SecurityContext() {
+            @Override
+            public Authentication getAuthentication() {
+                return new UsernamePasswordAuthenticationToken((Principal) () -> "Fred", null);
+            }
+
+            @Override
+            public void setAuthentication(Authentication authentication) {
+
+            }
+        });
+        SwapprUser volunteerUser = make(a(UserMaker.User, with(UserMaker.username, "James")));
+        Offer offer = make(an(OfferMaker.Offer,
+                with(OfferMaker.rota, make(a(RotaMaker.Rota,
+                        with(RotaMaker.user, new SwapprUser("Arthur", "abc", Collections.emptyList(), "Arthur", "a@mail.com")))))));
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user,volunteerUser))))));
+        OfferView offerView = new OfferView(offer, new HashSet<>(Arrays.asList(volunteer)));
+
+        assertFalse(offerView.isCurrentUserVolunteered());
     }
 }

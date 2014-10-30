@@ -39,7 +39,10 @@
 								#if($offer.offer.status.name() == 'APPROVED')
                     <span class="action-button action-button--disabled action-button--swapped"
                           title="Shift swapped">Shift swapped</span>
-								#else
+								#elseif($offer.currentUserVolunteered)
+                    <span class="action-button action-button--disabled action-button--wait"
+                          title="Shift swapped">you have volunteered</span>
+                                #else
                     <form action="/swap/$offer.id/volunteer" method="post">
                         <button class="t-button-volunteer action-button action-button--swap" type="submit" title="Volunteer to swap">Volunteer</button>
                     </form>
@@ -49,6 +52,8 @@
 								#if ($offer.offer.status.name() != 'APPROVED')
 									#if($offer.offerForCurrentUser)
                       You've <a href="/swap/$offer.id">offered to swap</a>
+                                    #elseif($offer.currentUserVolunteered)
+                                        You have volunteered
 									#end
 								#end
               </div>

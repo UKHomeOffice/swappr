@@ -9,7 +9,6 @@ import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.Volunteer;
 import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
 
-import java.security.Principal;
 import java.util.Set;
 
 public class OfferView {
@@ -49,6 +48,11 @@ public class OfferView {
     public boolean isOfferForCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return username.equals(offer.getSwapFrom().getWorker().getUsername());
+    }
+
+    public boolean isCurrentUserVolunteered() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return !isOfferForCurrentUser() && volunteers.stream().filter(v -> v.getSwapFrom().getWorker().getUsername().equals(username)).findFirst().isPresent();
     }
     @Override
     public int hashCode() {
