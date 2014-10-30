@@ -38,8 +38,13 @@
 				#end
     </fieldset>
 
+	#springBind("swap.validToDate")
+	#if ($status.errorMessages.size() > 0)
+      <div class="form__error-summary">
+				#springShowErrors("" "form__error")
+      </div>
+	#end
     <fieldset class="form-group-inline-container">
-			#springBind("swap.validToDate")
         <div class="form-group-inline form-group-fixed-medium">
             <legend>Requested<span class="hidden"> date</span></legend>
         </div>
