@@ -11,6 +11,7 @@ import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -54,12 +55,13 @@ public class RotaDao {
     }
 
     public Set<Rota> findByWorker(SwapprUser worker) {
-        List<Rota> rota = template.query("select * from rota where username = :username", toMap("username", worker.getUsername()), this::mapRota);
+        List<Rota> rota = template.query("select * from rota where username = :username and shiftDate between :start and :end",
+                toMap("username", worker.getUsername(), "start", Date.valueOf(LocalDate.now()), "end", Date.valueOf(LocalDate.now().plusMonths(2))), this::mapRota);
         return new HashSet<>(rota);
     }
 
     public Set<Rota> findAll() {
-        List<Rota> rota = template.query("select * from rota", toMap(), this::mapRota);
+        List<Rota> rota = template.query("select * from rota where shiftDate between :start and :end", toMap("start", Date.valueOf(LocalDate.now()), "end", Date.valueOf(LocalDate.now().plusMonths(2))), this::mapRota);
         return new HashSet<>(rota);
     }
 

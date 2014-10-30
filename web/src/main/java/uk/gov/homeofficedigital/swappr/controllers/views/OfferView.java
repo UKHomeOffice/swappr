@@ -5,6 +5,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import uk.gov.homeofficedigital.swappr.model.Offer;
+import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.Volunteer;
 import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
 
@@ -35,6 +36,10 @@ public class OfferView {
 
     public String getAcceptedVolunteer() {
         return volunteers.stream().filter(v -> v.getStatus() == VolunteerStatus.ACCEPTED).findFirst().map(v -> v.getSwapFrom().getWorker().getFullname()).orElse(null);
+    }
+
+    public Shift fromShift() {
+        return offer.getSwapFrom().getShift();
     }
 
     public boolean isSameDaySwap() {

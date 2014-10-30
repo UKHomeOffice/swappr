@@ -7,6 +7,7 @@ import uk.gov.homeofficedigital.swappr.model.*;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +57,11 @@ public class OfferDao {
 
     private RowMapper<Offer> mapOfferFor(Rota rota) {
         return (rs, idx) -> new Offer(rs.getLong("id"), rota, new Shift(rs.getDate("shiftDate").toLocalDate(), ShiftType.valueOf(rs.getString("shiftCode"))), OfferStatus.valueOf(rs.getString("status")));
+    }
+
+    public Set<Offer> findOffersBetween(LocalDate start, LocalDate end) {
+        List<Offer> offers = template.query("select o.* from offer o join rota r on o.rotaId = r.id where r.shiftDate between :start and :end",
+                toMap("start", Date.valueOf(start), "end", Date.valueOf(end)), this::mapOffer);
+        return new HashSet<>(offers);
     }
 }

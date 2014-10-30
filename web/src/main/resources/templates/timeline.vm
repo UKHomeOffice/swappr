@@ -1,36 +1,35 @@
-#* @vtlvariable name="rotasByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.controllers.views.RotaView>>" *#
+#* @vtlvariable name="offersByMonth" type="java.util.Map<java.time.Month, java.util.List<uk.gov.homeofficedigital.swappr.controllers.views.OfferView>>" *#
 #set($pageTitle = 'Timeline')
 #set($tab = 'timeline')
 
-#foreach($rotaMonth in $rotasByMonth.keySet())
-	#set($rotaViews = $rotasByMonth.get($rotaMonth))
+#foreach($offerMonth in $offersByMonth.keySet())
+	#set($offerViews = $offersByMonth.get($offerMonth))
 
 <div class="timeline__heading-container">
-    <h1 class="timeline__heading"><span class="secondary-text">All / </span>$display.month($rotaMonth)</h1>
+    <h1 class="timeline__heading"><span class="secondary-text">All / </span>$display.month($offerMonth)</h1>
 </div>
-	#if($rotaViews.isEmpty())
+	#if($offerViews.isEmpty())
   <p>No swaps</p>
 	#else
   <ol class="timeline__days">
 
 
-		#foreach($rotaView in $rotaViews)
-			#foreach($offer in $rotaView.getOffers())
-				#if ($rotaView.rota.shift.date == $lastDate)
+			#foreach($offer in $offerViews)
+				#if ($offer.fromShift().date == $lastDate)
 					#set($hiddenClass = " hidden")
 				#else
 					#set($hiddenClass = "")
 				#end
-      <li class="t-day timeline__day" data-t-date="$display.isoDate($rotaView.rota.shift.date)">
-              <div class="timeline__day-info timeline__day-info-date"><span class="$hiddenClass"><span class="timeline__date-day">$rotaView.rota.shift.date.dayOfMonth</span> <span
-                      class="secondary-text">${display.day($rotaView.rota.shift.date)}</span></span></div>
+      <li class="t-day timeline__day" data-t-date="$display.isoDate($offer.fromShift().date)">
+              <div class="timeline__day-info timeline__day-info-date"><span class="$hiddenClass"><span class="timeline__date-day">$offer.fromShift().date.dayOfMonth</span> <span
+                      class="secondary-text">${display.day($offer.fromShift().date)}</span></span></div>
               <div class="timeline__day-info timeline__day-info-shift">
 								#if($offer.offerForCurrentUser)
                     <strong>You</strong> want
 								#else
                     <strong>$offer.offer.swapFrom.worker.fullname</strong> wants
 								#end
-                  to swap $offer.offer.swapFrom.shift.type.label <span class="timeline__shift-type">$offer.offer.swapFrom.shift.type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="timeline__shift-type">$offer.offer.swapTo.type</span>
+                  to swap $offer.fromShift().type.label <span class="timeline__shift-type">$offer.fromShift().type</span> <span class="icon-arrow-right">for</span> $offer.offer.swapTo.type.label <span class="timeline__shift-type">$offer.offer.swapTo.type</span>
 								#if(!$offer.sameDaySwap)
                     on $display.fullDate($offer.offer.swapTo.date)
 								#end
@@ -55,9 +54,8 @@
               </div>
           </li>
 
-				#set($lastDate = $rotaView.rota.shift.date)
+				#set($lastDate = $offer.fromShift().date)
 			#end
-		#end
   </ol>
 	#end
 #end

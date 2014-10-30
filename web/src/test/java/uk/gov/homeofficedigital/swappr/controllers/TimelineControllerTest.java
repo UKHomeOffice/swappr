@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
 import org.springframework.validation.support.BindingAwareModelMap;
+import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.model.*;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
+import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -31,9 +33,9 @@ public class TimelineControllerTest {
     private TimelineController controller = new TimelineController(rotaService);
 
     @Test
-    public void rotasByMonthInModelShouldBeEmptyWhenThereAreNoSwaps() {
+    public void offersByMonthInModelShouldBeEmptyWhenThereAreNoSwaps() {
 
-        when(rotaService.findAllRotas()).thenReturn(new HashSet<>());
+        when(rotaService.findAllOffers()).thenReturn(new HashSet<>());
 
         Model model = new BindingAwareModelMap();
 
@@ -41,37 +43,37 @@ public class TimelineControllerTest {
 
         assertThat(viewName, equalTo("timeline"));
 
-        Map<Month, List<RotaView>> rotasByMonth = (Map<Month, List<RotaView>>) model.asMap().get("rotasByMonth");
-        assertThat(rotasByMonth.keySet(), hasSize(0));
+        Map<Month, List<OfferView>> offersByMonth = (Map<Month, List<OfferView>>) model.asMap().get("offersByMonth");
+        assertThat(offersByMonth.keySet(), hasSize(0));
     }
 
     @Test
-    public void rotasByMonthInModelShouldContainAllRotasGroupedByMonth() {
-        Set<RotaView> foundRotas = new HashSet<>();
+    public void offersByMonthInModelShouldContainAllOffersGroupedByMonth() {
+        Set<OfferView> foundOffers = new HashSet<>();
         LocalDate today = LocalDate.now();
-        RotaView rotaThisMonth = new RotaView(new Rota(45l, user, new Shift(today, ShiftType.B1H)), new HashSet<>(), new HashSet<>());
-        RotaView rota1NextMonth = new RotaView(new Rota(46l, user, new Shift(today.plusMonths(1), ShiftType.B1H)), new HashSet<>(), new HashSet<>());
-        RotaView rota2NextMonth = new RotaView(new Rota(47l, user, new Shift(today.plusMonths(1), ShiftType.B1H)), new HashSet<>(), new HashSet<>());
-        foundRotas.add(rotaThisMonth);
-        foundRotas.add(rota1NextMonth);
-        foundRotas.add(rota2NextMonth);
-        when(rotaService.findAllRotas()).thenReturn(foundRotas);
+        OfferView offerThisMonth = new OfferView(make(a(OfferMaker.Offer, with(OfferMaker.rota, new Rota(45l, user, new Shift(today, ShiftType.B1H))))), new HashSet<>());
+        OfferView offer1NextMonth = new OfferView(make(a(OfferMaker.Offer, with(OfferMaker.rota, new Rota(46l, user, new Shift(today.plusMonths(1), ShiftType.B1H))))), new HashSet<>());
+        OfferView offer2NextMonth = new OfferView(make(a(OfferMaker.Offer, with(OfferMaker.rota, new Rota(47l, user, new Shift(today.plusMonths(1), ShiftType.B1H))))), new HashSet<>());
+        foundOffers.add(offerThisMonth);
+        foundOffers.add(offer1NextMonth);
+        foundOffers.add(offer2NextMonth);
+        when(rotaService.findAllOffers()).thenReturn(foundOffers);
 
         Model model = new BindingAwareModelMap();
 
         controller.showTimeline(model);
 
-        Map<Month, List<RotaView>> rotasByMonth = (Map<Month, List<RotaView>>) model.asMap().get("rotasByMonth");
-        assertThat(rotasByMonth.keySet(), hasSize(2));
+        Map<Month, List<OfferView>> offersByMonth = (Map<Month, List<OfferView>>) model.asMap().get("offersByMonth");
+        assertThat(offersByMonth.keySet(), hasSize(2));
 
-        List<RotaView> rotasThisMonth = rotasByMonth.get(today.getMonth());
+        List<OfferView> rotasThisMonth = offersByMonth.get(today.getMonth());
         assertThat(rotasThisMonth, hasSize(1));
-        assertThat(rotasThisMonth, hasItem(rotaThisMonth));
+        assertThat(rotasThisMonth, hasItem(offerThisMonth));
 
-        List<RotaView> rotasNextMonth = rotasByMonth.get(today.plusMonths(1).getMonth());
+        List<OfferView> rotasNextMonth = offersByMonth.get(today.plusMonths(1).getMonth());
         assertThat(rotasNextMonth, hasSize(2));
-        assertThat(rotasNextMonth, hasItem(rota1NextMonth));
-        assertThat(rotasNextMonth, hasItem(rota2NextMonth));
+        assertThat(rotasNextMonth, hasItem(offer1NextMonth));
+        assertThat(rotasNextMonth, hasItem(offer2NextMonth));
     }
 
 }

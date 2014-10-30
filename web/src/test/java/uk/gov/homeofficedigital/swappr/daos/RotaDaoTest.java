@@ -2,7 +2,6 @@ package uk.gov.homeofficedigital.swappr.daos;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
 import uk.gov.homeofficedigital.swappr.model.*;
 
@@ -68,6 +67,24 @@ public class RotaDaoTest extends SpringIntegrationTest {
 
         assertTrue(actual.containsAll(billsRota));
         assertTrue(actual.containsAll(bensRota));
+    }
+
+
+    @Test
+    public void findAll_shouldIgnoreRotasInThePastAndMoreThan2MonthsInTheFuture() throws Exception {
+        SwapprUser bill = UserMaker.bill();
+        SwapprUser ben = UserMaker.ben();
+
+        LocalDate now = LocalDate.now();
+        Rota pastRota = rotaDao.create(bill, new Shift(now.minusDays(1), ShiftType.C1H));
+        Rota presentRota = rotaDao.create(ben, new Shift(now.plusDays(2), ShiftType.C1H));
+        Rota futureRota = rotaDao.create(ben, new Shift(now.plusDays(1).plusMonths(2), ShiftType.C1H));
+
+        Set<Rota> actual = rotaDao.findAll();
+
+        assertTrue(actual.contains(presentRota));
+        assertFalse(actual.contains(pastRota));
+        assertFalse(actual.contains(futureRota));
     }
 
     @Test

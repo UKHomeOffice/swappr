@@ -8,11 +8,14 @@ import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
 import uk.gov.homeofficedigital.swappr.model.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RotaService {
+
 
     private final RotaDao rotaDao;
     private final OfferDao offerDao;
@@ -58,6 +61,11 @@ public class RotaService {
 
     public Set<RotaView> findAllRotas() {
         return mapToRotaView(rotaDao.findAll());
+    }
+
+    public Set<OfferView> findAllOffers() {
+        Stream<OfferView> offerViews = offerDao.findOffersBetween(LocalDate.now(), LocalDate.now().plusMonths(2)).stream().map(o -> new OfferView(o, volunteerDao.findByOffer(o)));
+        return offerViews.collect(Collectors.toSet());
     }
 
     private Set<RotaView> mapToRotaView(Set<Rota> rotas) {
