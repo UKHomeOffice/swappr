@@ -85,12 +85,13 @@ public class SwapprUserDaoTest extends SpringIntegrationTest {
     @Test
     public void ensureThatLoadingUserByUsername_PopulatesFullnameAndEmailProperties() {
         // Arrange
-        template.update("insert into users(username, password, enabled, email, fullname) values ('userwithnoroles', 'password', 1, 'mail@mail.com', 'Test User')");
-        template.update("insert into authorities(username, authority) values ('userwithnoroles', 'USER')");
+        String username = RandomStringUtils.randomAlphanumeric(50);
+        template.update("insert into users(username, password, enabled, email, fullname) values ('"+username+"', 'password', 1, 'mail@mail.com', 'Test User')");
+        template.update("insert into authorities(username, authority) values ('"+username+"', 'USER')");
 
         // Act
 
-        final SwapprUser userDetails = (SwapprUser)userDao.loadUserByUsername("userwithnoroles");
+        final SwapprUser userDetails = (SwapprUser)userDao.loadUserByUsername(username);
 
         //Assert
         assertThat(userDetails.getFullname(), is("Test User"));

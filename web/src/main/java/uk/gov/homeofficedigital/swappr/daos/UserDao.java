@@ -1,6 +1,5 @@
 package uk.gov.homeofficedigital.swappr.daos;
 
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -17,7 +16,7 @@ import java.util.*;
 
 import static uk.gov.homeofficedigital.swappr.daos.DaoUtil.toMap;
 
-public class UserDao implements UserDetailsService {//, UserDetailsManager {
+public class UserDao implements UserDetailsService {
     private final NamedParameterJdbcTemplate template;
 
     public UserDao(NamedParameterJdbcTemplate template) {
