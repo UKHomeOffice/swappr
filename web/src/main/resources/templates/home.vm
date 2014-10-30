@@ -43,7 +43,6 @@
             <a href="/swap/new?rotaId=$dayView.rota.rota.id" class="t-swap-shift action-button action-button--swap"
                title="Request swap">Request swap</a>
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status t-status"></div>
 
 		#elseif($dayView.status == 'OfferAwaitingVolunteers')
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
