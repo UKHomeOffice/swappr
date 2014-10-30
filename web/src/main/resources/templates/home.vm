@@ -77,7 +77,7 @@
 					#foreach($offer in $dayView.rota.offers)
               Swap requested.
               <div class="volunteers">
-                  <a href="/swap/$offer.id">
+                  <a class="t-link-swap-view" href="/swap/$offer.id">
 								#foreach($volunteer in $offer.volunteers)
 									$volunteer.swapFrom.worker.fullname#if($foreach.count>0 && !$foreach.last), #end
 								#end
@@ -102,7 +102,7 @@
         </div>
         <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
-              <a href="/swap/$offer.id">Swap agreed.</a>
+              <a class="t-link-swap-view" href="/swap/$offer.id">Swap agreed.</a>
 							<div>
                  Awaiting approval.
 							</div>
@@ -122,10 +122,10 @@
         </div>
         <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
-              <a href="/swap/$offer.id">Your swap</a>
-              with $offer.acceptedVolunteer <span class="icon-arrow-right">for</span>
-              <span class="t-offer-shift-type">$offer.offer.swapTo.type</span>
-              on $display.fullDate($offer.offer.swapTo.date) has been approved
+							Approved.
+              <div>
+                  <a class="t-link-swap-view" href="/swap/$offer.id">Swapped</a> with $offer.acceptedVolunteer
+              </div>
 					#end
         </div>
 

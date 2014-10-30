@@ -44,7 +44,7 @@
 
 		#if ($accepted && !$approvedByHR && !$volunteerIsYou)
         <li class="event event--you">
-            <h2 class="event__heading event__heading--strong">Next steps</h2>
+            <h2 class="t-event-heading event__heading event__heading--strong">Next steps</h2>
             <ol>
                 <li>
                     <h3 class="event__subheading">Request approval</h3>
@@ -77,7 +77,7 @@
 		#end
 		#if ($accepted)
         <li class="event event--you">
-            <h2 class="event__heading event__heading--strong">Swap $confirmedLabel</h2>
+            <h2 class="t-event-heading event__heading event__heading--strong">Swap $confirmedLabel</h2>
 
             <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
                 <div class="event__rota event__rota-you">
@@ -94,7 +94,7 @@
         </li>
 		#end
       <li class="event event--$volunteerClass">
-          <h2 class="event__heading"><strong>$volunteerName</strong> $volunteerText to swap</h2>
+          <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> $volunteerText to swap</h2>
 
           <div class="event__swap">
               <div class="event__rota event__rota-you">

@@ -34,6 +34,30 @@ def offer_shift(day_index, shift_type_from, shift_type_to)
   click_on('Request swap')
 end
 
+def find_date_by_row(row_index)
+  page.all('.t-day')[row_index]['data-t-date']
+end
+
 def find_day_row_by_date(date)
   find(:xpath, "//*[@data-t-date='" + date + "']")
+end
+
+def assert_status_for_date(date, status)
+  expect(find_day_row_by_date(date).find('.t-status')).to have_content(status)
+end
+
+def assert_shift_details_for_date(date, text)
+  expect(find_day_row_by_date(date).find('.t-shift')).to have_content(text)
+end
+
+def assert_last_event_heading(heading)
+  expect(page.all('.t-event-heading')[0]).to have_content(heading)
+end
+
+def go_to_swap_view_for_date(date)
+  find_day_row_by_date(date).find('.t-link-swap-view').click
+end
+
+def go_to_timeline
+  find('.t-nav-timeline').click
 end

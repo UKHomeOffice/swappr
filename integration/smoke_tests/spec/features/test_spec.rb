@@ -1,39 +1,39 @@
 require 'spec_helper'
 require 'step_definitions/common_steps'
 
-feature "Logging in" do
+feature "Full journey - offer shift, accept volunteer, mark as approved" do
 
   background do
     login_user_bill
   end
 
-  scenario "Signing in takes you to the 'You' timeline" do
-    expect(page).to have_selector('.sprite-user')
-  end
-
-  scenario "You can add a shift" do
-    add_shift(1, 'CFH - Mid')
-    expect(page.all('.t-day')[1]).to have_selector('.t-swap-shift')
-  end
-
   scenario "You can offer to swap a shift" do
-    date = page.all('.t-day')[3]['data-t-date']
+    date = find_date_by_row(3)
     offer_shift(3, 'BFH - Early', 'S1H - Late')
-    expect(page.all('.t-day')[3].find('.t-status')).to have_content('Swap requested')
+    assert_status_for_date(date, 'Swap requested')
     # logout
     # login_user_ben
-    # find('.t-nav-timeline').click
-    # expect(find_day_row_by_date(date).find('.t-shift')).to have_content("Bill Beetroot wants to swap")
+    # go_to_timeline
+    # assert_shift_details_for_date(date, "Bill Beetroot wants to swap")
   end
 
   scenario "You can volunteer to swap for an offered shift" do
-    date = page.all('.t-day')[5]['data-t-date']
+    date = find_date_by_row(5)
     offer_shift(5, 'CFH - Mid', 'C1H - Mid')
     logout
     login_user_ben
-    find('.t-nav-timeline').click
+    go_to_timeline
     find_day_row_by_date(date).find('.t-button-volunteer').click
-    expect(find_day_row_by_date(date).find('.t-status')).to have_content("You have replied")
+    assert_status_for_date(date, "You have replied")
+    logout
+    login_user_bill
+    assert_status_for_date(date, "Ben Bernanke has replied")
+    go_to_swap_view_for_date(date)
+    assert_last_event_heading("Ben Bernanke volunteered to swap")
+    click_on('Accept offer')
+    assert_last_event_heading("Next steps")
+    click_on('Approved')
+    assert_status_for_date(date, "Approved. Swapped with Ben Bernanke")
   end
 
 end
