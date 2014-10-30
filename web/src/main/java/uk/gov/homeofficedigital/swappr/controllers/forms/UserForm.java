@@ -12,6 +12,7 @@ public class UserForm {
     private String username;
 
     @Email
+    @NotNull
     @Size(min=5, max=150)
     private String email;
 
@@ -62,5 +63,13 @@ public class UserForm {
 
     public String getFullname() {
         return fullname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

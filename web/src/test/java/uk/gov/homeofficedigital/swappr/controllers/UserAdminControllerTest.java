@@ -1,25 +1,25 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BindingResult;
-import uk.gov.homeofficedigital.swappr.controllers.forms.UserForm;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import uk.gov.homeofficedigital.swappr.daos.UserDao;
 import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
-import java.util.Arrays;
-
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class UserAdminControllerTest {
 
@@ -27,13 +27,14 @@ public class UserAdminControllerTest {
     private UserDao userService = mock(UserDao.class);
     private UserAdminController controller = new UserAdminController(userService, encoder);
 
-    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).setValidator(new LocalValidatorFactoryBean()).build();
 
     @Test
     public void userAdmin_shouldDisplayTheUserAdminView() throws Exception {
 
         mockMvc.perform(get("/admin/users"))
                 .andExpect(view().name("userAdmin"))
+                .andExpect(status().isOk())
                 .andExpect(model().size(1))
                 .andExpect(model().attribute("user", allOf(
                         hasProperty("username", nullValue()),
@@ -41,37 +42,46 @@ public class UserAdminControllerTest {
                         hasProperty("password", nullValue()),
                         hasProperty("confirmPassword", nullValue()),
                         hasProperty("email", nullValue())
-                        )));
-
-//        String viewName = controller.userAdmin(model);
-//
-//        assertEquals("userAdmin", viewName);
-//        verify(model).addAttribute(eq("user"), isA(UserForm.class));
+                )));
     }
 
     @Test
     public void add_shouldRedisplayTheForm_givenParametersWereInvalid() throws Exception {
-        BindingResult result = mock(BindingResult.class);
-        when(result.hasErrors()).thenReturn(true);
-
-        String target = controller.add(new UserForm(), result);
-
-        assertEquals("userAdmin", target);
+        mockMvc.perform(post("/admin/users/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("userAdmin"))
+                .andExpect(model().size(1))
+                .andExpect(model().attributeExists("user"))
+                .andExpect(model().attributeHasFieldErrors("user", "username", "fullname", "password", "confirmPassword", "email"));
     }
 
     @Test
     public void add_shouldCreateTheUser_givenParametersWereValid() throws Exception {
-        BindingResult result = mock(BindingResult.class);
-        when(result.hasErrors()).thenReturn(false);
-        UserForm form = new UserForm();
-        form.setUsername("someUser");
-        form.setPassword("pwd1");
-        form.setConfirmPassword("pwd1");
         when(encoder.encode("pwd1")).thenReturn("encodedPwd1");
 
-        String target = controller.add(form, result);
+        mockMvc.perform(post("/admin/users/add")
+                        .param("username", "someUser")
+                        .param("password", "pwd1")
+                        .param("confirmPassword", "pwd1")
+                        .param("fullname", "Bob Smith")
+                        .param("email", "bob@mail.com")
+        )
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(model().size(1))
+                .andExpect(model().hasNoErrors()
+                );
 
-        assertEquals("redirect:/", target);
-        verify(userService).createUser(new SwapprUser("someUser", "encodedPassword", Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
+        ArgumentCaptor<SwapprUser> userCaptor = ArgumentCaptor.forClass(SwapprUser.class);
+
+        verify(userService).createUser(userCaptor.capture());
+        SwapprUser actualUser = userCaptor.getValue();
+
+        assertThat(actualUser.getUsername(), is("someUser"));
+        assertThat(actualUser.getEmail(), is("bob@mail.com"));
+        assertThat(actualUser.getPassword(), is("encodedPwd1"));
+        assertThat(actualUser.getFullname(), is("Bob Smith"));
+        assertThat(actualUser.getAuthorities(), contains(new SimpleGrantedAuthority("USER")));
     }
 }

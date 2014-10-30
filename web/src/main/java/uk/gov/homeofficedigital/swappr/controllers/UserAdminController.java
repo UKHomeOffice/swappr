@@ -41,7 +41,7 @@ public class UserAdminController {
             return "userAdmin";
         }
         GrantedAuthority auth = new SimpleGrantedAuthority(Role.USER.name());
-        manager.createUser(new SwapprUser(userForm.getUsername(), encoder.encode(userForm.getPassword()), Arrays.asList(auth)));
+        manager.createUser(new SwapprUser(userForm.getUsername(), encoder.encode(userForm.getPassword()), Arrays.asList(auth), userForm.getFullname(), userForm.getEmail()));
         return "redirect:/";
     }
 }
