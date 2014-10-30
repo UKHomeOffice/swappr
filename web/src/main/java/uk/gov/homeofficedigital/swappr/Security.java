@@ -47,30 +47,4 @@ public class Security extends WebSecurityConfigurerAdapter {
     public void globalSecurityConfiguration(AuthenticationManagerBuilder auth, UserDetailsService userDetailsService, PasswordEncoder encoder) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
     }
-
-    //
-//    @Configuration
-//    protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-//
-//        @Autowired
-//        private DataSource dataSource;
-//
-//        private PasswordEncoder passwordEncoder = new StandardPasswordEncoder("it's a secret");
-//
-//        @Bean
-//        public PasswordEncoder encoder() {
-//            return passwordEncoder;
-//        }
-//
-//        @Bean
-//        public UserDetailsService userDetailsService(){
-//            return new UserDao(template)
-//        }
-//
-//        @Override
-//        public void init(AuthenticationManagerBuilder auth) throws Exception {
-////            auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder);
-//            auth.userDetailsService(userDetailsService()).passwordEncoder(encoder());
-//        }
-//    }
 }

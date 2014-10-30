@@ -46,8 +46,8 @@ public class UserDao implements UserDetailsService {//, UserDetailsManager {
 
     public void createUser(SwapprUser user) {
         validateUserDetails(user);
-        template.update("insert into users (username, password, enabled) values (:username, :password, :enabled)",
-                toMap("username", user.getUsername(), "password", user.getPassword(), "enabled", user.isEnabled()));
+        template.update("insert into users (username, password, enabled, email, fullname) values (:username, :password, :enabled, :email, :fullname)",
+                toMap("username", user.getUsername(), "password", user.getPassword(), "enabled", user.isEnabled(), "email", user.getEmail(), "fullname", user.getFullname()));
 
         insertUserAuthorities(user);
 

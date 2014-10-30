@@ -9,6 +9,9 @@ import java.util.List;
 
 public class SwapprUser implements UserDetails{
 
+
+    private final String fullname;
+    private final String email;
     private final String username;
     private final String password;
     private final List<GrantedAuthority> authorities;
@@ -17,14 +20,28 @@ public class SwapprUser implements UserDetails{
     private boolean credentialsNonExpired;
     private boolean enabled;
 
+
+    @Deprecated
     public SwapprUser(String username, String password, List<GrantedAuthority> authorities) {
-        this(username,password,authorities, true, true, true,true);
+        this(username,password,authorities, "N/A", "unknown@email.com");
     }
 
+    public SwapprUser(String username, String password, List<GrantedAuthority> authorities, String fullname, String email) {
+        this(username,password,authorities, fullname, email, true, true, true,true);
+    }
+
+    @Deprecated
     public SwapprUser(String username, String password, List<GrantedAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+        this(username,password,authorities, "N/A", "unknown@mail.com",accountNonExpired,accountNonLocked,credentialsNonExpired,enabled);
+    }
+
+
+    public SwapprUser(String username, String password, List<GrantedAuthority> authorities, String fullname, String email, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+        this.fullname = fullname;
+        this.email = email;
         this.accountNonExpired = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
@@ -87,5 +104,13 @@ public class SwapprUser implements UserDetails{
     @Override
     public int hashCode() {
         return username.hashCode();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFullname() {
+        return fullname;
     }
 }

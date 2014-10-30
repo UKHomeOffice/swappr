@@ -26,7 +26,10 @@ public class SwapprUserDaoTest extends SpringIntegrationTest{
     @Test
     public void ensureThat_aUserIsCreatedAndPersisted() {
         // Arrange
-        SwapprUser user = make(a(User, with(username, RandomStringUtils.randomAlphanumeric(50)), with(password, RandomStringUtils.randomAlphanumeric(250))));
+        SwapprUser user = make(a(User, with(username, RandomStringUtils.randomAlphanumeric(50)),
+                with(password, RandomStringUtils.randomAlphanumeric(250)),
+                with(fullName, RandomStringUtils.randomAlphanumeric(150)),
+                with(emailAddress, RandomStringUtils.randomAlphanumeric(150))));
 
         // Act
         userDao.createUser(user);
@@ -38,6 +41,8 @@ public class SwapprUserDaoTest extends SpringIntegrationTest{
         assertFalse(userResultMap.isEmpty());
         assertThat(userResultMap.get("username"), is(user.getUsername()));
         assertThat(userResultMap.get("password"), is(user.getPassword()));
+        assertThat(userResultMap.get("email"), is(user.getEmail()));
+        assertThat(userResultMap.get("fullname"), is(user.getFullname()));
 
         assertFalse(roleResultMap.isEmpty());
         assertThat(roleResultMap.get("authority"), is(user.getAuthorities().iterator().next().getAuthority()));

@@ -16,6 +16,9 @@ public class UserMaker {
 
     public static Property<SwapprUser, String> username = newProperty();
     public static Property<SwapprUser, String> password = newProperty();
+    public static Property<SwapprUser, String> fullName = newProperty();
+    public static Property<SwapprUser, String> emailAddress = newProperty();
+
     public static Property<SwapprUser, List<GrantedAuthority>> authorities = newProperty();
     public static List<GrantedAuthority> userAuthority = Arrays.asList(new SimpleGrantedAuthority(Role.USER.name()));
     public static List<GrantedAuthority> adminAuthority = Arrays.asList(new SimpleGrantedAuthority(Role.ADMIN.name()));
@@ -23,13 +26,16 @@ public class UserMaker {
     public static Instantiator<SwapprUser> User = (lookup) ->
             new SwapprUser(lookup.valueOf(username, "default"),
                     lookup.valueOf(password, "password"),
-                    lookup.valueOf(authorities, userAuthority));
+                    lookup.valueOf(authorities, userAuthority),
+                    lookup.valueOf(fullName, "default full name"),
+                    lookup.valueOf(emailAddress, "default@mail.com")
+                    );
 
     public static SwapprUser bill() {
-        return make(a(User, with(username, "Bill")));
+        return make(a(User, with(username, "Bill"), with(fullName, "Bill Banks")));
     }
 
     public static SwapprUser ben() {
-        return make(a(User, with(username, "Ben")));
+        return make(a(User, with(username, "Ben"), with(fullName, "Ben Benarke")));
     }
 }

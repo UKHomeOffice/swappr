@@ -7,7 +7,9 @@ use swappr;
 create table users (
     username varchar(50) not null primary key,
     password varchar(250) not null,
-    enabled boolean not null
+    enabled boolean not null,
+    email varchar(150) not null,
+    fullname varchar(150) not null
 ) engine = InnoDb;
 
 create table authorities (
@@ -60,3 +62,4 @@ create table volunteer (
   foreign key (rotaId) references rota(id),
   foreign key (offerId) references offer(id)
 ) engine = InnoDb;
+
