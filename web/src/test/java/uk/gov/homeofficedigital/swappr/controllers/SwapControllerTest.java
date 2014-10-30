@@ -35,7 +35,7 @@ public class SwapControllerTest {
     private OfferDao offerDao = mock(OfferDao.class);
     private VolunteerDao volunteerDao = mock(VolunteerDao.class);
     private ControllerHelper helper = mock(ControllerHelper.class);
-    private User user = make(a(UserMaker.User));
+    private SwapprUser user = make(a(UserMaker.User));
     private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private SwapController swapController = new SwapController(rotaDao, rotaService, offerDao, volunteerDao, helper);
 

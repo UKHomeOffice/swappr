@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.model.*;
 
 import java.security.Principal;
@@ -73,7 +72,7 @@ public class OfferViewTest {
 
         Offer offer = make(an(OfferMaker.Offer,
                 with(OfferMaker.rota, make(a(RotaMaker.Rota,
-                        with(RotaMaker.user, new User("Fred", "abc", Collections.emptySet())))))));
+                        with(RotaMaker.user, new SwapprUser("Fred", "abc", Collections.emptyList(), "Fred", "fred@mail.com")))))));
         OfferView offerView = new OfferView(offer, Collections.emptySet());
 
         assertTrue(offerView.isOfferForCurrentUser());
@@ -95,7 +94,7 @@ public class OfferViewTest {
 
         Offer offer = make(an(OfferMaker.Offer,
                 with(OfferMaker.rota, make(a(RotaMaker.Rota,
-                        with(RotaMaker.user, new User("Arthur", "abc", Collections.emptySet())))))));
+                        with(RotaMaker.user, new SwapprUser("Arthur", "abc", Collections.emptyList(), "Arthur", "a@mail.com")))))));
         OfferView offerView = new OfferView(offer, Collections.emptySet());
 
         assertFalse(offerView.isOfferForCurrentUser());
