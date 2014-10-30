@@ -43,7 +43,7 @@
             <a href="/swap/new?rotaId=$dayView.rota.rota.id" class="t-swap-shift action-button action-button--swap"
                title="Request swap">Request swap</a>
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status"></div>
+        <div class="secondary-text timeline__day-info timeline__day-info-status t-status"></div>
 
 		#elseif($dayView.status == 'OfferAwaitingVolunteers')
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
@@ -56,7 +56,7 @@
                     title="In progress">In progress</span>
 					#end
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status">
+        <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.getOffers())
               <a href="/swap/$offer.id">Swap requested.</a>
 						<div>No replies.</div>
@@ -74,7 +74,7 @@
                     title="In progress">In progress</span>
 					#end
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status">
+        <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
               Swap requested.
               <div class="volunteers">
@@ -101,7 +101,7 @@
                     title="In progress">In progress</span>
 					#end
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status">
+        <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
               <a href="/swap/$offer.id">Swap agreed.</a>
 							<div>
@@ -121,7 +121,7 @@
                     title="In progress">In progress</span>
 					#end
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status">
+        <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
               <a href="/swap/$offer.id">Your swap</a>
               with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
@@ -141,7 +141,7 @@
                     title="In progress">In progress</span>
 					#end
         </div>
-        <div class="secondary-text timeline__day-info timeline__day-info-status">
+        <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
               <a href="/swap/$offer.id">Your swap</a>
               with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
@@ -162,7 +162,7 @@
 					#end
         </div>
 
-        <div class="t-status secondary-text timeline__day-info timeline__day-info-status">
+        <div class="t-status secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($volunteer in $dayView.rota.volunteers)
 						#set($otherRota = $volunteer.swapTo.swapFrom)
 						#if($volunteer.status == 'CREATED')

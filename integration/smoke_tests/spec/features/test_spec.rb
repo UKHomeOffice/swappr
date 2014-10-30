@@ -18,7 +18,7 @@ feature "Logging in" do
 
   scenario "You can offer to swap a shift" do
     offer_shift(3, 'BFH - Early', 'S1H - Late')
-    expect(page.all('.t-day')[3].find('.t-offer-shift-type')).to have_content('S1H')
+    expect(page.all('.t-day')[3].find('.t-status')).to have_content('Swap requested')
   end
 
   scenario "You can volunteer to swap for an offered shift" do
