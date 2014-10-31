@@ -8,10 +8,8 @@ import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -28,7 +26,7 @@ public class TimelineController {
     private Map<Month, List<OfferView>> collectOffersByMonth(Set<OfferView> offers) {
         List<OfferView> offerList = new ArrayList<>(offers);
         offerList.sort((a, b) -> a.getOffer().getSwapFrom().getShift().getDate().compareTo(b.getOffer().getSwapFrom().getShift().getDate()));
-        return offerList.stream().collect(groupingBy(rv -> rv.getOffer().getSwapFrom().getShift().getDate().getMonth()));
+        return offerList.stream().collect(groupingBy(rv -> rv.getOffer().getSwapFrom().getShift().getDate().getMonth(), LinkedHashMap::new, Collectors.toList()));
     }
 
     @RequestMapping(method = RequestMethod.GET)

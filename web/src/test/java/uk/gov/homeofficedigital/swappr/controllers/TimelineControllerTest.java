@@ -11,10 +11,7 @@ import uk.gov.homeofficedigital.swappr.service.RotaService;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
@@ -22,6 +19,7 @@ import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -74,6 +72,31 @@ public class TimelineControllerTest {
         assertThat(rotasNextMonth, hasSize(2));
         assertThat(rotasNextMonth, hasItem(offer1NextMonth));
         assertThat(rotasNextMonth, hasItem(offer2NextMonth));
+    }
+
+    @Test
+    public void offersByMonthShouldBeOrderedByMonth() {
+        Set<OfferView> foundOffers = new HashSet<>();
+        LocalDate today = LocalDate.now();
+        OfferView nextMonth = new OfferView(make(a(OfferMaker.Offer, with(OfferMaker.rota, new Rota(45l, user, new Shift(today.plusMonths(1), ShiftType.B1H))))), new HashSet<>());
+        OfferView lastMonth = new OfferView(make(a(OfferMaker.Offer, with(OfferMaker.rota, new Rota(46l, user, new Shift(today.minusMonths(1), ShiftType.B1H))))), new HashSet<>());
+        OfferView thisMonth = new OfferView(make(a(OfferMaker.Offer, with(OfferMaker.rota, new Rota(47l, user, new Shift(today, ShiftType.B1H))))), new HashSet<>());
+        foundOffers.add(nextMonth);
+        foundOffers.add(lastMonth);
+        foundOffers.add(thisMonth);
+        when(rotaService.findAllOffers()).thenReturn(foundOffers);
+
+        Model model = new BindingAwareModelMap();
+
+        controller.showTimeline(model);
+
+        Map<Month, List<OfferView>> offersByMonth = (Map<Month, List<OfferView>>) model.asMap().get("offersByMonth");
+        assertThat(offersByMonth.keySet(), hasSize(3));
+
+        Iterator<Month> months = offersByMonth.keySet().iterator();
+        assertEquals(today.minusMonths(1).getMonth(), months.next());
+        assertEquals(today.getMonth(), months.next());
+        assertEquals(today.plusMonths(1).getMonth(), months.next());
     }
 
 }
