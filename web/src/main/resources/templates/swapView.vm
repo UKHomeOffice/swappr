@@ -51,7 +51,7 @@
                 <li>
                     <h3 class="event__subheading">Confirm swap</h3>
 
-                    <p class="event__step">Swap approved? Click the 'Confirm' button to update your shift schedule</p>
+                    <p class="event__step">Swap approved? Click the 'Approved' button to update your shift schedule</p>
                 </li>
             </ol>
             <div class="event__actions">
