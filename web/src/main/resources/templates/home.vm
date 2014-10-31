@@ -9,7 +9,7 @@
 <div class="notification notification--awaiting">New swap created</div>
 #end
 #if ($flashType == 'volunteerSwap')
-<div class="notification notification--awaiting">Volunteered to swap</div>
+<div class="notification notification--awaiting">Replied to offer</div>
 #end
 #if ($flashType == 'acceptSwap')
 <div class="notification notification--awaiting">Swap accepted</div>

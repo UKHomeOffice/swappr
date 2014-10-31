@@ -43,7 +43,7 @@
                                   title="Shift swapped">Shift swapped</span>
                         #else
                             <span class="action-button action-button--disabled action-button--wait"
-                                  title="Awaiting volunteers">Awaiting volunteers</span>
+                                  title="Awaiting volunteers">Awaiting replies</span>
                         #end
                     </div>
 
@@ -96,7 +96,7 @@
                         #else
                             <form action="/swap/$offer.id/volunteer" method="post">
                                 <button class="t-button-volunteer action-button action-button--swap" type="submit"
-                                        title="Volunteer to swap">Volunteer
+                                        title="Reply to offer">Reply
                                 </button>
                             </form>
                         #end
