@@ -1,11 +1,6 @@
 #set($pageTitle = 'Swap view')
 
 #set($accepted = $offer.offer.status.name() == 'ACCEPTED')
-#if ($accepted)
-	#set($volunteerText = "is volunteering")
-#else
-	#set($volunteerText = "volunteered")
-#end
 
 #set($approvedByHR = ($offer.status.name() == 'APPROVED'))
 #if ($approvedByHR)
@@ -94,7 +89,7 @@
         </li>
 		#end
       <li class="event event--$volunteerClass">
-          <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> $volunteerText to swap</h2>
+          <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> replied</h2>
 
           <div class="event__swap">
               <div class="event__rota event__rota-you">

@@ -29,7 +29,7 @@ feature "Full journey - offer shift, accept volunteer, mark as approved" do
     login_user_bill
     assert_status_for_date(date, "Ben Bernanke has replied")
     go_to_swap_view_for_date(date)
-    assert_last_event_heading("Ben Bernanke volunteered to swap")
+    assert_last_event_heading("Ben Bernanke replied")
     click_on('Accept offer')
     assert_last_event_heading("Next steps")
     click_on('Approved')
