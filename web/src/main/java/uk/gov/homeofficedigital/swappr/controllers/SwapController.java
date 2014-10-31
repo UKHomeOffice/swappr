@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,15 +87,17 @@ public class SwapController {
     }
 
     @RequestMapping(value = "/{id}/volunteer", method = RequestMethod.POST)
-    public String volunteer(@PathVariable("id") Long offerId, Principal principal, RedirectAttributes attrs) {
+    public String volunteer(@PathVariable("id") Long offerId, SwapprUser user, RedirectAttributes attrs) {
 
         Offer offer = offerDao.findById(offerId).orElseThrow(OfferNotFoundException::new);
 
-        SwapprUser user = controllerHelper.userFromPrincipal(principal);
-
-        Rota myRota = rotaDao.findOrCreate(user, offer.getSwapTo());
-
-        rotaService.volunteerSwap(myRota, offer);
+        try {
+            Rota myRota = rotaDao.findOrCreate(user, offer.getSwapTo());
+            rotaService.volunteerSwap(myRota, offer);
+        } catch (DuplicateKeyException e) {
+            attrs.addFlashAttribute("flashType", "duplicateShiftDate");
+            return "redirect:/timeline";
+        }
 
         attrs.addFlashAttribute("flashType", "volunteerSwap");
         return "redirect:/";

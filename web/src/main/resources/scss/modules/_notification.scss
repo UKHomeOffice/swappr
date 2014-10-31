@@ -11,6 +11,13 @@
   }
 }
 
+.notification--error {
+  background-color: $background__colour--error;
+  border-color: $text__colour--error;
+
+}
+
+
 .notification--awaiting:before {
   @extend %icon-wait;
 }

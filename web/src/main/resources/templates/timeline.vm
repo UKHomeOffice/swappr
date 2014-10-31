@@ -2,6 +2,10 @@
 #set($pageTitle = 'Timeline')
 #set($tab = 'timeline')
 
+#if ($flashType == 'duplicateShiftDate')
+<div class="notification notification--error notification--awaiting">You can only offer a swap for a shift you are working</div>
+#end
+
 #foreach($offerMonth in $offersByMonth.keySet())
     #set($offerViews = $offersByMonth.get($offerMonth))
 
@@ -12,7 +16,6 @@
     <p>No swaps</p>
     #else
     <ol class="timeline__days">
-
 
         #foreach($offer in $offerViews)
             #if ($offer.fromShift().date == $lastDate)

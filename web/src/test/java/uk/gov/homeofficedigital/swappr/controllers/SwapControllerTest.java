@@ -2,10 +2,9 @@ package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.Model;
-import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.validation.ObjectError;
@@ -24,6 +23,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import static com.natpryce.makeiteasy.MakeItEasy.a;
+import static com.natpryce.makeiteasy.MakeItEasy.an;
 import static com.natpryce.makeiteasy.MakeItEasy.make;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -89,7 +89,6 @@ public class SwapControllerTest {
 //        verify(rotaService).requestSwap(createdRota, );
     }
 
-
     @Test
     public void acceptSwap_shouldFindTheVolunteerAndDelegateToTheRotaService() throws Exception {
         Volunteer volunteer = make(a(VolunteerMaker.Volunteer));
@@ -101,5 +100,19 @@ public class SwapControllerTest {
         assertEquals("redirect:/swap/" + volunteer.getSwapTo().getId(), target);
         verify(rotaService).acceptVolunteer(volunteer);
         assertEquals("acceptSwap", attrs.getFlashAttributes().get("flashType"));
+    }
+
+    @Test
+    public void volunteer_shouldAddAFlashException_givenADuplicateKeyException() throws Exception {
+        Offer offer = make(an(OfferMaker.Offer));
+        SwapprUser bill = UserMaker.bill();
+        RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
+        when(offerDao.findById(offer.getId())).thenReturn(Optional.of(offer));
+        when(rotaDao.findOrCreate(bill, offer.getSwapTo())).thenThrow(new DuplicateKeyException("duplicate userShift"));
+
+        String target = swapController.volunteer(offer.getId(), bill, attrs);
+
+        assertEquals("redirect:/timeline", target);
+        assertEquals("duplicateShiftDate", attrs.getFlashAttributes().get("flashType"));
     }
 }
