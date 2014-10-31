@@ -63,3 +63,4 @@ create table volunteer (
   foreign key (offerId) references offer(id)
 ) engine = InnoDb;
 
+create unique index u_userShift on rota(username, shiftDate);

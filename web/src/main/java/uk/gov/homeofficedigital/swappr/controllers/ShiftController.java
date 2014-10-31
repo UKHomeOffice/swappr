@@ -1,8 +1,12 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,10 +64,13 @@ public class ShiftController {
         if (result.hasErrors()) {
             return "startShift";
         }
-
-        for (LocalDate date = shiftForm.getFromDate().get(); date.isBefore(shiftForm.getToDate().get().plusDays(1)); date = date.plusDays(1)) {
-            Shift shift = new Shift(date, shiftForm.getType());
-            rotaDao.create(controllerHelper.userFromPrincipal(principal), shift);
+        try {
+            Shift from = new Shift(shiftForm.getFromDate().get(), shiftForm.getType());
+            Shift to = new Shift(shiftForm.getToDate().get(), shiftForm.getType());
+            rotaDao.create(controllerHelper.userFromPrincipal(principal), from, to);
+        } catch (DuplicateKeyException ex) {
+            result.addError(new ObjectError("shift", "You cannot work multiple shifts on the same day"));
+            return "startShift";
         }
 
         attrs.addFlashAttribute("flashType", "addShift");

@@ -3,6 +3,7 @@ package uk.gov.homeofficedigital.swappr.daos;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.transaction.annotation.Transactional;
 import uk.gov.homeofficedigital.swappr.model.Rota;
 import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
@@ -33,6 +34,13 @@ public class RotaDao {
                 "insert into rota (username, shiftDate, shiftCode) values (:username, :shiftDate, :shiftCode)",
                 toMap("username", worker.getUsername(), "shiftDate", Date.valueOf(shift.getDate()), "shiftCode", shift.getType().name()));
         return new Rota(id, worker, shift);
+    }
+
+    @Transactional
+    public void create(SwapprUser worker, Shift from, Shift to) {
+        for(LocalDate date = from.getDate(); date.isBefore(to.getDate().plusDays(1)); date = date.plusDays(1)) {
+            create(worker, new Shift(date, from.getType()));
+        }
     }
 
     public Rota findOrCreate(SwapprUser worker, Shift shift) {

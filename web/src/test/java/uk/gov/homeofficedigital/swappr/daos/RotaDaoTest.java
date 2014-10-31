@@ -20,7 +20,7 @@ public class RotaDaoTest extends SpringIntegrationTest {
     public void create_shouldCreateAndPersistAShift() throws Exception {
         LocalDate now = LocalDate.now();
         SwapprUser user = UserMaker.bill();
-        Shift expectedShift = new Shift(now, ShiftType.C1H);
+        Shift expectedShift = new Shift(now.plusDays(10), ShiftType.C1H);
         Rota rota = rotaDao.create(user, expectedShift);
 
         assertFalse(rota.getId() == 0L);
@@ -68,7 +68,6 @@ public class RotaDaoTest extends SpringIntegrationTest {
         assertTrue(actual.containsAll(billsRota));
         assertTrue(actual.containsAll(bensRota));
     }
-
 
     @Test
     public void findAll_shouldIgnoreRotasInThePastAndMoreThan2MonthsInTheFuture() throws Exception {

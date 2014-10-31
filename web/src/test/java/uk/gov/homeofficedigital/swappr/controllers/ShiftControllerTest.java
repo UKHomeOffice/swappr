@@ -2,10 +2,11 @@ package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
@@ -51,9 +52,28 @@ public class ShiftControllerTest {
         RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
         shiftController.createShift(form, bindingResult, principal, attrs);
 
-        verify(rotaDao, times(3)).create(eq(user), any(Shift.class));
+        verify(rotaDao, times(1)).create(user, new Shift(LocalDate.of(2014, 8, 23), ShiftType.B1H), new Shift(LocalDate.of(2014,8,25), ShiftType.B1H));
         verifyNoMoreInteractions(rotaDao);
         assertEquals("addShift", attrs.getFlashAttributes().get("flashType"));
+    }
+
+    @Test
+    public void createShift_shouldShowAnError_givenADuplicateKeyExceptionIsThrownByTheRepo() {
+        ShiftForm form = new ShiftForm(Clock.fixed(LocalDateTime.of(2014, 8, 23, 12, 45).toInstant(ZoneOffset.UTC), ZoneId.systemDefault()));
+        form.setType(ShiftType.B1H);
+        form.setFromDay(23);
+        form.setFromMonth(8);
+        form.setToDay(25);
+        form.setToMonth(8);
+
+        when(bindingResult.hasErrors()).thenReturn(false);
+        doThrow(new DuplicateKeyException("Duplicate")).when(rotaDao).create(user, new Shift(LocalDate.of(2014, 8, 23), ShiftType.B1H), new Shift(LocalDate.of(2014,8,25), ShiftType.B1H));
+        RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
+
+        String target = shiftController.createShift(form, bindingResult, principal, attrs);
+
+        assertEquals("startShift", target);
+        verify(bindingResult).addError(isA(ObjectError.class));
     }
 
     @Test
