@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
@@ -13,10 +14,12 @@ import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.daos.UserDao;
 import uk.gov.homeofficedigital.swappr.daos.VolunteerDao;
 import uk.gov.homeofficedigital.swappr.service.RotaService;
+import uk.gov.homeofficedigital.swappr.spring.CurrentLoggedInUserArgumentResolver;
 import uk.gov.homeofficedigital.swappr.spring.VelocityLayoutToolboxView;
 import uk.gov.homeofficedigital.swappr.spring.VelocitySecurityHelper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -73,4 +76,9 @@ public class Controllers extends WebMvcConfigurerAdapter {
         return new TimelineController(rotaService);
     }
 
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new CurrentLoggedInUserArgumentResolver());
+        super.addArgumentResolvers(argumentResolvers);
+    }
 }

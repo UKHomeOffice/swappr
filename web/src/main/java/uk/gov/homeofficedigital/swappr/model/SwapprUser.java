@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.model;
 
+import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,13 +8,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class SwapprUser implements UserDetails{
+public class SwapprUser implements UserDetails, CredentialsContainer{
 
 
     private final String fullname;
     private final String email;
     private final String username;
-    private final String password;
+    private String password;
     private final List<GrantedAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -112,5 +113,10 @@ public class SwapprUser implements UserDetails{
 
     public String getFullname() {
         return fullname;
+    }
+
+    @Override
+    public void eraseCredentials() {
+        this.password = null;
     }
 }
