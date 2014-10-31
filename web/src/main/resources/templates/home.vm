@@ -143,9 +143,9 @@
         <div class="secondary-text timeline__day-info timeline__day-info-status t-status">
 					#foreach($offer in $dayView.rota.offers)
               <a href="/swap/$offer.id">Your swap</a>
-              with $dayView.rota.acceptedVolunteer <span class="icon-arrow-right">for</span>
-              <span class="t-offer-shift-type">$dayView.rota.offer.offer.swapTo.type</span>
-              on $display.fullDate($dayView.rota.offer.offer.swapTo.date) has been denied
+              with $offer.deniedVolunteer <span class="icon-arrow-right">for</span>
+              <span class="t-offer-shift-type">$offer.offer.swapTo.type</span>
+              on $display.fullDate($offer.offer.swapTo.date) has been denied
 					#end
         </div>
 

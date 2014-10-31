@@ -1,5 +1,6 @@
 package uk.gov.homeofficedigital.swappr.controllers.views;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -119,7 +120,7 @@ public class OfferViewTest {
         Offer offer = make(an(OfferMaker.Offer,
                 with(OfferMaker.rota, make(a(RotaMaker.Rota,
                         with(RotaMaker.user, new SwapprUser("Arthur", "abc", Collections.emptyList(), "Arthur", "a@mail.com")))))));
-        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user,volunteerUser))))));
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user, volunteerUser))))));
         OfferView offerView = new OfferView(offer, new HashSet<>(Arrays.asList(volunteer)));
 
         assertTrue(offerView.isCurrentUserVolunteered());
@@ -142,9 +143,28 @@ public class OfferViewTest {
         Offer offer = make(an(OfferMaker.Offer,
                 with(OfferMaker.rota, make(a(RotaMaker.Rota,
                         with(RotaMaker.user, new SwapprUser("Arthur", "abc", Collections.emptyList(), "Arthur", "a@mail.com")))))));
-        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user,volunteerUser))))));
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user, volunteerUser))))));
         OfferView offerView = new OfferView(offer, new HashSet<>(Arrays.asList(volunteer)));
 
         assertFalse(offerView.isCurrentUserVolunteered());
     }
+
+    @Test
+    public void deniedVolunteer_shouldOnlySelectFirstVolunteerWhosOfferWasDenied_andReturnName() {
+        // Arrange
+        SwapprUser volunteerUser = make(a(UserMaker.User, with(UserMaker.fullName, "Bob Smith")));
+        Offer offer = make(an(OfferMaker.Offer,
+                with(OfferMaker.rota, make(a(RotaMaker.Rota,
+                        with(RotaMaker.user, UserMaker.ben()))))));
+        Volunteer volunteer = make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.status, VolunteerStatus.DENIED),
+                with(VolunteerMaker.rota, make(a(RotaMaker.Rota, with(RotaMaker.user, volunteerUser))))));
+
+        // Act
+        OfferView offerView = new OfferView(offer, new HashSet<>(Arrays.asList(volunteer)));
+
+        //Assert
+
+        assertThat(offerView.getDeniedVolunteer(), CoreMatchers.is("Bob Smith"));
+    }
+
 }

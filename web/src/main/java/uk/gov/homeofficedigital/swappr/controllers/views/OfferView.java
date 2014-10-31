@@ -9,6 +9,7 @@ import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.Volunteer;
 import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class OfferView {
@@ -35,6 +36,10 @@ public class OfferView {
 
     public String getAcceptedVolunteer() {
         return volunteers.stream().filter(v -> v.getStatus() == VolunteerStatus.ACCEPTED || v.getStatus() == VolunteerStatus.APPROVED).findFirst().map(v -> v.getSwapFrom().getWorker().getFullname()).orElse(null);
+    }
+
+    public String getDeniedVolunteer() {
+        return volunteers.stream().filter(v -> v.getStatus().equals(VolunteerStatus.DENIED)).findFirst().map(v -> v.getSwapFrom().getWorker().getFullname()).orElse(null);
     }
 
     public Shift fromShift() {
