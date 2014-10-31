@@ -2,7 +2,6 @@ package uk.gov.homeofficedigital.swappr.daos;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.SpringIntegrationTest;
 import uk.gov.homeofficedigital.swappr.model.*;
 
@@ -62,7 +61,7 @@ public class VolunteerDaoTest extends SpringIntegrationTest {
     }
 
     @Test
-    public void findByOffer_shouldReturnVolunteersForTheGivenOffer() throws Exception {
+    public void findActiveByOffer_shouldReturnActiveVolunteersForTheGivenOffer() throws Exception {
         SwapprUser bill = UserMaker.bill();
         SwapprUser ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
@@ -72,13 +71,14 @@ public class VolunteerDaoTest extends SpringIntegrationTest {
         Offer otherOffer = offerDao.create(offerRota, new Shift(now.plusDays(2), ShiftType.BFH), OfferStatus.CREATED);
         Volunteer expected = volunteerDao.create(from, offer, VolunteerStatus.CREATED);
         Volunteer otherVolunteer = volunteerDao.create(from, otherOffer, VolunteerStatus.CREATED);
+        Volunteer rejectedVolunteer = volunteerDao.create(from, offer, VolunteerStatus.REJECTED);
 
-        Set<Volunteer> actual = volunteerDao.findByOffer(offer);
+        Set<Volunteer> actual = volunteerDao.findActiveByOffer(offer);
 
         assertEquals(1, actual.size());
         assertEquals(expected, actual.iterator().next());
 
-        actual = volunteerDao.findByOffer(otherOffer);
+        actual = volunteerDao.findActiveByOffer(otherOffer);
 
         assertEquals(otherVolunteer, actual.iterator().next());
     }

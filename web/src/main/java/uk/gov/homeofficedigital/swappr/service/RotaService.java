@@ -1,6 +1,5 @@
 package uk.gov.homeofficedigital.swappr.service;
 
-import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
@@ -38,7 +37,7 @@ public class RotaService {
     public void acceptVolunteer(Volunteer volunteer) {
         volunteerDao.updateStatus(volunteer, VolunteerStatus.ACCEPTED);
         offerDao.updateStatus(volunteer.getSwapTo(), OfferStatus.ACCEPTED);
-        volunteerDao.findByOffer(volunteer.getSwapTo()).stream().filter(v -> !v.getId().equals(volunteer.getId())).forEach((r) -> volunteerDao.updateStatus(r, VolunteerStatus.REJECTED));
+        volunteerDao.findActiveByOffer(volunteer.getSwapTo()).stream().filter(v -> !v.getId().equals(volunteer.getId())).forEach((r) -> volunteerDao.updateStatus(r, VolunteerStatus.REJECTED));
     }
 
     public void rejectVolunteer(Volunteer volunteer) {
@@ -64,14 +63,14 @@ public class RotaService {
     }
 
     public Set<OfferView> findAllOffers() {
-        Stream<OfferView> offerViews = offerDao.findOffersBetween(LocalDate.now(), LocalDate.now().plusMonths(2)).stream().map(o -> new OfferView(o, volunteerDao.findByOffer(o)));
+        Stream<OfferView> offerViews = offerDao.findOffersBetween(LocalDate.now(), LocalDate.now().plusMonths(2)).stream().map(o -> new OfferView(o, volunteerDao.findActiveByOffer(o)));
         return offerViews.collect(Collectors.toSet());
     }
 
     private Set<RotaView> mapToRotaView(Set<Rota> rotas) {
         return rotas.stream()
                 .map(r -> new RotaView(r,
-                        offerDao.findByRota(r).stream().map(o -> new OfferView(o, volunteerDao.findByOffer(o))).collect(Collectors.toSet()),
+                        offerDao.findByRota(r).stream().map(o -> new OfferView(o, volunteerDao.findActiveByOffer(o))).collect(Collectors.toSet()),
                         volunteerDao.findByRota(r)))
                 .collect(Collectors.toSet());
     }

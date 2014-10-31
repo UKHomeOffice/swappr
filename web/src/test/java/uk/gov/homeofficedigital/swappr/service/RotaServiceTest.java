@@ -2,7 +2,6 @@ package uk.gov.homeofficedigital.swappr.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.controllers.views.OfferView;
 import uk.gov.homeofficedigital.swappr.controllers.views.RotaView;
 import uk.gov.homeofficedigital.swappr.daos.OfferDao;
@@ -76,7 +75,7 @@ public class RotaServiceTest {
         Volunteer volunteer3 = make(a(VolunteerMaker.Volunteer));
 
 
-        when(volunteerDao.findByOffer(volunteer.getSwapTo())).thenReturn(new HashSet<>(Arrays.asList(volunteer, volunteer2, volunteer3)));
+        when(volunteerDao.findActiveByOffer(volunteer.getSwapTo())).thenReturn(new HashSet<>(Arrays.asList(volunteer, volunteer2, volunteer3)));
 
         service.acceptVolunteer(volunteer);
 
@@ -139,7 +138,7 @@ public class RotaServiceTest {
 
         when(offerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Offers));
         when(volunteerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Volunteers));
-        when(volunteerDao.findByOffer(offer)).thenReturn(offerVolunteers);
+        when(volunteerDao.findActiveByOffer(offer)).thenReturn(offerVolunteers);
 
         Set<RotaView> myRotas = service.findMyRotas(user);
 
@@ -160,7 +159,7 @@ public class RotaServiceTest {
         Set<Volunteer> offerVolunteers = new HashSet<>(Arrays.asList(make(a(VolunteerMaker.Volunteer, with(VolunteerMaker.offer, offer)))));
         when(offerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Offers));
         when(volunteerDao.findByRota(rota1)).thenReturn(new HashSet<>(rota1Volunteers));
-        when(volunteerDao.findByOffer(offer)).thenReturn(offerVolunteers);
+        when(volunteerDao.findActiveByOffer(offer)).thenReturn(offerVolunteers);
 
         Set<RotaView> allRotas = service.findAllRotas();
 

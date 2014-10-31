@@ -32,10 +32,10 @@ public class UserMaker {
                     );
 
     public static SwapprUser bill() {
-        return make(a(User, with(username, "Bill"), with(fullName, "Bill Banks")));
+        return make(a(User, with(username, "bill"), with(fullName, "Bill Banks")));
     }
 
     public static SwapprUser ben() {
-        return make(a(User, with(username, "Ben"), with(fullName, "Ben Benarke")));
+        return make(a(User, with(username, "ben"), with(fullName, "Ben Benarke")));
     }
 }

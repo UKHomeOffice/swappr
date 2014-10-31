@@ -48,6 +48,10 @@ public class VolunteerDao {
         }
     }
 
+    public Set<Volunteer> findActiveByOffer(Offer offer) {
+        return new HashSet<>(template.query("select * from volunteer where status != 'REJECTED' and offerId = :id", toMap("id", offer.getId()), mapVolunteerFor(offer)));
+    }
+
     public Set<Volunteer> findByOffer(Offer offer) {
         return new HashSet<>(template.query("select * from volunteer where offerId = :id", toMap("id", offer.getId()), mapVolunteerFor(offer)));
     }
