@@ -67,7 +67,7 @@
 
                     <div class="timeline__day-info timeline__day-info-action">
             <span class="action-button action-button--disabled action-button--wait"
-                  title="Shift swapped">you have replied</span>
+                  title="You have replied">You have replied</span>
                     </div>
 
                     <div class="secondary-text timeline__day-info timeline__day-info-status">
@@ -92,7 +92,7 @@
                                   title="Shift swapped">Shift swapped</span>
                         #elseif($offer.offer.status.name() == 'ACCEPTED')
                             <span class="action-button action-button--disabled action-button--wait"
-                                  title="Swap accepted">Swap accepted</span>
+                                  title="Swap agreed">Swap agreed</span>
                         #else
                             <form action="/swap/$offer.id/volunteer" method="post">
                                 <button class="t-button-volunteer action-button action-button--swap" type="submit"
