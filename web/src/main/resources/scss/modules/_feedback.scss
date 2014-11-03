@@ -1,0 +1,16 @@
+.feedback {
+  color: $text__colour--primary;
+  float: left;
+  margin-top: 30px;
+  width: 50%;
+}
+
+.feedback__heading {
+  @include text( $base__font-size--small, $base__line-height--small);
+  font-weight: bold;
+  margin: 0;
+}
+
+.feedback__content {
+  margin-top: 10px;
+}

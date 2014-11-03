@@ -1,3 +1,9 @@
 <div class="footer__inner">
+    <div class="feedback">
+        <h2 class="feedback__heading">Help us improve Swappr</h2>
+        <p class="feedback__content">Want to see a new feature added to Swappr? Something not work as expected? Help us
+            make Swappr better for
+            you by sharing your feedback. Send an email to <a href="mailto:feedback@swappr">[address]</a></p>
+    </div>
     <p class="strapline">A Home Office Digital project.</p>
 </div>
