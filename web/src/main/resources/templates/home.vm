@@ -38,7 +38,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
             <a href="/swap/new?rotaId=$dayView.rota.rota.id" class="t-swap-shift action-button action-button--swap"
                title="Request swap">Request swap</a>
@@ -48,7 +48,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
 					#foreach($offer in $dayView.rota.getOffers())
               <span class="action-button action-button--disabled action-button--wait"
@@ -66,7 +66,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
 					#foreach($offer in $dayView.rota.offers)
               <span class="action-button action-button--disabled action-button--wait"
@@ -93,7 +93,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
 					#foreach($offer in $dayView.rota.offers)
               <span class="action-button action-button--disabled action-button--wait"
@@ -113,7 +113,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
 					#foreach($offer in $dayView.rota.offers)
               <span class="action-button action-button--disabled action-button--swapped"
@@ -133,7 +133,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
 					#foreach($offer in $dayView.rota.offers)
               <span class="action-button action-button--disabled action-button--wait"
@@ -153,7 +153,7 @@
         <div class="timeline__day-info timeline__day-info-date"><span class="timeline__date-day">$dayView.day.dayOfMonth</span>
             <span class="secondary-text">${display.day($dayView.day)}</span></div>
 
-        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.shiftType</div>
+        <div class="timeline__day-info timeline__day-info-shift">$dayView.rota.rota.shift.type.label <span class="timeline__shift-type">$dayView.rota.rota.shift.type</span></div>
         <div class="timeline__day-info timeline__day-info-action">
 					#foreach($offer in $dayView.rota.volunteers)
               <span class="action-button action-button--disabled action-button--wait"
