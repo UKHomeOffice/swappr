@@ -70,12 +70,11 @@ public class SwapController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, Principal principal, RedirectAttributes attrs) {
+    public String add(@Valid @ModelAttribute("swap") SwapForm swap, BindingResult result, SwapprUser user, RedirectAttributes attrs) {
         if (result.hasErrors()) {
             return "createSwap";
         }
 
-        SwapprUser user = controllerHelper.userFromPrincipal(principal);
         Shift from = new Shift(swap.getFromDate(), swap.getFromShiftType());
         Shift to = new Shift(swap.getToDate(), swap.getToShiftType());
         Rota rota = rotaDao.findOrCreate(user, from);

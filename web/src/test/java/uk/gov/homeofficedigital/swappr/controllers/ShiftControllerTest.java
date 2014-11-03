@@ -3,7 +3,6 @@ package uk.gov.homeofficedigital.swappr.controllers;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -29,7 +28,6 @@ public class ShiftControllerTest {
 
     private RotaDao rotaDao = mock(RotaDao.class);
     private SwapprUser user = make(a(UserMaker.User));
-    private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private BindingResult bindingResult = mock(BindingResult.class);
 
     ShiftController shiftController = new ShiftController(rotaDao, new ControllerHelper());
@@ -50,7 +48,7 @@ public class ShiftControllerTest {
 
         when(bindingResult.hasErrors()).thenReturn(false);
         RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
-        shiftController.createShift(form, bindingResult, principal, attrs);
+        shiftController.createShift(form, bindingResult, user, attrs);
 
         verify(rotaDao, times(1)).create(user, new Shift(LocalDate.of(2014, 8, 23), ShiftType.B1H), new Shift(LocalDate.of(2014,8,25), ShiftType.B1H));
         verifyNoMoreInteractions(rotaDao);
@@ -70,7 +68,7 @@ public class ShiftControllerTest {
         doThrow(new DuplicateKeyException("Duplicate")).when(rotaDao).create(user, new Shift(LocalDate.of(2014, 8, 23), ShiftType.B1H), new Shift(LocalDate.of(2014,8,25), ShiftType.B1H));
         RedirectAttributesModelMap attrs = new RedirectAttributesModelMap();
 
-        String target = shiftController.createShift(form, bindingResult, principal, attrs);
+        String target = shiftController.createShift(form, bindingResult, user, attrs);
 
         assertEquals("startShift", target);
         verify(bindingResult).addError(isA(ObjectError.class));

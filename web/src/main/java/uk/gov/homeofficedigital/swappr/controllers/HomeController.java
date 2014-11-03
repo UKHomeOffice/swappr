@@ -41,9 +41,8 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showHomePage(Model model, Principal principal) {
+    public String showHomePage(Model model, SwapprUser user) {
 
-        SwapprUser user = helper.userFromPrincipal(principal);
         Map<Month, List<DayView>> rotasByMonth = daysByMonth(rotaService.findMyRotas(user));
 
         model.addAttribute("rotasByMonth", rotasByMonth);

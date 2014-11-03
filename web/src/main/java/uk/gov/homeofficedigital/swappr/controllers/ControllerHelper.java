@@ -1,20 +1,12 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import uk.gov.homeofficedigital.swappr.model.ShiftType;
-import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedHashMap;
 
 class ControllerHelper {
-
-    SwapprUser userFromPrincipal(Principal principal) {
-        return (SwapprUser) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
-    }
 
     LinkedHashMap<String, String> availableMonths() {
         DateDisplay dateDisplay = new DateDisplay();

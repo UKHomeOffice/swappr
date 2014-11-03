@@ -3,7 +3,6 @@ package uk.gov.homeofficedigital.swappr.controllers;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.MapBindingResult;
@@ -36,7 +35,6 @@ public class SwapControllerTest {
     private VolunteerDao volunteerDao = mock(VolunteerDao.class);
     private ControllerHelper helper = mock(ControllerHelper.class);
     private SwapprUser user = make(a(UserMaker.User));
-    private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private SwapController swapController = new SwapController(rotaDao, rotaService, offerDao, volunteerDao, helper);
 
     @Test(expected = RotaNotFoundException.class)
@@ -70,7 +68,7 @@ public class SwapControllerTest {
         BindingResult bindingResult = new MapBindingResult(new HashMap<String, String>(), "swapForm");
         bindingResult.addError(new ObjectError("swapForm", "whoops"));
         SwapForm form = new SwapForm();
-        String viewName = swapController.add(form, bindingResult, principal, new RedirectAttributesModelMap());
+        String viewName = swapController.add(form, bindingResult, user, new RedirectAttributesModelMap());
         assertEquals(viewName, "createSwap");
     }
 
@@ -84,7 +82,7 @@ public class SwapControllerTest {
         Rota createdRota = new Rota(44l, user, new Shift(now, ShiftType.B1H));
 //        when(rotaDao.findOrCreate(user, new Shift())).thenReturn(createdRota);
 
-        swapController.add(form, bindingResult, principal, new RedirectAttributesModelMap());
+        swapController.add(form, bindingResult, user, new RedirectAttributesModelMap());
 
 //        verify(rotaService).requestSwap(createdRota, );
     }

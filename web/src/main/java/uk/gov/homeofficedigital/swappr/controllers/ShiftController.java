@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.gov.homeofficedigital.swappr.controllers.forms.ShiftForm;
 import uk.gov.homeofficedigital.swappr.daos.RotaDao;
 import uk.gov.homeofficedigital.swappr.model.Shift;
+import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -59,7 +60,7 @@ public class ShiftController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String createShift(@Valid @ModelAttribute("shift") ShiftForm shiftForm, BindingResult result, Principal principal, RedirectAttributes attrs) {
+    public String createShift(@Valid @ModelAttribute("shift") ShiftForm shiftForm, BindingResult result, SwapprUser user, RedirectAttributes attrs) {
 
         if (result.hasErrors()) {
             return "startShift";
@@ -67,7 +68,7 @@ public class ShiftController {
         try {
             Shift from = new Shift(shiftForm.getFromDate().get(), shiftForm.getType());
             Shift to = new Shift(shiftForm.getToDate().get(), shiftForm.getType());
-            rotaDao.create(controllerHelper.userFromPrincipal(principal), from, to);
+            rotaDao.create(user, from, to);
         } catch (DuplicateKeyException ex) {
             result.addError(new ObjectError("shift", "You cannot work multiple shifts on the same day"));
             return "startShift";

@@ -1,8 +1,6 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
 import org.junit.Test;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import uk.gov.homeofficedigital.swappr.controllers.views.DayView;
@@ -31,7 +29,6 @@ public class HomeControllerTest {
 
     private RotaService rotaService = mock(RotaService.class);
     private SwapprUser user = make(a(UserMaker.User));
-    private UsernamePasswordAuthenticationToken principal = new UsernamePasswordAuthenticationToken(user, null);
     private HomeController controller = new HomeController(rotaService, new ControllerHelper());
 
     @Test
@@ -45,7 +42,7 @@ public class HomeControllerTest {
 
         Model model = new ExtendedModelMap();
 
-        String viewName = controller.showHomePage(model, principal);
+        String viewName = controller.showHomePage(model, user);
         assertThat(viewName, equalTo("home"));
 
         Map<Month, List<DayView>> rotasByMonth = (Map<Month, List<DayView>>) model.asMap().get("rotasByMonth");
