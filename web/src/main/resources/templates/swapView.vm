@@ -45,8 +45,7 @@
                     <h3 class="event__subheading">Request approval</h3>
 
                     <p class="event__step">Email <a
-                            href="mailto:test@test.com?cc=$offer.offer.swapFrom.worker.email;$volunteer.swapFrom.worker.email&amp;subject=Swap%20request%20from%20$offer.offer.swapFrom.worker.fullname&amp;body=$offer.offer.swapFrom.worker.fullname%20and%20$volunteer.swapFrom.worker.fullname%20want%20to%20swap%20the%20following%20shifts%3A%0A%0A%20$offer.offer.swapFrom.worker.fullname%20is%20offering%20his%20shift%20$offer.offer.swapFrom.shift.type.label%20$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0Ain%20exchange%20for%20$volunteer.swapFrom.worker.fullname's%20shift%20$volunteer.swapFrom.shift.type.label%20$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.">dlc@emailaddress.gov.uk</a>
-                        with the details of your agreed swap.</p>
+                            href="mailto:test@test.com?cc=$offer.offer.swapFrom.worker.email;$volunteer.swapFrom.worker.email&amp;subject=Swappr:%20Swap%20request%20from%20$offer.offer.swapFrom.worker.fullname&amp;body=PERSON%20DETAILS%0A%0A$offer.offer.swapFrom.worker.fullname%0A$volunteer.swapFrom.worker.fullname%0A%0APART%20ONE%0A%0A$offer.offer.swapFrom.worker.fullname%0A$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0A%0Aswapped%20with%0A%0A$volunteer.swapFrom.worker.fullname%0A$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.%0AThis%20shift%20swap%20was%20created%20via%20Swappr.">dlc@emailaddress.gov.uk</a>
                 </li>
                 <li>
                     <h3 class="event__subheading">Confirm swap</h3>
