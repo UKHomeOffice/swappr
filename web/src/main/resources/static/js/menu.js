@@ -13,7 +13,9 @@
             el.className += ' is-active';
         }
     }
-
+    if (!el) {
+        return;
+    }
     if (el.addEventListener) {
         el.addEventListener('click', toggleClass, false);
     } else if (el.attachEvent) {
