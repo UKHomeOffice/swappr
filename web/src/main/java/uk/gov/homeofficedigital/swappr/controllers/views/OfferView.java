@@ -9,8 +9,10 @@ import uk.gov.homeofficedigital.swappr.model.Shift;
 import uk.gov.homeofficedigital.swappr.model.Volunteer;
 import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
 
-import java.util.Optional;
+import java.util.Comparator;
 import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 public class OfferView {
 
@@ -31,7 +33,7 @@ public class OfferView {
     }
 
     public Set<Volunteer> getVolunteers() {
-        return volunteers;
+        return volunteers.stream().sorted(Comparator.comparing(Volunteer::getStatus)).collect(toSet());
     }
 
     public String getAcceptedVolunteer() {

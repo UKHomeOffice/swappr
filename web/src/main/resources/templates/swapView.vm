@@ -1,127 +1,132 @@
+#* @vtlvariable name="offer" type="uk.gov.homeofficedigital.swappr.controllers.views.OfferView" *#
+
 #set($pageTitle = 'Swap view')
-
-#set($accepted = $offer.offer.status.name() == 'ACCEPTED')
-
-#set($approvedByHR = ($offer.status.name() == 'APPROVED'))
-#if ($approvedByHR)
-	#set($confirmedLabel = "approved")
-#else
-	#set($confirmedLabel = "agreed")
-#end
 
 #set($offererIsYou = ($offer.offerForCurrentUser))
 
 #if($offererIsYou)
-	#set($offerer = "You")
-	#set($offererClass = "you")
+    #set($offerer = "You")
+    #set($offererClass = "you")
 #else
-	#set($offerer = $offer.offer.swapFrom.worker.fullname)
-	#set($offererClass = "them")
+    #set($offerer = $offer.offer.swapFrom.worker.fullname)
+    #set($offererClass = "them")
 #end
 
 <h1>$display.fullDate($offer.offer.swapFrom.shift.date)</h1>
 <ol class="events">
 
-	#foreach($volunteer in $offer.volunteers)
-		#set($volunteerIsYou = ($volunteer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()))
+    #foreach($volunteer in $offer.volunteers)
+        #set($offerAccepted = $volunteer.status.name() == 'ACCEPTED')
 
-		#if($volunteerIsYou)
-			#set($volunteerName = "You")
-			#set($yourRota = $volunteer.swapFrom)
-			#set($theirRota = $offer.offer.swapFrom)
-			#set($volunteerClass = "you")
-		#else
-			#set($yourRota = $offer.offer.swapFrom)
-			#set($theirRota = $volunteer.swapFrom)
-			#set($volunteerName = $theirRota.worker.fullname)
-			#set($volunteerClass = "them")
-		#end
+        #set($offerApprovedByHR = ($volunteer.status.name() == 'APPROVED'))
+        #if ($offerApprovedByHR)
+            #set($confirmedLabel = "approved")
+        #else
+            #set($confirmedLabel = "agreed")
+        #end
+        #set($volunteerIsYou = ($volunteer.swapFrom.worker.username == $sec.loggedInUser().get().getUsername()))
 
-		#if ($accepted && !$approvedByHR && !$volunteerIsYou)
-        <li class="event event--you">
-            <h2 class="t-event-heading event__heading event__heading--strong">Next steps</h2>
-            <ol>
-                <li>
-                    <h3 class="event__subheading">Request approval</h3>
+        #if($volunteerIsYou)
+            #set($volunteerName = "You")
+            #set($yourRota = $volunteer.swapFrom)
+            #set($theirRota = $offer.offer.swapFrom)
+            #set($volunteerClass = "you")
+        #else
+            #set($yourRota = $offer.offer.swapFrom)
+            #set($theirRota = $volunteer.swapFrom)
+            #set($volunteerName = $theirRota.worker.fullname)
+            #set($volunteerClass = "them")
+        #end
 
-                    <p class="event__step">Email <a
-                            href="mailto:test@test.com?cc=$offer.offer.swapFrom.worker.email;$volunteer.swapFrom.worker.email&amp;subject=Swappr:%20Swap%20request%20from%20$offer.offer.swapFrom.worker.fullname&amp;body=PERSON%20DETAILS%0A%0A$offer.offer.swapFrom.worker.fullname%0A$volunteer.swapFrom.worker.fullname%0A%0APART%20ONE%0A%0A$offer.offer.swapFrom.worker.fullname%0A$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0A%0Aswapped%20with%0A%0A$volunteer.swapFrom.worker.fullname%0A$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.%0AThis%20shift%20swap%20was%20created%20via%20Swappr.">dlc@emailaddress.gov.uk</a>
-                </li>
-                <li>
-                    <h3 class="event__subheading">Confirm swap</h3>
+        #if ($offerAccepted && !$offerApprovedByHR && !$volunteerIsYou)
+            <li class="event event--you">
+                <h2 class="t-event-heading event__heading event__heading--strong">Next steps</h2>
+                <ol>
+                    <li>
+                        <h3 class="event__subheading">Request approval</h3>
 
-                    <p class="event__step">Swap approved? Click the 'Approved' button to update your shift schedule</p>
-                </li>
-            </ol>
-            <div class="event__actions">
+                        <p class="event__step">Email <a
+                                href="mailto:test@test.com?cc=$offer.offer.swapFrom.worker.email;$volunteer.swapFrom.worker.email&amp;subject=Swappr:%20Swap%20request%20from%20$offer.offer.swapFrom.worker.fullname&amp;body=PERSON%20DETAILS%0A%0A$offer.offer.swapFrom.worker.fullname%0A$volunteer.swapFrom.worker.fullname%0A%0APART%20ONE%0A%0A$offer.offer.swapFrom.worker.fullname%0A$offer.offer.swapFrom.shift.type%20on%20$display.fullDate($offer.offer.swapFrom.shift.date)%0A%0Aswapped%20with%0A%0A$volunteer.swapFrom.worker.fullname%0A$volunteer.swapFrom.shift.type%20on%20$display.fullDate($volunteer.swapFrom.shift.date).%0A%0APlease%20reply%20all%20to%20this%20email%20to%20approve%20or%20reject%20the%20swap.%0AThis%20shift%20swap%20was%20created%20via%20Swappr.">dlc@emailaddress.gov.uk</a>
+                    </li>
+                    <li>
+                        <h3 class="event__subheading">Confirm swap</h3>
 
-                <div class="event__action">
-                    <form action="/swap/$offer.id/volunteer/$volunteer.id/approve" method="POST">
-                        <button class="submit-button" type="submit">Approved</button>
-                    </form>
+                        <p class="event__step">Swap approved? Click the 'Approved' button to update your shift
+                            schedule</p>
+                    </li>
+                </ol>
+                <div class="event__actions">
+
+                    <div class="event__action">
+                        <form action="/swap/$offer.id/volunteer/$volunteer.id/approve" method="POST">
+                            <button class="submit-button" type="submit">Approved</button>
+                        </form>
+                    </div>
+                    <div class="event__action">
+                        <form action="/swap/$offer.id/volunteer/$volunteer.id/deny" method="POST">
+                            <button class="submit-button-secondary" type="submit">Rejected</button>
+                        </form>
+                    </div>
+
                 </div>
-                <div class="event__action">
-                    <form action="/swap/$offer.id/volunteer/$volunteer.id/deny" method="POST">
-                        <button class="submit-button-secondary" type="submit">Rejected</button>
-                    </form>
-                </div>
+            </li>
+        #end
+        #if ($offerAccepted || $offerApprovedByHR)
+            <li class="event event--you">
+                <h2 class="t-event-heading event__heading event__heading--strong">Swap $confirmedLabel</h2>
 
-            </div>
-        </li>
-		#end
-		#if ($accepted)
-        <li class="event event--you">
-            <h2 class="t-event-heading event__heading event__heading--strong">Swap $confirmedLabel</h2>
-
-            <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
-                <div class="event__rota event__rota-you">
-                    <div class="event__rota-person">You</div>
-                    <div class="event__rota-shift">$yourRota.shift.type</div>
-                    <time class="event__rota-date">$display.fullDate($yourRota.shift.date)</time>
+                <!-- This may look like the data is swapped around, but its purpose is to signify WHAT your new shift will look like -->
+                <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
+                    <div class="event__rota event__rota-you">
+                        <div class="event__rota-person">You</div>
+                        <div class="event__rota-shift">$theirRota.shift.type</div>
+                        <time class="event__rota-date">$display.fullDate($theirRota.shift.date)</time>
+                    </div>
+                    <div class="event__rota event__rota-them">
+                        <div class="event__rota-person">$theirRota.worker.fullname</div>
+                        <div class="event__rota-shift">$yourRota.shift.type</div>
+                        <time class="event__rota-date">$display.fullDate($yourRota.shift.date)</time>
+                    </div>
                 </div>
-                <div class="event__rota event__rota-them">
-                    <div class="event__rota-person">$theirRota.worker.fullname</div>
-                    <div class="event__rota-shift">$theirRota.shift.type</div>
-                    <time class="event__rota-date">$display.fullDate($theirRota.shift.date)</time>
-                </div>
-            </div>
-        </li>
-		#end
-      <li class="event event--$volunteerClass">
-          <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> replied</h2>
+            </li>
+        #else
+            <li class="event event--$volunteerClass">
+                <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> replied</h2>
 
-          <div class="event__swap">
-              <div class="event__rota event__rota-you">
-                  <div class="event__rota-person">You</div>
-                  <div class="event__rota-shift">$yourRota.shift.type</div>
-                  <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
-              </div>
-              <div class="event__rota event__rota-them">
-                  <div class="event__rota-person">$theirRota.worker.fullname</div>
-                  <div class="event__rota-shift">$theirRota.shift.type</div>
-                  <time class="event__rota-date" datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
-              </div>
-          </div>
-				#if ($offererIsYou && !$accepted && $volunteer.status.name() == 'CREATED')
-            <div class="event__actions">
-                <div class="event__action">
-                    <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">
-                        <button class="submit-button" type="submit">Accept offer</button>
-                    </form>
+                <div class="event__swap">
+                    <div class="event__rota event__rota-you">
+                        <div class="event__rota-person">You</div>
+                        <div class="event__rota-shift">$yourRota.shift.type</div>
+                        <time class="event__rota-date"
+                              datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
+                    </div>
+                    <div class="event__rota event__rota-them">
+                        <div class="event__rota-person">$theirRota.worker.fullname</div>
+                        <div class="event__rota-shift">$theirRota.shift.type</div>
+                        <time class="event__rota-date"
+                              datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
+                    </div>
                 </div>
+                #if ($offererIsYou && !$offerAccepted && $volunteer.status.name() == 'CREATED')
+                    <div class="event__actions">
+                        <div class="event__action">
+                            <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">
+                                <button class="submit-button" type="submit">Accept offer</button>
+                            </form>
+                        </div>
 
-                <div class="event__action">
-                    <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/reject" method="POST">
-                        <button class="submit-button-secondary" type="submit">No thanks</button>
-                    </form>
-                </div>
-            </div>
-				#end
-      </li>
-	#end
-
+                        <div class="event__action">
+                            <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/reject" method="POST">
+                                <button class="submit-button-secondary" type="submit">No thanks</button>
+                            </form>
+                        </div>
+                    </div>
+                #end
+            </li>
+        #end
+    #end
     <li class="event event--offer event--$offererClass">
-			$offerer offered to swap $offer.offer.swapFrom.shift.type.label $offer.offer.swapFrom.shift.type
+        $offerer offered to swap $offer.offer.swapFrom.shift.type.label $offer.offer.swapFrom.shift.type
         on $display.fullDate($offer.offer.swapFrom.shift.date)
         for $offer.offer.swapTo.type.label $offer.offer.swapTo.type on $display.fullDate($offer.offer.swapTo.date)
     </li>
