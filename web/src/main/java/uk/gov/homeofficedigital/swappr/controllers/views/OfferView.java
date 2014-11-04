@@ -57,7 +57,10 @@ public class OfferView {
 
     public boolean isCurrentUserVolunteered() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return !isOfferForCurrentUser() && volunteers.stream().filter(v -> v.getSwapFrom().getWorker().getUsername().equals(username)).findFirst().isPresent();
+        return !isOfferForCurrentUser()
+                && volunteers.stream()
+                .filter(v -> v.getSwapFrom().getWorker().getUsername().equals(username))
+                .findFirst().isPresent();
     }
 
     @Override
