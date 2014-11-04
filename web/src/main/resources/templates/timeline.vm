@@ -80,11 +80,13 @@
                     </div>
 
                 #else
-                    <div class="timeline__day-info timeline__day-info-shift t-shift">
-                        #if($offer.offer.status.name() == 'APPROVED' || $offer.offer.status.name() == 'ACCEPTED')
+                    #if($offer.offer.status.name() == 'APPROVED' || $offer.offer.status.name() == 'ACCEPTED')
+                        <div class="secondary-text timeline__day-info timeline__day-info-status">
                             <strong>$offer.offer.swapFrom.worker.fullname</strong> and
                             <strong>$offer.acceptedVolunteer</strong> swapped a shift
-                        #else
+                        </div>
+                    #else
+                        <div class="timeline__day-info timeline__day-info-shift t-shift">
                             <strong>$offer.offer.swapFrom.worker.fullname</strong> wants to
                             swap $offer.fromShift().type.label
                             <span class="timeline__shift-type">$offer.fromShift().type</span>
@@ -93,17 +95,11 @@
                             #if(!$offer.sameDaySwap)
                                 on $display.fullDate($offer.offer.swapTo.date)
                             #end
+                        </div>
+                    #end
 
-                        #end
-                    </div>
                     <div class="timeline__day-info timeline__day-info-action">
-                        #if($offer.offer.status.name() == 'APPROVED')
-                            <span class="action-button action-button--disabled action-button--swapped"
-                                  title="Shift swapped">Shift swapped</span>
-                        #elseif($offer.offer.status.name() == 'ACCEPTED')
-                            <span class="action-button action-button--disabled action-button--wait"
-                                  title="Swap agreed">Swap agreed</span>
-                        #else
+                        #if($offer.offer.status.name() != 'APPROVED' && $offer.offer.status.name() != 'ACCEPTED' )
                             <form action="/swap/$offer.id/volunteer" method="post">
                                 <button class="t-button-volunteer action-button action-button--swap" type="submit"
                                         title="Reply to offer">Reply
