@@ -16,10 +16,10 @@
 <ol class="events">
 
     #foreach($volunteer in $offer.volunteers)
-        #set($offerAccepted = $volunteer.status.name() == 'ACCEPTED')
+        #set($volunteerAccepted = $volunteer.accepted)
 
-        #set($offerApprovedByHR = ($volunteer.status.name() == 'APPROVED'))
-        #if ($offerApprovedByHR)
+        #set($volunteerApprovedByHR = ($volunteer.approved))
+        #if ($volunteerApprovedByHR)
             #set($confirmedLabel = "approved")
         #else
             #set($confirmedLabel = "agreed")
@@ -38,7 +38,7 @@
             #set($volunteerClass = "them")
         #end
 
-        #if ($offerAccepted && !$offerApprovedByHR && !$volunteerIsYou)
+        #if ($volunteerAccepted && !$volunteerApprovedByHR && !$volunteerIsYou)
             <li class="event event--you">
                 <h2 class="t-event-heading event__heading event__heading--strong">Next steps</h2>
                 <ol>
@@ -71,7 +71,7 @@
                 </div>
             </li>
         #end
-        #if ($offerAccepted || $offerApprovedByHR)
+        #if ($volunteerAccepted || $volunteerApprovedByHR)
             <li class="event event--you">
                 <h2 class="t-event-heading event__heading event__heading--strong">Swap $confirmedLabel</h2>
 
@@ -91,23 +91,28 @@
             </li>
         #else
             <li class="event event--$volunteerClass">
-                <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> replied</h2>
+                #if ($volunteer.rejected)
+                    <h2 class="t-event-heading event__heading">You declined <strong>$volunteerName's</strong> offer</h2>
+                #else
+                    <h2 class="t-event-heading event__heading"><strong>$volunteerName</strong> replied</h2>
 
-                <div class="event__swap">
-                    <div class="event__rota event__rota-you">
-                        <div class="event__rota-person">You</div>
-                        <div class="event__rota-shift">$yourRota.shift.type</div>
-                        <time class="event__rota-date"
-                              datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
+                    <div class="event__swap">
+                        <div class="event__rota event__rota-you">
+                            <div class="event__rota-person">#if($volunteerIsYou) You #else $yourRota.worker.fullname #end</div>
+                            <div class="event__rota-shift">$yourRota.shift.type</div>
+                            <time class="event__rota-date"
+                                  datetime="2014-10-15">$display.fullDate($yourRota.shift.date)</time>
+                        </div>
+                        <div class="event__rota event__rota-them">
+                            <div class="event__rota-person">$theirRota.worker.fullname</div>
+                            <div class="event__rota-shift">$theirRota.shift.type</div>
+                            <time class="event__rota-date"
+                                  datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
+                        </div>
                     </div>
-                    <div class="event__rota event__rota-them">
-                        <div class="event__rota-person">$theirRota.worker.fullname</div>
-                        <div class="event__rota-shift">$theirRota.shift.type</div>
-                        <time class="event__rota-date"
-                              datetime="2014-10-15">$display.fullDate($theirRota.shift.date)</time>
-                    </div>
-                </div>
-                #if ($offererIsYou && !$offerAccepted && $volunteer.status.name() == 'CREATED')
+                #end
+
+                #if ($offererIsYou && $volunteer.created)
                     <div class="event__actions">
                         <div class="event__action">
                             <form action="/swap/$offer.offer.id/volunteer/$volunteer.id/accept" method="POST">

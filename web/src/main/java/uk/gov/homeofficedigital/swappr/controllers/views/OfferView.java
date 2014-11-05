@@ -4,10 +4,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.security.core.context.SecurityContextHolder;
-import uk.gov.homeofficedigital.swappr.model.Offer;
-import uk.gov.homeofficedigital.swappr.model.Shift;
-import uk.gov.homeofficedigital.swappr.model.Volunteer;
-import uk.gov.homeofficedigital.swappr.model.VolunteerStatus;
+import uk.gov.homeofficedigital.swappr.model.*;
 
 import java.util.Comparator;
 import java.util.Set;

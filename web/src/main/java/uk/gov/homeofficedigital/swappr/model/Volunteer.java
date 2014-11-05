@@ -53,4 +53,21 @@ public class Volunteer {
         return ToStringBuilder.reflectionToString(this);
     }
 
+
+    public boolean isApproved(){
+        return VolunteerStatus.APPROVED.equals(status);
+    }
+
+    public boolean isAccepted(){
+        return VolunteerStatus.ACCEPTED.equals(status);
+    }
+
+    public boolean isCreated(){
+        return VolunteerStatus.CREATED.equals(status);
+    }
+
+    public boolean isRejected(){
+        return VolunteerStatus.REJECTED.equals(status);
+    }
+
 }
