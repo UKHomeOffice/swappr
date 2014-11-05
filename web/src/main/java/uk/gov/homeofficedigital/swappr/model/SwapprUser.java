@@ -119,4 +119,8 @@ public class SwapprUser implements UserDetails, CredentialsContainer{
     public void eraseCredentials() {
         this.password = null;
     }
+
+    public boolean isInRole(Role role) {
+        return authorities.stream().anyMatch(auth -> role.name().equals(auth.getAuthority()));
+    }
 }

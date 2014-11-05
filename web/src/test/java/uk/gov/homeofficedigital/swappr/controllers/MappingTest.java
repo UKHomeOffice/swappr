@@ -50,7 +50,7 @@ public class MappingTest extends SpringIntegrationTest {
 
     @Test
     public void userAdmin_isBound() throws Exception {
-        mvc.perform(get("/admin/users"))
+        mvc.perform(get("/admin/users/add"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("user")));
     }

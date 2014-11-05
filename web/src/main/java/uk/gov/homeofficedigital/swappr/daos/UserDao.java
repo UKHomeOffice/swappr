@@ -8,12 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
+import uk.gov.homeofficedigital.swappr.controllers.exceptions.UserPasswordResetNotAllowedException;
+import uk.gov.homeofficedigital.swappr.model.Role;
 import uk.gov.homeofficedigital.swappr.model.SwapprUser;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static java.util.Collections.emptyMap;
 import static uk.gov.homeofficedigital.swappr.daos.DaoUtil.toMap;
 
 public class UserDao implements UserDetailsService {
@@ -40,7 +43,7 @@ public class UserDao implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User %s has no GrantedAuthority", username));
         }
 
-        return new SwapprUser(username, user.getPassword(), dbAuths,user.getFullname(), user.getEmail(), user.isAccountNonExpired(), user.isAccountNonLocked(), user.isCredentialsNonExpired(), user.isEnabled());
+        return new SwapprUser(username, user.getPassword(), dbAuths, user.getFullname(), user.getEmail(), user.isAccountNonExpired(), user.isAccountNonLocked(), user.isCredentialsNonExpired(), user.isEnabled());
     }
 
     public void createUser(SwapprUser user) {
@@ -50,6 +53,13 @@ public class UserDao implements UserDetailsService {
 
         insertUserAuthorities(user);
 
+    }
+
+    /**
+     * @return a list of users, with their simple details populated. no Role information will when calling this method.
+     */
+    public List<SwapprUser> getListOfUsers() {
+        return template.query("select username, password, enabled, email, fullname from users", emptyMap(), this::mapUser);
     }
 
 
@@ -85,5 +95,15 @@ public class UserDao implements UserDetailsService {
 
     private SimpleGrantedAuthority mapAuthority(ResultSet rs, int row) throws SQLException {
         return new SimpleGrantedAuthority(rs.getString("authority"));
+    }
+
+    public void resetUserPassword(SwapprUser currentUser, String username, String encodedPassword) {
+        if (!currentUser.getUsername().equals(username) && !currentUser.isInRole(Role.ADMIN)) {
+            throw new UserPasswordResetNotAllowedException("Only Administrators can change passwords of other users.");
+        }
+
+        template.update(
+                "update users set password = :password where username = :username",
+                toMap("username", username, "password", encodedPassword));
     }
 }

@@ -1,19 +1,22 @@
 <div class="header__banner">
     <h1 class="header__logo"><strong>Swappr</strong>.<span class="phase-tag">alpha</span></h1>
 
-	#if($sec.loggedInUser().isPresent())
-      <div class="user-settings">
-          <button type="button" class="t-user-settings user-settings__trigger js-menu">${sec.loggedInUser().get().getFullname()}<span class="hidden"> Settings</span></button>
-          <ul id="menu" class="user-settings__list">
-						#if($sec.isAdmin())
-                <li><a class="user-settings__list-link" href="/admin/users">Add user</a></li>
-						#end
-              <li><a class="user-settings__list-link" href="/logout">Sign out</a></li>
-          </ul>
-      </div>
-	#end
+    #if($sec.loggedInUser().isPresent())
+        <div class="user-settings">
+            <button type="button"
+                    class="t-user-settings user-settings__trigger js-menu">${sec.loggedInUser().get().getFullname()}
+                <span class="hidden"> Settings</span></button>
+            <ul id="menu" class="user-settings__list">
+                #if($sec.isAdmin())
+                    <li><a class="user-settings__list-link" href="/admin/users/add">Add user</a></li>
+                #end
+                <li><a class="user-settings__list-link" href="/admin/users/reset-password">Reset password</a></li>
+                <li><a class="user-settings__list-link" href="/logout">Sign out</a></li>
+            </ul>
+        </div>
+    #end
 </div>
 
 #if($sec.loggedInUser().isPresent())
-	#parse('main_nav.vm')
+    #parse('main_nav.vm')
 #end

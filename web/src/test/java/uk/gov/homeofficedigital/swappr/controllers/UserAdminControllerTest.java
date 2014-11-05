@@ -1,7 +1,9 @@
 package uk.gov.homeofficedigital.swappr.controllers;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
@@ -9,7 +11,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import uk.gov.homeofficedigital.swappr.daos.UserDao;
 import uk.gov.homeofficedigital.swappr.model.SwapprUser;
+import uk.gov.homeofficedigital.swappr.model.UserMaker;
+import uk.gov.homeofficedigital.swappr.spring.CurrentLoggedInUserArgumentResolver;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static com.natpryce.makeiteasy.MakeItEasy.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.Is.is;
@@ -27,12 +35,15 @@ public class UserAdminControllerTest {
     private UserDao userService = mock(UserDao.class);
     private UserAdminController controller = new UserAdminController(userService, encoder);
 
-    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).setValidator(new LocalValidatorFactoryBean()).build();
+    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller)
+            .setValidator(new LocalValidatorFactoryBean())
+            .setCustomArgumentResolvers(new CurrentLoggedInUserArgumentResolver())
+            .build();
 
     @Test
     public void userAdmin_shouldDisplayTheUserAdminView() throws Exception {
 
-        mockMvc.perform(get("/admin/users"))
+        mockMvc.perform(get("/admin/users/add"))
                 .andExpect(view().name("userAdmin"))
                 .andExpect(status().isOk())
                 .andExpect(model().size(1))
@@ -83,5 +94,61 @@ public class UserAdminControllerTest {
         assertThat(actualUser.getPassword(), is("encodedPwd1"));
         assertThat(actualUser.getFullname(), is("Bob Smith"));
         assertThat(actualUser.getAuthorities(), contains(new SimpleGrantedAuthority("USER")));
+    }
+
+    @Test
+    public void ensureThatGettingResetPasswordPageForUsersShouldContainCorrectPageAndModelAttributesForTheAdminUser() throws Exception {
+        // Arrange
+        final SwapprUser adminUser = make(a(UserMaker.User, with(UserMaker.username, "admin"), with(UserMaker.authorities, UserMaker.adminAuthority)));
+        final SwapprUser bogStandardUser1 = make(a(UserMaker.User, with(UserMaker.username, "user1"), with(UserMaker.fullName, "user 1")));
+        final SwapprUser bogStandardUser2 = make(a(UserMaker.User, with(UserMaker.username, "user2"), with(UserMaker.fullName, "user 2")));
+
+        List<SwapprUser> listOfUsers = Arrays.asList(adminUser, bogStandardUser2, bogStandardUser1);
+
+        when(userService.getListOfUsers()).thenReturn(listOfUsers);
+
+        // Act
+        mockMvc.perform(get("/admin/users/reset-password").principal(new UsernamePasswordAuthenticationToken(adminUser, null)))
+//                .andDo(print())
+                .andExpect(view().name("userAdminPasswordReset"))
+                .andExpect(status().isOk())
+                .andExpect(model().size(2))
+                .andExpect(model().attribute("userMap", allOf(
+                        hasEntry(bogStandardUser2.getUsername(), bogStandardUser2.getFullname()),
+                        hasEntry(bogStandardUser1.getUsername(), bogStandardUser1.getFullname()),
+                        not(hasEntry(adminUser.getUsername(), adminUser.getFullname()))
+                )))
+                .andExpect(model().attribute("user", allOf(
+                        hasProperty("password", Matchers.nullValue()),
+                        hasProperty("confirmPassword", Matchers.nullValue()))))
+        ;
+    }
+
+    @Test
+    public void ensureThatGettingResetPasswordPageForUsersShouldContainOnlyTheCurrentUserForSelectionOnTheModel() throws Exception {
+        // Arrange
+        final SwapprUser bogStandardUser3 = make(a(UserMaker.User, with(UserMaker.username, "user 3"), with(UserMaker.authorities, UserMaker.userAuthority)));
+        final SwapprUser bogStandardUser1 = make(a(UserMaker.User, with(UserMaker.username, "user1"), with(UserMaker.fullName, "user 1"), with(UserMaker.authorities, UserMaker.userAuthority)));
+        final SwapprUser bogStandardUser2 = make(a(UserMaker.User, with(UserMaker.username, "user2"), with(UserMaker.fullName, "user 2"), with(UserMaker.authorities, UserMaker.userAuthority)));
+
+        List<SwapprUser> listOfUsers = Arrays.asList(bogStandardUser3, bogStandardUser2, bogStandardUser1);
+
+        when(userService.getListOfUsers()).thenReturn(listOfUsers);
+
+        // Act
+        mockMvc.perform(get("/admin/users/reset-password").principal(new UsernamePasswordAuthenticationToken(bogStandardUser3, null)))
+//                .andDo(print())
+                .andExpect(view().name("userAdminPasswordReset"))
+                .andExpect(status().isOk())
+                .andExpect(model().size(2))
+                .andExpect(model().attribute("userMap", allOf(
+                        hasEntry(bogStandardUser3.getUsername(), bogStandardUser3.getFullname()),
+                        not(hasEntry(bogStandardUser2.getUsername(), bogStandardUser2.getFullname())),
+                        not(hasEntry(bogStandardUser1.getUsername(), bogStandardUser1.getFullname()))
+                )))
+                .andExpect(model().attribute("user", allOf(
+                        hasProperty("password", Matchers.nullValue()),
+                        hasProperty("confirmPassword", Matchers.nullValue()))))
+        ;
     }
 }

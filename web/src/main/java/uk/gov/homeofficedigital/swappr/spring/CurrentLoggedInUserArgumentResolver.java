@@ -15,9 +15,7 @@ public class CurrentLoggedInUserArgumentResolver implements HandlerMethodArgumen
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        return
-//                methodParameter.getParameterAnnotation(ActiveUser.class) != null &&
-                        methodParameter.getParameterType().equals(SwapprUser.class);
+        return methodParameter.getParameterType().equals(SwapprUser.class);
     }
 
     @Override
