@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'step_definitions/common_steps'
+require 'step_definitions/home_page_common_steps'
+require 'step_definitions/swap_view_steps'
 
 feature "Full journey - offer shift, accept volunteer, mark as approved" do
 
@@ -31,9 +33,36 @@ feature "Full journey - offer shift, accept volunteer, mark as approved" do
     go_to_swap_view_for_date(date)
     assert_last_event_heading("Ben Bernanke replied")
     click_on('Accept offer')
-    assert_last_event_heading("Next steps")
+    assert_first_event_heading("Next steps")
     click_on('Approved')
     assert_status_for_date(date, "Approved. Swapped with Ben Bernanke")
+    
+
+  end
+
+  scenario "You are able to view the details of your offer throughout its lifecycle" do
+    date = find_date_by_row(7)
+    offer_shift(7, 'CFH - Mid', 'C1H - Mid')
+    logout
+    login_user_ben
+    go_to_timeline
+    find_day_row_by_date(date).find('.t-button-volunteer').click
+    logout
+
+    login_user_jeff
+    go_to_timeline
+    find_day_row_by_date(date).find('.t-button-volunteer').click
+    logout
+
+    login_user_bill
+
+    go_to_swap_view_for_date(date)
+    assert_first_event_heading("Jeff Jangles replied")
+    assert_last_event_heading("Ben Bernanke replied")
+    all('.submit-button', :text => 'Accept offer')[0].click()
+
+    assert_your_new_shift_details('You', 'C1H', date)
+    assert_their_new_shift_details('Jeff Jangles', 'CFH', date)
   end
 
 end

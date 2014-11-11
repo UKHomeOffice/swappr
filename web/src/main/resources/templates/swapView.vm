@@ -76,7 +76,7 @@
                 <h2 class="t-event-heading event__heading event__heading--strong">Swap $confirmedLabel</h2>
 
                 <!-- This may look like the data is swapped around, but its purpose is to signify WHAT your new shift will look like -->
-                <div class="event__swap event__swap-confirmed event__swap-$confirmedClass">
+                <div class="event__swap event__swap-confirmed event__swap-accepted">
                     <div class="event__rota event__rota-you">
                         <div class="event__rota-person">You</div>
                         <div class="event__rota-shift">$theirRota.shift.type</div>
