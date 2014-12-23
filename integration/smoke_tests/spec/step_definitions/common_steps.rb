@@ -50,7 +50,7 @@ end
 def login_user_admin
   visit HOST
   fill_in('Username', :with => 'admin')
-  fill_in('Password', :with => 'admin')
+  fill_in('Password', :with => 'youcantguessmehonest')
   click_button('Sign in')
 end
 
