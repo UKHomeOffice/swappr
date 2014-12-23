@@ -1,0 +1,1 @@
+update users set password = '4e8ec31219936d4b60f793af1923291910778c30179cb954db2eb4a9c8bc34da7516e69f0b422065' where username = 'admin';
