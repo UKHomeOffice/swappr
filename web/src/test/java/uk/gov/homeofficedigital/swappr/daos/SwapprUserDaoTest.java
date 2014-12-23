@@ -75,12 +75,13 @@ public class SwapprUserDaoTest extends SpringIntegrationTest {
     @Test
     public void ensureThatWhenLoadingAUserIfTheyHaveNoRolesThenTreatThemAsIfTheyCannotBeFound() {
         // Arrange
-        template.update("insert into users(username, password, enabled, email, fullname) values ('userwithnoroles', 'password', 1, 'mail@mail.com', 'Test User')");
+        String username = RandomStringUtils.randomAlphanumeric(50);
+        template.update("insert into users(username, password, enabled, email, fullname) values ('" + username + "', 'password', 1, 'mail@mail.com', 'Test User')");
         expectedException.expect(UsernameNotFoundException.class);
-        expectedException.expectMessage("User userwithnoroles has no GrantedAuthority");
+        expectedException.expectMessage("User " + username + " has no GrantedAuthority");
         // Act
 
-        userDao.loadUserByUsername("userwithnoroles");
+        userDao.loadUserByUsername(username);
 
         //Assert
     }

@@ -14,8 +14,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile mysql
+    compile flyway
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile hsql, makeItEasy
+    testCompile /*hsql, */makeItEasy
 }
 
 springBoot {

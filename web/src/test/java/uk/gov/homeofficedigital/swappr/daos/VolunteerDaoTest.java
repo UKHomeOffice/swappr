@@ -23,8 +23,6 @@ public class VolunteerDaoTest extends SpringIntegrationTest {
 
     @Test
     public void create_shouldCreateAndPersistAVolunteer() throws Exception {
-        SwapprUser bill = UserMaker.bill();
-        SwapprUser ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
@@ -42,8 +40,6 @@ public class VolunteerDaoTest extends SpringIntegrationTest {
 
     @Test
     public void findByRota_shouldReturnVolunteersForTheGivenRota() throws Exception {
-        SwapprUser bill = UserMaker.bill();
-        SwapprUser ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
@@ -62,8 +58,6 @@ public class VolunteerDaoTest extends SpringIntegrationTest {
 
     @Test
     public void findActiveByOffer_shouldReturnActiveVolunteersForTheGivenOffer() throws Exception {
-        SwapprUser bill = UserMaker.bill();
-        SwapprUser ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));
@@ -85,8 +79,6 @@ public class VolunteerDaoTest extends SpringIntegrationTest {
 
     @Test
     public void updateStatus_shouldChangeTheStatusOfTheVolunteer() throws Exception {
-        SwapprUser bill = UserMaker.bill();
-        SwapprUser ben = UserMaker.ben();
         LocalDate now = LocalDate.now();
         Rota from = rotaDao.create(bill, new Shift(now, ShiftType.BFH));
         Rota offerRota = rotaDao.create(ben, new Shift(now, ShiftType.S1H));

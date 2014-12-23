@@ -20,7 +20,7 @@ def find_date_by_row(row_index)
 end
 
 def find_day_row_by_date(date)
-  find(:xpath, "//*[@data-t-date='#{date}']")
+  find(:xpath, "(//*[@data-t-date='#{date}'])[1]")
 end
 
 def assert_status_for_date(date, status)
